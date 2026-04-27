@@ -23,13 +23,22 @@ body{
   background:#000000dd;
   z-index:999;
 }
+
 .login-box{
-  width:320px;
+  width:330px;
   padding:25px;
-  border-radius:15px;
-  background:#0f172a;
+  border-radius:16px;
+  background:linear-gradient(145deg,#0f172a,#020617);
+  box-shadow:0 0 25px #00c3ff55;
   text-align:center;
 }
+
+.login-box h3{
+  color:#00c3ff;
+  margin-bottom:10px;
+  text-shadow:0 0 10px #00c3ff;
+}
+
 .login-box input{
   width:100%;
   padding:12px;
@@ -38,15 +47,29 @@ body{
   background:#020617;
   color:#fff;
   text-align:center;
+  outline:none;
+  box-shadow:0 0 10px #00c3ff33;
 }
+
+.login-box input:focus{
+  box-shadow:0 0 15px #00c3ff;
+}
+
 .login-box button{
   width:100%;
   margin-top:10px;
   padding:10px;
   border:none;
   border-radius:10px;
-  background:#00c3ff;
+  background:linear-gradient(45deg,#00c3ff,#1e3a8a);
+  color:#fff;
   cursor:pointer;
+  transition:.2s;
+}
+
+.login-box button:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 15px #00c3ff;
 }
 
 /* TOP */
@@ -78,10 +101,6 @@ body{
   -webkit-text-fill-color:transparent;
   animation:fade 2s infinite;
 }
-@keyframes fade{
-  0%,100%{opacity:1}
-  50%{opacity:0.4}
-}
 
 /* BOX */
 .box{
@@ -105,28 +124,17 @@ body{
   border-radius:50%;
   border:2px solid #00c3ff;
   box-shadow:0 0 25px #00c3ff;
-  animation:imgGlow 2s infinite alternate;
-}
-@keyframes imgGlow{
-  from{filter:drop-shadow(0 0 5px #00c3ff)}
-  to{filter:drop-shadow(0 0 25px #00f5ff)}
 }
 
-/* NAME */
 .name{
   font-size:44px;
   font-weight:900;
   background:linear-gradient(90deg,#00f5ff,#a855f7,#00c3ff);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-  animation:blinkName 2s infinite;
-}
-@keyframes blinkName{
-  0%,100%{opacity:1}
-  50%{opacity:0.3}
 }
 
-/* RADIO BOX */
+/* RADIO BUTTONS */
 .radio{
   display:flex;
   gap:8px;
@@ -141,32 +149,28 @@ body{
   background:#00c3ff;
 }
 
-/* 🎧 RADIO PLAYER BOX */
+/* 🔥 RADIO PLAYER (CLICK + HOVER ZOOM) */
 .radio-box{
-  margin:10px 0;
+  margin-top:10px;
   padding:10px;
   border-radius:12px;
   background:#00c3ff22;
-  transition:.3s;
   display:inline-block;
+  transition:.25s;
+  cursor:pointer;
 }
 
 .radio-box:hover{
-  transform:scale(1.1);
+  transform:scale(1.15);
   box-shadow:0 0 25px #00c3ff;
 }
 
-/* RADIO BUTTON */
-.radio-control button{
-  padding:8px 12px;
-  border:none;
-  border-radius:10px;
-  background:#00ffb3;
-  cursor:pointer;
-  margin-top:10px;
+.radio-box.active{
+  transform:scale(1.2);
+  box-shadow:0 0 35px #00f5ff;
 }
 
-/* LINKS */
+/* LINKS (ZOOM ON HOVER) */
 .links a{
   display:block;
   margin:5px 0;
@@ -175,6 +179,12 @@ body{
   color:#fff;
   text-decoration:none;
   border-radius:8px;
+  transition:.2s;
+}
+
+.links a:hover{
+  transform:scale(1.08);
+  background:#00c3ff44;
 }
 
 /* SONGS */
@@ -190,7 +200,6 @@ body{
   border-radius:8px;
   font-size:12px;
 }
-.song:hover{transform:scale(1.05)}
 
 .song button{
   border:none;
@@ -209,8 +218,8 @@ body{
 <!-- LOGIN -->
 <div class="login" id="login">
 <div class="login-box">
-<h3>🔐 PASSWORD</h3>
-<input type="password" id="pass">
+<h3>🔐 ENTER PASSWORD</h3>
+<input type="password" id="pass" placeholder="Enter password">
 <button onclick="check()">ENTER</button>
 </div>
 </div>
@@ -237,9 +246,9 @@ body{
 <button class="radio-btn">🔥 منوعات</button>
 </div>
 
-<!-- RADIO CONTROL -->
-<div class="radio-box">
-<button onclick="toggleRadio()">▶ ⏸ تشغيل / إيقاف الراديو</button>
+<!-- RADIO CLICK ZONE -->
+<div class="radio-box" id="radioBox" onclick="toggleRadio()">
+▶ اضغط لتشغيل / إيقاف الراديو
 </div>
 
 <!-- LINKS -->
@@ -284,17 +293,23 @@ let radios=[
 ];
 
 let radio=document.getElementById("radio");
+let radioBox=document.getElementById("radioBox");
 let isRadio=false;
 
 function toggleRadio(){
-if(!radio.src) radio.src=radios[0];
+
+if(!radio.src){
+radio.src=radios[0];
+}
 
 if(isRadio){
 radio.pause();
 isRadio=false;
+radioBox.classList.remove("active");
 }else{
 radio.play();
 isRadio=true;
+radioBox.classList.add("active");
 }
 }
 
@@ -312,15 +327,6 @@ let songs=[
 ["فيكي سر","https://b.top4top.io/m_3769lxi681.mp3"],
 ["حياتي قصيدة","https://c.top4top.io/m_3769g0kg52.mp3"],
 ["لسه","https://d.top4top.io/m_3769xz8mi3.mp3"],
-["مش زي غيرها","https://e.top4top.io/m_3769o93s34.mp3"],
-["نسند بعض","https://f.top4top.io/m_3769c3tql5.mp3"],
-["وش السعد","https://g.top4top.io/m_3769r7bcu6.mp3"],
-["يا حظ بيه","https://l.top4top.io/m_3769p7dkd1.mp3"],
-["ياللي ناسيني","https://a.top4top.io/m_37697muuj2.mp3"],
-["هلوسة","https://b.top4top.io/m_3769i9yd13.mp3"],
-["قصة حب","https://c.top4top.io/m_3769ou0bt4.mp3"],
-["ذكريات","https://d.top4top.io/m_37697zirj5.mp3"],
-["حبيتك ليه","https://e.top4top.io/m_3769rnmrk6.mp3"],
 ["توأمي","https://d.top4top.io/m_3769a1jgw1.mp3"]
 ];
 
