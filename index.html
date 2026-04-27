@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Real Design Template</title>
+<title>Pro XAT Design</title>
 
 <style>
 body {
@@ -15,47 +15,58 @@ body {
   font-family: Tahoma;
 }
 
-/* القالب الأساسي */
+/* القالب */
 .banner {
   width: 728px;
   height: 200px;
   position: relative;
   overflow: hidden;
-  border-radius: 14px;
-  background: radial-gradient(circle at 70% 50%, #222 0%, #000 70%);
+  border-radius: 16px;
+  background: linear-gradient(120deg, #000 40%, #111 100%);
 }
 
-/* إضاءة خفيفة زي الصورة */
-.light {
+/* خلفية ديناميك */
+.bg {
   position: absolute;
-  width: 400px;
-  height: 400px;
-  top: -100px;
-  right: -100px;
-  background: radial-gradient(circle, rgba(255,255,255,0.15), transparent 70%);
-  filter: blur(40px);
+  width: 120%;
+  height: 120%;
+  top: -10%;
+  left: -10%;
+  background:
+    radial-gradient(circle at 70% 40%, rgba(255,255,255,0.08), transparent 60%),
+    radial-gradient(circle at 80% 60%, rgba(255,255,255,0.05), transparent 70%);
+  filter: blur(30px);
+}
+
+/* إضاءة قوية زي الصورة */
+.glow {
+  position: absolute;
+  right: -80px;
+  top: -80px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255,255,255,0.25), transparent 70%);
+  filter: blur(50px);
 }
 
 /* تغميق الجوانب */
-.shade-left {
+.dark-left {
   position: absolute;
-  width: 50%;
-  height: 100%;
   left: 0;
-  top: 0;
-  background: linear-gradient(to right, #000 10%, transparent);
-}
-
-.shade-right {
-  position: absolute;
-  width: 50%;
+  width: 60%;
   height: 100%;
-  right: 0;
-  top: 0;
-  background: linear-gradient(to left, #000 10%, transparent);
+  background: linear-gradient(to right, #000 20%, transparent);
 }
 
-/* خطوط ديزاين خفيفة */
+.dark-right {
+  position: absolute;
+  right: 0;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(to left, #000 20%, transparent);
+}
+
+/* خطوط احترافية */
 .lines {
   position: absolute;
   width: 100%;
@@ -63,15 +74,24 @@ body {
   background: repeating-linear-gradient(
     90deg,
     transparent,
-    transparent 40px,
-    rgba(255,255,255,0.03) 41px
+    transparent 60px,
+    rgba(255,255,255,0.02) 61px
   );
+}
+
+/* نويز خفيف */
+.noise {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://www.transparenttextures.com/patterns/noise.png');
+  opacity: 0.05;
 }
 
 /* النص */
 .content {
   position: absolute;
-  left: 50px;
+  left: 60px;
   top: 50%;
   transform: translateY(-50%);
 }
@@ -79,20 +99,21 @@ body {
 /* الاسم */
 .name {
   color: #fff;
-  font-size: 52px;
+  font-size: 54px;
   font-weight: bold;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   text-shadow:
     0 0 10px #fff,
-    0 0 25px rgba(255,255,255,0.6);
+    0 0 25px rgba(255,255,255,0.7),
+    0 0 50px rgba(255,255,255,0.4);
 }
 
 /* التوقيع */
 .sign {
-  color: #aaa;
-  margin-top: 8px;
-  letter-spacing: 4px;
-  font-size: 14px;
+  color: #bbb;
+  margin-top: 10px;
+  letter-spacing: 5px;
+  font-size: 13px;
 }
 </style>
 
@@ -101,10 +122,14 @@ body {
 
 <div class="banner">
 
-  <div class="light"></div>
-  <div class="shade-left"></div>
-  <div class="shade-right"></div>
+  <div class="bg"></div>
+  <div class="glow"></div>
+
+  <div class="dark-left"></div>
+  <div class="dark-right"></div>
+
   <div class="lines"></div>
+  <div class="noise"></div>
 
   <div class="content">
     <div class="name">YOUR NAME</div>
