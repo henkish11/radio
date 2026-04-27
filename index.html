@@ -64,7 +64,6 @@ canvas{position:fixed;inset:0;z-index:-2}
   z-index:10;
 }
 
-/* ONLINE */
 .status{
   color:#00f5ff;
   font-weight:700;
@@ -79,16 +78,20 @@ canvas{position:fixed;inset:0;z-index:-2}
 
 /* BY RAMY */
 .brand{
-  font-weight:700;
-  background:linear-gradient(90deg,#00f5ff,#a855f7,#00c3ff);
+  font-weight:900;
+  font-size:16px;
+  background:linear-gradient(90deg,#00f5ff,#a855f7,#00c3ff,#00f5ff);
+  background-size:300% 300%;
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-  animation:move 3s linear infinite;
+  animation:move 2s linear infinite,pulse 1.5s infinite;
 }
 
-@keyframes move{
-  0%{background-position:0%}
-  100%{background-position:200%}
+@keyframes move{100%{background-position:200%}}
+@keyframes pulse{
+  0%{opacity:.6;filter:drop-shadow(0 0 5px #00f5ff)}
+  50%{opacity:1;filter:drop-shadow(0 0 25px #00f5ff)}
+  100%{opacity:.6;filter:drop-shadow(0 0 5px #a855f7)}
 }
 
 /* MAIN */
@@ -117,10 +120,13 @@ canvas{position:fixed;inset:0;z-index:-2}
 .radio-btn{
   padding:6px 12px;
   background:linear-gradient(45deg,#00c3ff,#1e3a8a);
-  border:none;border-radius:20px;
-  color:#fff;
-  cursor:pointer;
+  border:none;border-radius:20px;color:#fff;cursor:pointer;
 }
+.radio-toggle{background:#00ffb3;color:#000;font-weight:700}
+
+/* LINKS + SONGS hover */
+.world,.song{transition:.2s}
+.world:hover,.song:hover{transform:scale(1.06)}
 
 /* LINKS */
 .world{
@@ -131,7 +137,6 @@ canvas{position:fixed;inset:0;z-index:-2}
   border-radius:10px;
   text-decoration:none;
   color:#fff;
-  transition:.3s;
 }
 
 /* PLAYER */
@@ -148,33 +153,31 @@ canvas{position:fixed;inset:0;z-index:-2}
   font-weight:700;
 }
 
-/* 🎵 ONLY SONGS HOVER */
+/* SONGS */
+.list{
+  display:flex;
+  gap:10px;
+}
+
+.col{flex:1;max-height:400px;overflow:auto}
+
 .song{
   display:flex;
   justify-content:space-between;
-  background:rgba(0,195,255,0.1);
-  margin:3px 0;
   padding:6px;
+  margin:4px;
+  background:rgba(0,195,255,0.1);
   border-radius:8px;
   font-size:12px;
-  transition:.2s;
 }
 
-/* 👇 التكبير للأغاني فقط */
-.song:hover{
-  transform:scale(1.06);
-  background:rgba(0,195,255,0.25);
-}
-
-/* BUTTONS */
 .song button{
   border:none;
-  padding:4px 8px;
+  padding:4px 6px;
   border-radius:6px;
-  cursor:pointer;
 }
-.play{background:#00c3ff;color:#000}
-.stop{background:#ff4d4d;color:#fff}
+.play{background:#00c3ff}
+.stop{background:#ff4d4d}
 
 /* TOOLTIP */
 .tooltip{
@@ -184,7 +187,6 @@ canvas{position:fixed;inset:0;z-index:-2}
   padding:6px 10px;
   font-size:12px;
   border-radius:8px;
-  pointer-events:none;
   display:none;
   z-index:9999;
 }
@@ -195,23 +197,17 @@ canvas{position:fixed;inset:0;z-index:-2}
 
 <div class="tooltip" id="tooltip"></div>
 
-<!-- RADIO (FIXED WORKING) -->
-<audio id="radio1" src="https://stream.radiojar.com/8s5u5tpdtwzuv"></audio>
-<audio id="radio2" src="https://audio.nrpstream.com/listen/nogoumfm/radio.mp3"></audio>
-<audio id="radio3" src="https://stream.zeno.fm/w7atxdpk1pdvv"></audio>
-<audio id="radio4" src="https://stream.zeno.fm/hswv0qwu7vgtv"></audio>
-
 <!-- LOGIN -->
 <div class="login" id="login">
-  <div class="login-box">
-    <input id="password" type="password" placeholder="Enter password">
-    <button onclick="enter()">Enter</button>
-  </div>
+<div class="login-box">
+<input id="password" type="password" placeholder="Password">
+<button onclick="enter()">Enter</button>
+</div>
 </div>
 
 <div class="topbar">
-  <div class="status" id="status">⚡ OFFLINE</div>
-  <div class="brand">BY RAMY</div>
+<div class="status" id="status">⚡ OFFLINE</div>
+<div class="brand">BY RAMY</div>
 </div>
 
 <div class="container">
@@ -228,6 +224,7 @@ canvas{position:fixed;inset:0;z-index:-2}
 <button class="radio-btn" onclick="playRadio(2)">🎶 ميلودي</button>
 <button class="radio-btn" onclick="playRadio(3)">🎤 حماقي</button>
 <button class="radio-btn" onclick="playRadio(4)">🔥 منوعات</button>
+<button class="radio-btn radio-toggle" onclick="toggleRadio()">▶ تشغيل</button>
 </div>
 
 </div>
@@ -240,45 +237,41 @@ canvas{position:fixed;inset:0;z-index:-2}
 
 <div id="winamp">
 <div class="artist">🎤 ليل المحمدي</div>
-<div id="list"></div>
+<div class="list">
+<div class="col" id="left"></div>
+<div class="col" id="right"></div>
+</div>
 </div>
 
 </div>
 </div>
+
+<audio id="audio"></audio>
 
 <script>
 
-/* LOGIN FIX + ONLINE */
+/* LOGIN */
 function enter(){
-  if(password.value==="106080"){
-    login.style.display="none";
-    status.innerText="⚡ ONLINE";
-  }
+if(password.value==="106080"){
+login.style.display="none";
+status.innerText="⚡ ONLINE";
+}
 }
 password.addEventListener("keydown",e=>{
-  if(e.key==="Enter") enter();
+if(e.key==="Enter") enter();
 });
 
-/* RADIO FIX (WORKING) */
-let radios=[
-document.getElementById("radio1"),
-document.getElementById("radio2"),
-document.getElementById("radio3"),
-document.getElementById("radio4")
-];
-
+/* RADIO */
+let radios=[radio1,radio2,radio3,radio4];
 let current=null;
 
 function playRadio(i){
-  radios.forEach(r=>r.pause());
-  current=radios[i-1];
-  current.play();
+radios.forEach(r=>r.pause());
+current=radios[i-1];
+current.play();
 }
 
-/* TOOLTIP ONLY FOR SONGS */
-const tooltip=document.getElementById("tooltip");
-
-/* SONGS */
+/* SONGS 22 */
 let songs=[
 ["نفسي أطمن بيك","https://j.top4top.io/m_3769le8x51.mp3"],
 ["الشعر الأسود","https://k.top4top.io/m_3769enq6z2.mp3"],
@@ -304,33 +297,21 @@ let songs=[
 ["توأمي","https://d.top4top.io/m_3769a1jgw1.mp3"]
 ];
 
-let list=document.getElementById("list");
-let player=new Audio();
+let left=document.getElementById("left");
+let right=document.getElementById("right");
+let audio=document.getElementById("audio");
 
-songs.forEach(s=>{
-  let div=document.createElement("div");
-  div.className="song";
+songs.forEach((s,i)=>{
+let div=document.createElement("div");
+div.className="song";
+div.innerHTML=`
+${s[0]}
+<div>
+<button class="play" onclick="audio.src='${s[1]}';audio.play()">▶</button>
+<button class="stop" onclick="audio.pause()">⏹</button>
+</div>`;
 
-  div.innerHTML=`
-  ${s[0]}
-  <div>
-    <button class="play" onclick="player.src='${s[1]}';player.play()">▶</button>
-    <button class="stop" onclick="player.pause()">⏹</button>
-  </div>`;
-
-  /* TOOLTIP ONLY SONGS */
-  div.addEventListener("mousemove",(e)=>{
-    tooltip.style.display="block";
-    tooltip.innerText=s[0];
-    tooltip.style.left=e.clientX+"px";
-    tooltip.style.top=e.clientY+"px";
-  });
-
-  div.addEventListener("mouseleave",()=>{
-    tooltip.style.display="none";
-  });
-
-  list.appendChild(div);
+(i%2==0?left:right).appendChild(div);
 });
 
 </script>
