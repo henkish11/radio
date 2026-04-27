@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RAMY SYSTEM UI</title>
+<title>RAMY CONTROL SYSTEM</title>
 
 <style>
 body{
@@ -14,27 +14,26 @@ body{
   overflow:hidden;
 }
 
-/* ===== GRID (smaller) ===== */
+/* GRID */
 .dashboard{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
-  grid-template-rows:230px 1fr;
+  grid-template-rows:220px 1fr;
   height:100vh;
   gap:6px;
   padding:6px;
 }
 
-/* ===== PANELS ===== */
+/* PANELS */
 .panel{
   background:rgba(0,0,0,0.65);
   border:1px solid #00f5ff22;
-  box-shadow:0 0 15px #00f5ff22;
   border-radius:8px;
   padding:8px;
   overflow:auto;
 }
 
-/* ===== BOOT ===== */
+/* BOOT */
 .boot{
   display:flex;
   flex-direction:column;
@@ -46,10 +45,7 @@ body{
   width:80%;
   height:5px;
   background:#111;
-  border-radius:10px;
-  overflow:hidden;
 }
-
 .bar span{
   display:block;
   height:100%;
@@ -57,27 +53,15 @@ body{
   background:#00f5ff;
   animation:load 3s forwards;
 }
-
 @keyframes load{to{width:100%}}
 
-/* ===== TERMINAL ===== */
+/* TERMINAL */
 .terminal{
-  font-family:monospace;
   color:#00ff00;
+  font-family:monospace;
 }
 
-.hack{
-  display:flex;
-  gap:10px;
-  align-items:center;
-}
-
-.hack img{
-  width:60px;
-  filter:drop-shadow(0 0 10px #00ff00);
-}
-
-/* ===== LOGIN ===== */
+/* LOGIN */
 .login{
   display:flex;
   flex-direction:column;
@@ -85,37 +69,15 @@ body{
   justify-content:center;
 }
 
-.login input{
-  width:80%;
-  padding:8px;
-  background:#111;
-  border:1px solid #66faff;
-  color:#66faff;
-  text-align:center;
-}
-
-.login button{
-  margin-top:10px;
-  padding:6px 12px;
-  background:#66faff;
-  border:none;
-  cursor:pointer;
-}
-
-/* ===== PROFILE ===== */
+/* PROFILE */
 .profile{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:6px;
+  text-align:center;
 }
 
 .avatar{
   width:110px;
-  height:110px;
   border-radius:50%;
   border:2px solid #00f5ff;
-  box-shadow:0 0 15px #00f5ff;
 }
 
 .name{
@@ -123,105 +85,86 @@ body{
   text-shadow:0 0 10px #00f5ff;
 }
 
-/* RADIO */
-.radio{
-  display:flex;
-  flex-wrap:wrap;
-  gap:4px;
-  justify-content:center;
-}
-
-.radio button{
-  background:#00f5ff;
-  border:none;
-  padding:5px;
-  font-size:10px;
-}
-
-/* LINKS */
-.links{
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-}
-
-.links a{
-  color:#00ffcc;
-  font-size:11px;
-  text-decoration:none;
-}
-
-/* ===== SONGS ===== */
+/* SONGS */
 .song{
   display:flex;
   justify-content:space-between;
   padding:5px;
-  margin:4px 0;
-  background:#00f5ff11;
-  border-radius:6px;
   font-size:11px;
 }
 
-.song button{
-  background:#00f5ff;
-  border:none;
-  cursor:pointer;
-}
-
-/* ===== PLAYER (NEW DESIGN) ===== */
+/* ===== PLAYER BIG SPLIT ===== */
 .player{
   position:fixed;
   bottom:10px;
   left:50%;
   transform:translateX(-50%);
-  width:420px;
-  background:rgba(10,10,10,0.85);
+  width:900px;
+  height:120px;
+  background:rgba(0,0,0,0.85);
   border:1px solid #00f5ff55;
+  border-radius:12px;
+  display:flex;
+  overflow:hidden;
   backdrop-filter:blur(10px);
-  border-radius:15px;
+}
+
+/* BOX 4 (TRACK + SEEK) */
+.p4{
+  flex:1;
   padding:10px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+  border-right:1px solid #00f5ff33;
 }
 
-.song-info{
-  display:flex;
-  flex-direction:column;
-  font-size:11px;
-  color:#00f5ff;
+#title{
+  font-size:12px;
+  margin-bottom:10px;
 }
 
-.sub{
-  font-size:9px;
-  opacity:0.6;
-}
-
-.controls button{
-  background:#00f5ff;
-  border:none;
-  padding:5px;
-  margin:2px;
-  border-radius:6px;
-}
-
-.volume input{
-  width:70px;
-}
-
-.progress{
-  position:absolute;
-  bottom:0;
-  left:0;
+.seek{
   width:100%;
-  height:3px;
+  height:6px;
   background:#111;
+  cursor:pointer;
+  position:relative;
 }
 
-#bar{
+#fill{
   height:100%;
   width:0%;
   background:#00ffcc;
+}
+
+/* BOX 5 (PLAY + SPEED) */
+.p5{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  border-right:1px solid #00f5ff33;
+}
+
+.p5 button{
+  background:#00f5ff;
+  border:none;
+  padding:5px 8px;
+  cursor:pointer;
+}
+
+/* BOX 6 (VOLUME) */
+.p6{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+}
+
+.p6 input{
+  width:120px;
 }
 
 audio{display:none;}
@@ -235,48 +178,27 @@ audio{display:none;}
 
 <!-- 1 -->
 <div class="panel boot">
-<h3>BOOT RAMY SYSTEM</h3>
+<h3>BOOT SYSTEM</h3>
 <div class="bar"><span></span></div>
 </div>
 
 <!-- 2 -->
 <div class="panel terminal">
-<div class="hack">
-<img src="https://i.imgur.com/3ZQ3Z4M.png">
-<div>
 SYSTEM ONLINE<br>
 ROOT ACCESS ✔
-</div>
-</div>
 </div>
 
 <!-- 3 -->
 <div class="panel login">
-<h3>ENTER PASSWORD</h3>
+<h3>LOGIN</h3>
 <input type="password" id="pass">
-<button onclick="check()">ACCESS</button>
+<button onclick="check()">ENTER</button>
 </div>
 
-<!-- 4 PROFILE -->
+<!-- 4 -->
 <div class="panel profile">
-
 <img class="avatar" src="https://xatimg.com/image/PtMzAMEPdOYG.png">
 <div class="name">RAMY</div>
-
-<div class="radio">
-<button onclick="playRadio(0)">🎧</button>
-<button onclick="playRadio(1)">🎶</button>
-<button onclick="playRadio(2)">🎤</button>
-<button onclick="playRadio(3)">🔥</button>
-</div>
-
-<div class="links">
-<a href="#">2ra Chat</a>
-<a href="#">7reqa Chat</a>
-<a href="#">Trade</a>
-<a href="#">Cambio</a>
-</div>
-
 </div>
 
 <!-- 5 -->
@@ -287,64 +209,41 @@ ROOT ACCESS ✔
 
 </div>
 
-<!-- PLAYER -->
+<!-- ===== BIG PLAYER ===== -->
 <div class="player">
 
-<div class="song-info">
+<!-- 4 -->
+<div class="p4">
 <div id="title">No Song</div>
-<div class="sub">Ramy System</div>
+<div class="seek" onclick="seek(event)">
+<div id="fill"></div>
+</div>
 </div>
 
-<div class="controls">
+<!-- 5 -->
+<div class="p5">
 <button onclick="prev()">⏮</button>
-<button onclick="toggle()">▶</button>
+<button onclick="toggle()">▶ / ⏸</button>
 <button onclick="next()">⏭</button>
+<button onclick="speed(1.25)">1.25x</button>
+<button onclick="speed(1.5)">1.5x</button>
 </div>
 
-<div class="volume">
-<input type="range" min="0" max="1" step="0.1" onchange="vol(this.value)">
+<!-- 6 -->
+<div class="p6">
+🔊
+<input type="range" min="0" max="1" step="0.1" onchange="volume(this.value)">
 </div>
-
-<div class="progress"><div id="bar"></div></div>
 
 </div>
 
 <audio id="audio"></audio>
-<audio id="radio"></audio>
 
 <script>
 
-/* LOGIN */
-function check(){
-if(pass.value==="106080") alert("ACCESS GRANTED");
-else alert("WRONG PASSWORD");
-}
-
-/* RADIO */
-let radios=[
-"https://stream.radiojar.com/8s5u5tpdtwzuv",
-"https://audio.nrpstream.com/listen/nogoumfm/radio.mp3",
-"https://stream.zeno.fm/w7atxdpk1pdvv",
-"https://stream.zeno.fm/hswv0qwu7vgtv"
-];
-
-let radio=document.getElementById("radio");
-let rplay=false;
-
-function playRadio(i){
-radio.src=radios[i];
-radio.play();
-rplay=true;
-}
-
-function toggleRadio(){
-if(!radio.src) radio.src=radios[0];
-rplay?radio.pause():radio.play();
-rplay=!rplay;
-}
-
 /* SONGS */
-let songs=[["نفسي أطمن بيك","https://j.top4top.io/m_3769le8x51.mp3"],
+let songs=[
+["نفسي أطمن بيك","https://j.top4top.io/m_3769le8x51.mp3"],
 ["الشعر الأسود","https://k.top4top.io/m_3769enq6z2.mp3"],
 ["حبي الأولاني","https://l.top4top.io/m_3769auk3d3.mp3"],
 ["كوابيس","https://a.top4top.io/m_3769kdadn4.mp3"],
@@ -365,50 +264,56 @@ let songs=[["نفسي أطمن بيك","https://j.top4top.io/m_3769le8x51.mp3"],
 ["قصة حب","https://c.top4top.io/m_3769ou0bt4.mp3"],
 ["ذكريات","https://d.top4top.io/m_37697zirj5.mp3"],
 ["حبيتك ليه","https://e.top4top.io/m_3769rnmrk6.mp3"],
-["توأمي","https://d.top4top.io/m_3769a1jgw1.mp3"]];
+["توأمي","https://d.top4top.io/m_3769a1jgw1.mp3"]
+];
 
 let audio=document.getElementById("audio");
 let index=0;
 
-let left=document.getElementById("left");
-let right=document.getElementById("right");
-
-songs.forEach((s,i)=>{
-let div=document.createElement("div");
-div.className="song";
-div.innerHTML=`${s[0]} <button onclick="playSong('${s[1]}')">▶</button>`;
-(i<11?left:right).appendChild(div);
-});
-
-/* PLAYER */
-function playSong(url){
-audio.src=url;
+/* PLAY */
+function playSong(i){
+audio.src=songs[i][1];
 audio.play();
-index=songs.findIndex(s=>s[1]===url);
-document.getElementById("title").innerText=songs[index][0];
+index=i;
+document.getElementById("title").innerText=songs[i][0];
 }
 
+/* NEXT PREV */
 function next(){
 index=(index+1)%songs.length;
-playSong(songs[index][1]);
+playSong(index);
 }
 
 function prev(){
 index=(index-1+songs.length)%songs.length;
-playSong(songs[index][1]);
+playSong(index);
 }
 
+/* PLAY PAUSE */
 function toggle(){
 audio.paused?audio.play():audio.pause();
 }
 
-function vol(v){
+/* SPEED */
+function speed(v){
+audio.playbackRate=v;
+}
+
+/* VOLUME */
+function volume(v){
 audio.volume=v;
 }
 
+/* SEEK BAR */
+function seek(e){
+let bar=e.currentTarget;
+let pos=e.offsetX/bar.offsetWidth;
+audio.currentTime=pos*audio.duration;
+}
+
 audio.ontimeupdate=function(){
-document.getElementById("bar").style.width=
-(audio.currentTime/audio.duration)*100+"%";
+let p=(audio.currentTime/audio.duration)*100;
+document.getElementById("fill").style.width=p+"%";
 };
 
 </script>
