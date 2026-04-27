@@ -1,175 +1,106 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RAMY HACK SYSTEM</title>
+<!-- ========== RADIO SECTION ========== -->
+<div class="radio">
 
+  <button class="radio-btn" onclick="playRadio(0)">🎧 قرآن</button>
+  <button class="radio-btn" onclick="playRadio(1)">🎶 ميلودي</button>
+  <button class="radio-btn" onclick="playRadio(2)">🎤 حماقي</button>
+  <button class="radio-btn" onclick="playRadio(3)">🔥 منوعات</button>
+
+</div>
+
+<div class="radio-box" onclick="toggleRadio()">▶ / ⏸ تشغيل / إيقاف الراديو</div>
+
+<!-- ========== LINKS SECTION ========== -->
+<div class="links">
+  <a href="https://xat.com/2ra" target="_blank">🔥 2ra Chat</a>
+  <a href="https://xat.com/7reqa" target="_blank">⚡ 7reqa Chat</a>
+  <a href="https://xat.com/trade" target="_blank">💰 Trade Hub</a>
+  <a href="https://xat.com/cambio" target="_blank">🌐 Cambio Zone</a>
+</div>
+
+<!-- ========== AUDIO ========== -->
+<audio id="radio"></audio>
+
+<!-- ========== SCRIPT ========== -->
+<script>
+
+let radios = [
+  "https://stream.radiojar.com/8s5u5tpdtwzuv",
+  "https://audio.nrpstream.com/listen/nogoumfm/radio.mp3",
+  "https://stream.zeno.fm/w7atxdpk1pdvv",
+  "https://stream.zeno.fm/hswv0qwu7vgtv"
+];
+
+let radio = document.getElementById("radio");
+let isPlaying = false;
+
+function playRadio(i){
+  radio.src = radios[i];
+  radio.play();
+  isPlaying = true;
+}
+
+function toggleRadio(){
+
+  if(!radio.src){
+    radio.src = radios[0];
+  }
+
+  if(isPlaying){
+    radio.pause();
+    isPlaying = false;
+  }else{
+    radio.play();
+    isPlaying = true;
+  }
+
+}
+
+</script>
+
+<!-- ========== STYLES ========== -->
 <style>
-body{
-  margin:0;
-  font-family:Arial;
-  background:#05060a;
-  color:#00f5ff;
-  overflow:hidden;
-}
 
-/* GRID */
-.dashboard{
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  grid-template-rows:260px 1fr;
-  height:100vh;
-  gap:10px;
-  padding:10px;
-}
-
-/* PANEL */
-.panel{
-  background:rgba(0,0,0,0.6);
-  border:1px solid #00f5ff33;
-  box-shadow:0 0 20px #00f5ff22;
-  border-radius:10px;
-  padding:10px;
-  overflow:hidden;
-}
-
-/* BOOT */
-.boot{
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-}
-
-.loader{
-  width:80px;
-  height:80px;
-  margin:10px 0;
-}
-
-/* TERMINAL */
-.terminal{
-  color:#00ff00;
-  font-family:monospace;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-}
-
-.hack-container{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.hacker-img{
-  width:70px;
-  height:70px;
-  filter:drop-shadow(0 0 10px #00ff00);
-}
-
-.mini-bar{
-  margin-top:10px;
-  width:100%;
-  height:5px;
-  background:#111;
-  border-radius:10px;
-  overflow:hidden;
-}
-
-.mini-bar span{
-  display:block;
-  height:100%;
-  width:0;
-  background:#00ff00;
-  animation:load 3s forwards;
-}
-
-@keyframes load{
-  to{width:100%}
-}
-
-/* LOGIN */
-.login-box{
-  text-align:center;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-}
-
-.lock-img{
-  width:80px;
-  height:80px;
-  filter:drop-shadow(0 0 15px #66faff);
-}
-
-/* ================= PROFILE (UPDATED) ================= */
-.profile{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-}
-
-/* صورة شخصية */
-.avatar{
-  width:120px;
-  height:120px;
-  border-radius:50%;
-  border:2px solid #00f5ff;
-  box-shadow:0 0 15px #00f5ff;
-}
-
-/* اسم RAMY neon flicker */
-.name{
-  font-size:30px;
-  margin-top:10px;
-  color:#00f5ff;
-  text-shadow:0 0 10px #00f5ff, 0 0 20px #00f5ff;
-  animation:glow 1.5s infinite alternate;
-}
-
-@keyframes glow{
-  from{opacity:0.4; text-shadow:0 0 5px #00f5ff;}
-  to{opacity:1; text-shadow:0 0 20px #00f5ff,0 0 30px #00f5ff;}
-}
-
-/* RADIO */
 .radio{
-  margin-top:10px;
   display:flex;
   flex-wrap:wrap;
-  gap:5px;
   justify-content:center;
+  gap:6px;
+  margin-bottom:10px;
 }
 
 .radio-btn{
-  padding:5px;
-  font-size:11px;
   background:#00f5ff;
   border:none;
+  padding:6px 8px;
+  font-size:11px;
   cursor:pointer;
+  box-shadow:0 0 10px #00f5ff55;
 }
 
-/* تشغيل/إيقاف */
 .radio-box{
-  margin-top:8px;
-  padding:6px;
+  text-align:center;
+  padding:8px;
+  margin:5px 0;
   background:#111;
   color:#00f5ff;
-  cursor:pointer;
   border:1px solid #00f5ff;
+  cursor:pointer;
+  box-shadow:0 0 10px #00f5ff33;
   font-size:12px;
+  transition:0.3s;
 }
 
-/* LINKS */
+.radio-box:hover{
+  box-shadow:0 0 20px #00f5ff;
+  transform:scale(1.02);
+}
+
 .links{
-  margin-top:10px;
   display:flex;
   flex-direction:column;
-  gap:5px;
+  gap:6px;
+  margin-top:10px;
 }
 
 .links a{
@@ -179,149 +110,4 @@ body{
   text-shadow:0 0 5px #00ffcc;
 }
 
-/* SONGS */
-.songs{overflow:auto;}
-
-.song{
-  display:flex;
-  justify-content:space-between;
-  padding:6px;
-  margin:5px 0;
-  background:#00f5ff11;
-  border-radius:6px;
-  font-size:12px;
-}
-
-/* CONTROL */
-.control{
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-}
-
-.big-btn{
-  padding:10px 20px;
-  background:#00f5ff;
-  border:none;
-  font-weight:bold;
-  cursor:pointer;
-  margin:5px;
-}
-
 </style>
-</head>
-
-<body>
-
-<div class="dashboard">
-
-<!-- BOOT -->
-<div class="panel boot">
-  <h1>BOOTING RAMY SYSTEM</h1>
-  <img class="loader" src="https://i.gifer.com/ZZ5H.gif">
-  <div class="bar"><span></span></div>
-</div>
-
-<!-- TERMINAL -->
-<div class="panel terminal">
-  <div class="hack-container">
-    <img class="hacker-img" src="https://i.imgur.com/3ZQ3Z4M.png">
-    <div>
-      [+] SYSTEM ACTIVE<br>
-      [+] SECURITY BYPASSED<br>
-      [+] ROOT ACCESS GRANTED ✔
-    </div>
-  </div>
-  <div class="mini-bar"><span></span></div>
-</div>
-
-<!-- LOGIN -->
-<div class="panel login-box">
-<h3>ENTER PASSWORD</h3>
-<img class="lock-img" src="https://cdn-icons-png.flaticon.com/512/2911/2911230.png">
-<input type="password" id="pass">
-<button onclick="check()">ACCESS</button>
-</div>
-
-<!-- PROFILE (UPDATED) -->
-<div class="panel profile">
-
-<img class="avatar" src="https://xatimg.com/image/PtMzAMEPdOYG.png">
-
-<div class="name">RAMY</div>
-
-<!-- RADIO -->
-<div class="radio">
-<button class="radio-btn" onclick="playRadio(0)">🎧 قرآن</button>
-<button class="radio-btn" onclick="playRadio(1)">🎶 ميلودي</button>
-<button class="radio-btn" onclick="playRadio(2)">🎤 حماقي</button>
-<button class="radio-btn" onclick="playRadio(3)">🔥 منوعات</button>
-</div>
-
-<div class="radio-box" onclick="toggleRadio()">▶ / ⏸ تشغيل الراديو</div>
-
-<!-- LINKS -->
-<div class="links">
-<a href="https://xat.com/2ra" target="_blank">🔥 2ra Chat</a>
-<a href="https://xat.com/7reqa" target="_blank">⚡ 7reqa Chat</a>
-<a href="https://xat.com/trade" target="_blank">💰 Trade Hub</a>
-<a href="https://xat.com/cambio" target="_blank">🌐 Cambio Zone</a>
-</div>
-
-</div>
-
-<!-- SONGS -->
-<div class="panel songs">
-<div class="song">Song 1 <button>▶</button></div>
-<div class="song">Song 2 <button>▶</button></div>
-<div class="song">Song 3 <button>▶</button></div>
-<div class="song">Song 4 <button>▶</button></div>
-</div>
-
-<!-- CONTROL -->
-<div class="panel control">
-<button class="big-btn">PLAY RADIO</button>
-<button class="big-btn">STOP</button>
-</div>
-
-</div>
-
-<!-- AUDIO SYSTEM -->
-<audio id="radio"></audio>
-
-<script>
-
-let radios = [
-"", // حط لينك إذاعي 1
-"",
-"",
-""
-];
-
-function playRadio(i){
-document.getElementById("radio").src = radios[i];
-document.getElementById("radio").play();
-}
-
-function toggleRadio(){
-let r = document.getElementById("radio");
-if(r.paused){
-r.play();
-}else{
-r.pause();
-}
-}
-
-function check(){
-if(pass.value==="106080"){
-alert("ACCESS GRANTED");
-}else{
-alert("WRONG PASSWORD");
-}
-}
-
-</script>
-
-</body>
-</html>
