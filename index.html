@@ -34,19 +34,30 @@ body{
   overflow:hidden;
 }
 
-/* ================= TOP LEFT BOOT ================= */
+/* ================= BOOT ================= */
 .boot{
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
+  text-align:center;
 }
 
 .boot h1{
-  font-size:22px;
-  letter-spacing:3px;
+  font-size:18px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:#00f5ff;
 }
 
+.loader{
+  width:80px;
+  height:80px;
+  margin:10px 0;
+  filter:drop-shadow(0 0 10px #00f5ff);
+}
+
+/* BAR */
 .bar{
   width:80%;
   height:6px;
@@ -66,14 +77,14 @@ body{
 
 @keyframes load{to{width:100%}}
 
-/* ================= TOP MIDDLE HACK ================= */
+/* ================= TERMINAL ================= */
 .terminal{
   font-size:11px;
   line-height:18px;
   color:#00ff99;
 }
 
-/* ================= TOP RIGHT LOGIN ================= */
+/* ================= LOGIN ================= */
 .login-box{
   text-align:center;
 }
@@ -98,7 +109,7 @@ body{
   font-weight:bold;
 }
 
-/* ================= BOTTOM LEFT PROFILE ================= */
+/* ================= PROFILE ================= */
 .profile{
   display:flex;
   flex-direction:column;
@@ -121,7 +132,7 @@ body{
   -webkit-text-fill-color:transparent;
 }
 
-/* ================= BOTTOM CENTER SONGS ================= */
+/* ================= SONGS ================= */
 .songs{
   overflow:auto;
   height:100%;
@@ -142,7 +153,7 @@ body{
   cursor:pointer;
 }
 
-/* ================= BOTTOM RIGHT CONTROL ================= */
+/* ================= CONTROL ================= */
 .control{
   display:flex;
   flex-direction:column;
@@ -166,13 +177,14 @@ body{
 
 <div class="dashboard">
 
-<!-- TOP LEFT -->
+<!-- BOOT -->
 <div class="panel boot">
-<h1>BOOT SYSTEM</h1>
-<div class="bar"><span></span></div>
+  <h1>BOOTING RAMY SYSTEM</h1>
+  <img class="loader" src="https://i.gifer.com/ZZ5H.gif" alt="loading">
+  <div class="bar"><span></span></div>
 </div>
 
-<!-- TOP MIDDLE -->
+<!-- TERMINAL -->
 <div class="panel terminal">
 [+] Connecting to system...<br>
 [+] Bypassing firewall...<br>
@@ -181,7 +193,7 @@ body{
 [+] SYSTEM READY ✔
 </div>
 
-<!-- TOP RIGHT -->
+<!-- LOGIN -->
 <div class="panel login-box">
 <h3>ENTER PASSWORD</h3>
 <input type="password" id="pass">
@@ -189,13 +201,13 @@ body{
 <button onclick="check()">ACCESS</button>
 </div>
 
-<!-- BOTTOM LEFT -->
+<!-- PROFILE -->
 <div class="panel profile">
 <img class="avatar" src="https://xatimg.com/image/RKP5IrStF45l.png">
 <div class="name">RAMY</div>
 </div>
 
-<!-- BOTTOM CENTER SONGS -->
+<!-- SONGS -->
 <div class="panel songs">
 
 <div class="song">Song 1 <button>▶</button></div>
@@ -206,7 +218,7 @@ body{
 
 </div>
 
-<!-- BOTTOM RIGHT -->
+<!-- CONTROL -->
 <div class="panel control">
 <button class="big-btn">PLAY RADIO</button>
 <button class="big-btn">STOP</button>
