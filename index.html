@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RAMY SYSTEM</title>
+<title>RAMY SYSTEM RESTORE</title>
 
 <style>
 body{
@@ -31,78 +31,23 @@ body{
   overflow:auto;
 }
 
-/* PROFILE (FOURTH BOX) */
+/* PROFILE (4th) */
 .profile{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:10px;
+  text-align:center;
 }
 
 .avatar{
   width:110px;
-  height:110px;
   border-radius:50%;
   border:2px solid #00f5ff;
-  box-shadow:0 0 15px #00f5ff;
 }
 
 .name{
-  font-size:28px;
-  font-weight:bold;
+  font-size:26px;
   text-shadow:0 0 10px #00f5ff;
-  animation:glow 1.5s infinite alternate;
 }
 
-@keyframes glow{
-  from{opacity:0.5}
-  to{opacity:1}
-}
-
-/* RADIO */
-.radio{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:5px;
-}
-
-.radio button{
-  background:#00f5ff;
-  border:none;
-  padding:5px 8px;
-  font-size:11px;
-  cursor:pointer;
-  border-radius:5px;
-}
-
-/* LINKS */
-.links{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-  width:100%;
-  align-items:center;
-}
-
-.links a{
-  font-size:15px;
-  color:#00ffcc;
-  text-decoration:none;
-  padding:6px 10px;
-  background:#00f5ff11;
-  border-radius:6px;
-  transition:0.2s;
-}
-
-/* HOVER EFFECT */
-.links a:hover{
-  transform:scale(1.15);
-  background:#00f5ff33;
-  box-shadow:0 0 10px #00f5ff;
-}
-
-/* SONG ITEMS */
+/* SONG ITEM */
 .song{
   display:flex;
   justify-content:space-between;
@@ -119,27 +64,42 @@ body{
   padding:3px 6px;
 }
 
-/* PLAYER MINI */
-.player-mini{
+/* RADIO */
+.radio{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:5px;
+}
+
+.radio button{
+  background:#00f5ff;
+  border:none;
+  padding:5px 8px;
+  font-size:11px;
+}
+
+/* LINKS */
+.links{
   display:flex;
   flex-direction:column;
-  align-items:center;
   gap:6px;
 }
 
-.seek{
-  width:90%;
-  height:5px;
-  background:#111;
-  cursor:pointer;
+.links a{
+  color:#00ffcc;
+  text-decoration:none;
+  padding:5px;
+  background:#00f5ff11;
+  border-radius:6px;
 }
 
-#fill{
-  height:100%;
-  width:0%;
-  background:#00ffcc;
+.links a:hover{
+  transform:scale(1.1);
+  transition:0.2s;
 }
 
+/* AUDIO */
 audio{display:none;}
 
 </style>
@@ -158,14 +118,12 @@ audio{display:none;}
 <!-- 3 -->
 <div class="panel">LOGIN</div>
 
-<!-- 4 ===== UPDATED ===== -->
+<!-- 4 -->
 <div class="panel profile">
 
 <img class="avatar" src="https://xatimg.com/image/PtMzAMEPdOYG.png">
-
 <div class="name">RAMY</div>
 
-<!-- RADIO (RESTORED) -->
 <div class="radio">
 <button onclick="playRadio(0)">🎧 قرآن</button>
 <button onclick="playRadio(1)">🎶 ميلودي</button>
@@ -173,25 +131,23 @@ audio{display:none;}
 <button onclick="playRadio(3)">🔥 منوعات</button>
 </div>
 
-<!-- LINKS (BIG + CLEAN) -->
 <div class="links">
-<a href="https://xat.com/2ra" target="_blank">🔥 2ra Chat</a>
-<a href="https://xat.com/7reqa" target="_blank">⚡ 7reqa Chat</a>
-<a href="https://xat.com/trade" target="_blank">💰 Trade Hub</a>
-<a href="https://xat.com/cambio" target="_blank">🌐 Cambio Zone</a>
+<a href="https://xat.com/2ra">2ra Chat</a>
+<a href="https://xat.com/7reqa">7reqa Chat</a>
+<a href="https://xat.com/trade">Trade Hub</a>
+<a href="https://xat.com/cambio">Cambio Zone</a>
 </div>
 
 </div>
 
-<!-- 5 -->
+<!-- 5 SONGS LEFT -->
 <div class="panel" id="left"></div>
 
-<!-- 6 -->
+<!-- 6 SONGS RIGHT -->
 <div class="panel" id="right"></div>
 
 </div>
 
-<!-- AUDIO -->
 <audio id="audio"></audio>
 <audio id="radio"></audio>
 
@@ -212,7 +168,7 @@ radio.src=radios[i];
 radio.play();
 }
 
-/* SONGS (UNCHANGED FROM PREVIOUS) */
+/* SONGS */
 let songs=[
 ["نفسي أطمن بيك","https://j.top4top.io/m_3769le8x51.mp3"],
 ["الشعر الأسود","https://k.top4top.io/m_3769enq6z2.mp3"],
@@ -239,27 +195,31 @@ let songs=[
 ];
 
 let audio=document.getElementById("audio");
-let index=0;
 
-/* RENDER */
+/* LEFT 11 */
 let left=document.getElementById("left");
-let right=document.getElementById("right");
-
-songs.forEach((s,i)=>{
-let div=document.createElement("div");
-div.className="song";
-div.innerHTML=`
-${s[0]}
+for(let i=0;i<11;i++){
+left.innerHTML+=`
+<div class="song">
+${songs[i][0]}
 <button onclick="playSong(${i})">▶</button>
-`;
-(i<11?left:right).appendChild(div);
-});
+</div>`;
+}
+
+/* RIGHT 11 */
+let right=document.getElementById("right");
+for(let i=11;i<songs.length;i++){
+right.innerHTML+=`
+<div class="song">
+${songs[i][0]}
+<button onclick="playSong(${i})">▶</button>
+</div>`;
+}
 
 /* PLAY */
 function playSong(i){
 audio.src=songs[i][1];
 audio.play();
-index=i;
 }
 
 </script>
