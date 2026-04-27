@@ -32,52 +32,47 @@ body{
   overflow:auto;
 }
 
-/* ===== HACKER BOX (NEW 1 & 2) ===== */
+/* ===== HACKER BOX ===== */
 .hacker-box{
+  position:relative;
+  overflow:hidden;
   display:flex;
-  flex-direction:column;
   align-items:center;
   justify-content:center;
-  text-align:center;
-  position:relative;
 }
 
-.hack-img{
-  width:70px;
-  filter:drop-shadow(0 0 10px #00f5ff);
-  animation:flicker 1.5s infinite;
+/* IMAGE FULL BOX */
+.hacker-box img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:contrast(1.2) brightness(0.85);
+}
+
+/* OVERLAY TEXT */
+.hack-overlay{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,0.35);
 }
 
 .hack-text{
-  margin-top:8px;
-  font-size:12px;
   color:#00ff66;
-  text-shadow:0 0 8px #00ff66;
-  animation:floatText 4s infinite;
-}
-
-.glitch{
-  animation:glitch 0.7s infinite;
+  font-size:13px;
+  text-align:center;
+  text-shadow:0 0 10px #00ff66;
+  animation:flicker 1.5s infinite;
 }
 
 @keyframes flicker{
   0%,100%{opacity:1}
-  50%{opacity:0.3}
-}
-
-@keyframes floatText{
-  0%{transform:translateY(10px)}
-  50%{transform:translateY(-10px)}
-  100%{transform:translateY(10px)}
-}
-
-@keyframes glitch{
-  0%{transform:translate(0)}
-  20%{transform:translate(-2px,2px)}
-  40%{transform:translate(2px,-2px)}
-  60%{transform:translate(-1px,1px)}
-  80%{transform:translate(1px,-1px)}
-  100%{transform:translate(0)}
+  50%{opacity:0.4}
 }
 
 /* PROFILE */
@@ -135,7 +130,7 @@ body{
   background:#00f5ff33;
 }
 
-/* SONG ITEM */
+/* SONG */
 .song{
   display:flex;
   justify-content:space-between;
@@ -152,7 +147,7 @@ body{
   padding:3px 6px;
 }
 
-/* PLAYER MINI */
+/* PLAYER */
 .player-mini{
   display:flex;
   flex-direction:column;
@@ -212,20 +207,24 @@ audio{display:none;}
 
 <div class="dashboard">
 
-<!-- 1 HACKER BOOT -->
+<!-- 1 UPDATED IMAGE BOX -->
 <div class="panel hacker-box">
-  <img src="https://i.imgur.com/3ZQ3ZQb.png" class="hack-img">
-  <div class="hack-text">
-    BOOTING RAMY SYSTEM...<br>
-    ACCESSING MAINFRAME...<br>
-    SYSTEM READY ✔
+
+  <img src="https://mf.b37mrtl.ru/media/pics/2023.04/article/643e76264c59b716106a1276.PNG">
+
+  <div class="hack-overlay">
+    <div class="hack-text">
+      BOOTING RAMY SYSTEM...<br>
+      ACCESSING MAINFRAME...<br>
+      SYSTEM ONLINE ✔
+    </div>
   </div>
+
 </div>
 
 <!-- 2 HACK TERMINAL -->
 <div class="panel hacker-box">
-  <img src="https://i.imgur.com/8QfQZ1a.png" class="hack-img">
-  <div class="hack-text glitch">
+  <div class="hack-text">
     INJECTING PAYLOAD...<br>
     FIREWALL BYPASSED...<br>
     SYSTEM UNDER CONTROL
@@ -329,7 +328,7 @@ let index=0;
 let left=document.getElementById("left");
 let right=document.getElementById("right");
 
-/* LEFT */
+/* PLAYER */
 left.innerHTML=`
 <div class="player-mini">
 <div id="title">No Song</div>
@@ -349,7 +348,6 @@ ${songs[i][0]}
 </div>`;
 }
 
-/* RIGHT */
 right.innerHTML=`
 <div class="volume-box">
 🔊 الصوت
@@ -365,7 +363,7 @@ ${songs[i][0]}
 </div>`;
 }
 
-/* PLAY */
+/* FUNCTIONS */
 function playSong(i){
 audio.src=songs[i][1];
 audio.play();
