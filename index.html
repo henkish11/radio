@@ -24,7 +24,7 @@ body{
   padding:10px;
 }
 
-/* PANEL */
+/* PANELS */
 .panel{
   background:rgba(0,0,0,0.6);
   border:1px solid #00f5ff33;
@@ -38,8 +38,8 @@ body{
 .boot{
   display:flex;
   flex-direction:column;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
 }
 
 .loader{
@@ -63,7 +63,9 @@ body{
   animation:load 3s forwards;
 }
 
-@keyframes load{to{width:100%}}
+@keyframes load{
+  to{width:100%}
+}
 
 /* ================= TERMINAL ================= */
 .terminal{
@@ -87,11 +89,8 @@ body{
 
 .mini-bar{
   margin-top:10px;
-  width:100%;
   height:5px;
   background:#111;
-  border-radius:10px;
-  overflow:hidden;
 }
 
 .mini-bar span{
@@ -106,9 +105,8 @@ body{
 .login-box{
   display:flex;
   flex-direction:column;
-  justify-content:center;
   align-items:center;
-  text-align:center;
+  justify-content:center;
 }
 
 .lock-img{
@@ -131,7 +129,6 @@ body{
   background:#66faff;
   border:none;
   cursor:pointer;
-  font-weight:bold;
 }
 
 /* ================= PROFILE ================= */
@@ -140,19 +137,20 @@ body{
   flex-direction:column;
   align-items:center;
   justify-content:center;
+  padding:15px;
+  gap:8px;
 }
 
 .avatar{
-  width:120px;
-  height:120px;
+  width:130px;
+  height:130px;
   border-radius:50%;
   border:2px solid #00f5ff;
-  box-shadow:0 0 15px #00f5ff;
+  box-shadow:0 0 20px #00f5ff;
 }
 
 .name{
-  font-size:28px;
-  margin-top:10px;
+  font-size:32px;
   color:#00f5ff;
   text-shadow:0 0 15px #00f5ff;
   animation:glow 1.5s infinite alternate;
@@ -169,28 +167,26 @@ body{
   flex-wrap:wrap;
   justify-content:center;
   gap:5px;
-  margin-top:10px;
 }
 
 .radio-btn{
   background:#00f5ff;
   border:none;
-  padding:5px;
+  padding:6px;
   font-size:11px;
   cursor:pointer;
 }
 
 .radio-box{
-  margin-top:5px;
-  text-align:center;
   padding:6px;
   border:1px solid #00f5ff;
   cursor:pointer;
+  text-align:center;
+  width:80%;
 }
 
 /* LINKS */
 .links{
-  margin-top:10px;
   display:flex;
   flex-direction:column;
   gap:5px;
@@ -202,7 +198,7 @@ body{
   font-size:12px;
 }
 
-/* SONGS */
+/* ================= SONGS ================= */
 .song{
   display:flex;
   justify-content:space-between;
@@ -219,7 +215,44 @@ body{
   cursor:pointer;
 }
 
-/* AUDIO */
+/* ================= GLOBAL PLAYER ================= */
+.player{
+  position:fixed;
+  bottom:10px;
+  left:50%;
+  transform:translateX(-50%);
+  width:380px;
+  background:#000;
+  border:1px solid #00f5ff;
+  padding:10px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  border-radius:10px;
+}
+
+.player button{
+  background:#00f5ff;
+  border:none;
+  cursor:pointer;
+}
+
+.player input[type=range]{
+  width:80px;
+}
+
+.progress{
+  flex:1;
+  height:5px;
+  background:#111;
+}
+
+#bar{
+  height:100%;
+  width:0%;
+  background:#00ffcc;
+}
+
 audio{display:none;}
 
 </style>
@@ -231,7 +264,7 @@ audio{display:none;}
 
 <!-- 1 BOOT -->
 <div class="panel boot">
-  <h2>BOOTING RAMY SYSTEM</h2>
+  <h3>BOOTING RAMY SYSTEM</h3>
   <img class="loader" src="https://i.gifer.com/ZZ5H.gif">
   <div class="bar"><span></span></div>
 </div>
@@ -241,8 +274,8 @@ audio{display:none;}
   <div class="hack-container">
     <img class="hacker-img" src="https://i.imgur.com/3ZQ3Z4M.png">
     <div>
-      [+] SYSTEM ACTIVE<br>
-      [+] FIREWALL BYPASSED<br>
+      [+] SYSTEM ONLINE<br>
+      [+] FIREWALL DOWN<br>
       [+] ROOT ACCESS ✔
     </div>
   </div>
@@ -257,7 +290,7 @@ audio{display:none;}
   <button onclick="check()">ACCESS</button>
 </div>
 
-<!-- 4 PROFILE + RADIO -->
+<!-- 4 PROFILE -->
 <div class="panel profile">
 
 <img class="avatar" src="https://xatimg.com/image/PtMzAMEPdOYG.png">
@@ -282,24 +315,36 @@ audio{display:none;}
 
 </div>
 
-<!-- 5 SONG BOX -->
+<!-- 5 SONGS -->
 <div class="panel" id="left"></div>
 
-<!-- 6 SONG BOX -->
+<!-- 6 SONGS -->
 <div class="panel" id="right"></div>
 
 </div>
 
-<audio id="player"></audio>
+<!-- GLOBAL PLAYER -->
+<div class="player">
+
+<button onclick="prev()">⏮</button>
+<button onclick="toggle()">▶/⏸</button>
+<button onclick="next()">⏭</button>
+
+<input type="range" min="0" max="1" step="0.1" onchange="vol(this.value)">
+
+<div class="progress"><div id="bar"></div></div>
+
+</div>
+
+<audio id="audio"></audio>
 <audio id="radio"></audio>
 
 <script>
 
 /* LOGIN */
 function check(){
-if(pass.value==="106080"){
-alert("ACCESS GRANTED");
-}else alert("WRONG PASSWORD");
+if(pass.value==="106080") alert("ACCESS GRANTED");
+else alert("WRONG PASSWORD");
 }
 
 /* RADIO */
@@ -311,23 +356,18 @@ let radios=[
 ];
 
 let radio=document.getElementById("radio");
-let isRadio=false;
+let rplay=false;
 
 function playRadio(i){
 radio.src=radios[i];
 radio.play();
-isRadio=true;
+rplay=true;
 }
 
 function toggleRadio(){
 if(!radio.src) radio.src=radios[0];
-if(isRadio){
-radio.pause();
-isRadio=false;
-}else{
-radio.play();
-isRadio=true;
-}
+if(rplay){radio.pause();rplay=false;}
+else{radio.play();rplay=true;}
 }
 
 /* SONGS */
@@ -356,29 +396,53 @@ let songs=[
 ["توأمي","https://d.top4top.io/m_3769a1jgw1.mp3"]
 ];
 
+let audio=document.getElementById("audio");
+let index=0;
+
+/* render */
 let left=document.getElementById("left");
 let right=document.getElementById("right");
-let player=document.getElementById("player");
-
-function playSong(url){
-if(player.src===url && !player.paused){
-player.pause();
-}else{
-player.src=url;
-player.play();
-}
-}
 
 songs.forEach((s,i)=>{
 let div=document.createElement("div");
 div.className="song";
 div.innerHTML=`
 ${s[0]}
-<button onclick="playSong('${s[1]}')">▶/⏸</button>
+<button onclick="playSong('${s[1]}')">▶</button>
 `;
-
 (i<11?left:right).appendChild(div);
 });
+
+/* player */
+function playSong(url){
+audio.src=url;
+audio.play();
+index=songs.findIndex(s=>s[1]===url);
+}
+
+function next(){
+index=(index+1)%songs.length;
+playSong(songs[index][1]);
+}
+
+function prev(){
+index=(index-1+songs.length)%songs.length;
+playSong(songs[index][1]);
+}
+
+function toggle(){
+audio.paused?audio.play():audio.pause();
+}
+
+function vol(v){
+audio.volume=v;
+}
+
+/* progress */
+audio.ontimeupdate=function(){
+document.getElementById("bar").style.width=
+(audio.currentTime/audio.duration)*100+"%";
+};
 
 </script>
 
