@@ -32,10 +32,49 @@ body{
   overflow:hidden;
 }
 
-/* PROFILE */
-.profile{
-  text-align:center;
+/* HACKER BOX */
+.hacker-box{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
 }
+
+.hacker-box img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:contrast(1.2) brightness(0.8);
+}
+
+.hack-overlay{
+  position:absolute;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,0.35);
+}
+
+.hack-text{
+  color:#00ff66;
+  font-size:12px;
+  text-align:center;
+  text-shadow:0 0 10px #00ff66;
+  animation:flicker 1.5s infinite;
+}
+
+@keyframes flicker{
+  0%,100%{opacity:1}
+  50%{opacity:0.3}
+}
+
+/* PROFILE */
+.profile{text-align:center;}
 
 .avatar{
   width:110px;
@@ -44,11 +83,50 @@ body{
 }
 
 .name{
-  font-size:24px;
+  font-size:26px;
   text-shadow:0 0 10px #00f5ff;
 }
 
-/* SONG ITEM */
+/* RADIO */
+.radio{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:5px;
+  margin-top:5px;
+}
+
+.radio button{
+  background:#00f5ff;
+  border:none;
+  padding:5px 8px;
+  font-size:11px;
+  cursor:pointer;
+}
+
+/* LINKS */
+.links{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  margin-top:8px;
+}
+
+.links a{
+  color:#00ffcc;
+  text-decoration:none;
+  padding:6px;
+  background:#00f5ff11;
+  border-radius:6px;
+  transition:0.2s;
+}
+
+.links a:hover{
+  transform:scale(1.1);
+  background:#00f5ff33;
+}
+
+/* SONG */
 .song{
   display:flex;
   justify-content:space-between;
@@ -62,46 +140,58 @@ body{
   background:#00f5ff;
   border:none;
   cursor:pointer;
+  padding:3px 6px;
 }
 
-/* LOCK */
-.lock-box{
-  position:relative;
-}
-
-.lock-box img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  filter:brightness(0.6);
-}
-
-.lock-ui{
-  position:absolute;
-  width:100%;
-  height:100%;
+/* PLAYER */
+.player-mini{
   display:flex;
   flex-direction:column;
-  justify-content:center;
   align-items:center;
-  background:rgba(0,0,0,0.45);
+  justify-content:center;
+  gap:6px;
 }
 
-.lock-ui input{
-  padding:8px;
-  background:#111;
-  border:none;
-  color:#00f5ff;
-  text-align:center;
-  margin-top:8px;
-}
-
-.lock-ui button{
-  margin-top:8px;
+.player-mini button{
   background:#00f5ff;
   border:none;
-  padding:6px 12px;
+  padding:5px 10px;
   cursor:pointer;
+  border-radius:5px;
+}
+
+#title{
+  font-size:12px;
+  text-align:center;
+}
+
+/* SEEK */
+.seek{
+  width:90%;
+  height:5px;
+  background:#111;
+  cursor:pointer;
+  border-radius:5px;
+  overflow:hidden;
+}
+
+#fill{
+  height:100%;
+  width:0%;
+  background:#00ffcc;
+}
+
+/* VOLUME */
+.volume-box{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+}
+
+.volume-box input{
+  width:120px;
 }
 
 audio{display:none;}
@@ -113,44 +203,102 @@ audio{display:none;}
 
 <div class="dashboard">
 
-<!-- BOX 1 -->
-<div class="panel">BOOT</div>
-
-<!-- BOX 2 -->
-<div class="panel">HACK</div>
-
-<!-- BOX 3 LOCK -->
-<div class="panel lock-box">
-<img src="https://img.pikbest.com/backgrounds/20250126/guarding-your-digital-life-power-of-passwords-smarter-password-practices_11452980.jpg!f305cw">
-
-<div class="lock-ui">
-<div>🔐 ENTER PASSWORD</div>
-<input type="password" id="pass">
-<button onclick="check()">UNLOCK</button>
-</div>
+<!-- 1 -->
+<div class="panel hacker-box">
+  <img src="https://mf.b37mrtl.ru/media/pics/2023.04/article/643e76264c59b716106a1276.PNG">
+  <div class="hack-overlay">
+    <div class="hack-text">
+      BOOTING SYSTEM...<br>
+      RAMY CORE ONLINE<br>
+      ACCESS GRANTED ✔
+    </div>
+  </div>
 </div>
 
-<!-- BOX 4 -->
+<!-- 2 -->
+<div class="panel hacker-box">
+  <img src="https://img.pikbest.com/wp/202345/hacker-skeleton-working-on-laptop-dark-background_9581815.jpg!w700wp">
+  <div class="hack-overlay">
+    <div class="hack-text">
+      HACK MODE ACTIVE<br>
+      FIREWALL BYPASSED<br>
+      SYSTEM CONTROL ✔
+    </div>
+  </div>
+</div>
+
+<!-- 3 -->
+<div class="panel">LOGIN SYSTEM</div>
+
+<!-- 4 PROFILE + RADIO + VOLUME -->
 <div class="panel profile">
+
 <img class="avatar" src="https://xatimg.com/image/PtMzAMEPdOYG.png">
-<div class="name">RAMY SYSTEM</div>
+<div class="name">RAMY</div>
+
+<div class="radio">
+<button onclick="playRadio(0)">🎧 قرآن</button>
+<button onclick="playRadio(1)">🎶 ميلودي</button>
+<button onclick="playRadio(2)">🎤 حماقي</button>
+<button onclick="playRadio(3)">🔥 منوعات</button>
 </div>
 
-<!-- BOX 5 -->
+<button onclick="toggleRadio()" style="margin-top:5px;background:#00ffcc;border:none;padding:5px;cursor:pointer;">
+▶ / ⏸ راديو
+</button>
+
+<!-- 🔊 VOLUME CONTROL ADDED -->
+<div style="margin-top:10px;text-align:center;">
+<div style="font-size:12px;margin-bottom:5px;">🔊 التحكم في الصوت</div>
+
+<button onclick="radio.volume=Math.min(radio.volume+0.1,1)" style="padding:5px;margin:2px;background:#00f5ff;border:none;cursor:pointer;">➕ رفع</button>
+
+<button onclick="radio.volume=Math.max(radio.volume-0.1,0)" style="padding:5px;margin:2px;background:#00f5ff;border:none;cursor:pointer;">➖ خفض</button>
+</div>
+
+<div class="links">
+<a href="https://xat.com/2ra" target="_blank">🔥 2ra Chat</a>
+<a href="https://xat.com/7reqa" target="_blank">⚡ 7reqa Chat</a>
+<a href="https://xat.com/trade" target="_blank">💰 Trade Hub</a>
+<a href="https://xat.com/cambio" target="_blank">🌐 Cambio Zone</a>
+</div>
+
+</div>
+
+<!-- 5 -->
 <div class="panel" id="left"></div>
 
-<!-- BOX 6 -->
+<!-- 6 -->
 <div class="panel" id="right"></div>
 
 </div>
 
+<audio id="audio"></audio>
+<audio id="radio"></audio>
+
 <script>
 
-/* PASSWORD */
-function check(){
-if(pass.value==="106080"){
-init();
-}else alert("WRONG PASSWORD");
+/* RADIO */
+let radios=[
+"https://stream.radiojar.com/8s5u5tpdtwzuv",
+"https://audio.nrpstream.com/listen/nogoumfm/radio.mp3",
+"https://stream.zeno.fm/w7atxdpk1pdvv",
+"https://stream.zeno.fm/hswv0qwu7vgtv"
+];
+
+let radio=document.getElementById("radio");
+let rstate=false;
+
+function playRadio(i){
+radio.src=radios[i];
+radio.play();
+rstate=true;
+}
+
+function toggleRadio(){
+if(!radio.src) radio.src=radios[0];
+rstate?radio.pause():radio.play();
+rstate=!rstate;
 }
 
 /* SONGS */
@@ -179,31 +327,72 @@ let songs=[
 ["توأمي","https://d.top4top.io/m_3769a1jgw1.mp3"]
 ];
 
-let audio=new Audio();
+let audio=document.getElementById("audio");
+let index=0;
 
-/* INIT */
-function init(){
+let left=document.getElementById("left");
+let right=document.getElementById("right");
 
-left.innerHTML="🎵 SONG LIST";
-right.innerHTML="🎧 SONG LIST";
+/* PLAYER */
+left.innerHTML=`
+<div class="player-mini">
+<div id="title">No Song</div>
+<button onclick="toggle()">▶ / ⏸</button>
 
-songs.slice(0,11).forEach((s,i)=>{
+<div class="seek" onclick="seek(event)">
+<div id="fill"></div>
+</div>
+</div>
+`;
+
+for(let i=0;i<11;i++){
 left.innerHTML+=`
-<div class="song">${s[0]}<button onclick="play(${i})">▶</button></div>`;
-});
-
-songs.slice(11).forEach((s,i)=>{
-right.innerHTML+=`
-<div class="song">${s[0]}<button onclick="play(${i+11})">▶</button></div>`;
-});
-
+<div class="song">
+${songs[i][0]}
+<button onclick="playSong(${i})">▶</button>
+</div>`;
 }
 
-/* PLAY */
-function play(i){
+right.innerHTML=`
+<div class="volume-box">
+🔊 الصوت
+<input type="range" min="0" max="1" step="0.1" onchange="volume(this.value)">
+</div>
+`;
+
+for(let i=11;i<songs.length;i++){
+right.innerHTML+=`
+<div class="song">
+${songs[i][0]}
+<button onclick="playSong(${i})">▶</button>
+</div>`;
+}
+
+/* FUNCTIONS */
+function playSong(i){
 audio.src=songs[i][1];
 audio.play();
+index=i;
+document.getElementById("title").innerText=songs[i][0];
 }
+
+function toggle(){
+audio.paused?audio.play():audio.pause();
+}
+
+function volume(v){
+audio.volume=v;
+}
+
+function seek(e){
+let pos=e.offsetX/e.currentTarget.offsetWidth;
+audio.currentTime=pos*audio.duration;
+}
+
+audio.ontimeupdate=function(){
+document.getElementById("fill").style.width=
+(audio.currentTime/audio.duration)*100+"%";
+};
 
 </script>
 
