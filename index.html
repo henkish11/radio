@@ -10,11 +10,12 @@ body{
   margin:0;
   font-family:Arial;
   background:#020617;
-  color:#fff;
+  color:#00f5ff;
+  overflow:hidden;
 }
 
-/* ================= BOOT SCREEN ================= */
-#boot{
+/* ================= BOOT + HACK SCREEN ================= */
+#boot,#hack{
   position:fixed;
   inset:0;
   background:#000;
@@ -27,9 +28,8 @@ body{
 
 .boot-text{
   font-size:18px;
-  color:#00f5ff;
-  letter-spacing:3px;
   animation:glow 1s infinite alternate;
+  letter-spacing:3px;
 }
 
 @keyframes glow{
@@ -38,12 +38,12 @@ body{
 }
 
 .bar{
-  width:200px;
+  width:220px;
   height:4px;
   background:#111;
   margin-top:20px;
-  overflow:hidden;
   border-radius:10px;
+  overflow:hidden;
 }
 
 .bar span{
@@ -58,11 +58,34 @@ body{
   to{width:100%;}
 }
 
+/* ================= HACK TERMINAL ================= */
+#terminal{
+  width:80%;
+  max-width:600px;
+  height:300px;
+  background:#000;
+  border:1px solid #00f5ff;
+  padding:10px;
+  overflow:hidden;
+  font-size:12px;
+  box-shadow:0 0 20px #00f5ff;
+}
+
+.line{
+  white-space:pre;
+  animation:type 0.3s linear;
+}
+
+@keyframes type{
+  from{opacity:0;}
+  to{opacity:1;}
+}
+
 /* ================= LOGIN ================= */
 .login{
   position:fixed;
   inset:0;
-  display:flex;
+  display:none;
   align-items:center;
   justify-content:center;
   background:#000;
@@ -80,7 +103,7 @@ body{
   border:none;
   border-radius:6px;
   background:#111;
-  color:#fff;
+  color:#00f5ff;
 }
 
 .login-box button{
@@ -92,76 +115,43 @@ body{
   cursor:pointer;
 }
 
-/* ================= ACCESS GRANTED ================= */
+/* ================= ACCESS ================= */
 #access{
   position:fixed;
   inset:0;
-  background:#000;
   display:none;
   align-items:center;
   justify-content:center;
+  font-size:24px;
+  letter-spacing:4px;
+  background:#000;
   z-index:99999;
-  color:#00f5ff;
-  font-size:22px;
-  letter-spacing:3px;
   animation:flash 1s ease;
 }
 
 @keyframes flash{
-  0%{opacity:0;}
-  50%{opacity:1;}
-  100%{opacity:0;}
+  0%{opacity:0}
+  50%{opacity:1}
+  100%{opacity:0}
 }
 
 /* ================= MAIN ================= */
-#main{display:none;}
+#main{display:none}
 
-/* باقي تصميمك بدون تغيير */
-.topbar{
-  display:flex;
-  justify-content:space-between;
-  padding:10px;
-  background:#00000066;
+/* MATRIX BACKGROUND */
+canvas{
+  position:fixed;
+  inset:0;
+  opacity:0.15;
 }
-
-.status{
-  color:#00f5ff;
-}
-
-.brand{
-  background:linear-gradient(90deg,#00f5ff,#a855f7,#00c3ff);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-
-.box{
-  width:900px;
-  margin:70px auto;
-  background:#ffffff0a;
-  padding:15px;
-  border-radius:15px;
-}
-
-.top{display:flex;gap:15px;align-items:center}
-
-.avatar{width:110px;height:110px;border-radius:50%}
-
-.name{
-  font-size:44px;
-  background:linear-gradient(90deg,#00f5ff,#a855f7,#00c3ff);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-
-.song{display:flex;justify-content:space-between;margin:4px 0;padding:6px;background:#00c3ff22}
-
-/* MATRIX */
-canvas{position:absolute;inset:0;opacity:0.15}
 
 </style>
 </head>
 
 <body>
+
+<!-- MATRIX -->
+<canvas id="matrix"></canvas>
 
 <!-- BOOT -->
 <div id="boot">
@@ -169,62 +159,121 @@ canvas{position:absolute;inset:0;opacity:0.15}
 <div class="bar"><span></span></div>
 </div>
 
+<!-- HACK SCREEN -->
+<div id="hack" style="display:none">
+<div id="terminal"></div>
+</div>
+
 <!-- LOGIN -->
-<div class="login" id="login" style="display:none">
+<div class="login" id="login">
 <div class="login-box">
-<h3 style="color:#00f5ff">ENTER PASSWORD</h3>
+<h3>ENTER PASSWORD</h3>
 <input type="password" id="pass">
 <br>
 <button onclick="check()">ENTER</button>
 </div>
 </div>
 
-<!-- ACCESS GRANTED -->
+<!-- ACCESS -->
 <div id="access">ACCESS GRANTED</div>
 
 <!-- MAIN -->
 <div id="main">
-
-<div class="topbar">
-<div class="status">⚡ ONLINE</div>
-<div class="brand">BY RAMY</div>
-</div>
-
-<div class="box">
-<div class="top">
-<img class="avatar" src="https://xatimg.com/image/RKP5IrStF45l.png">
-<div class="name">RAMY</div>
-</div>
-</div>
-
+<h1 style="text-align:center;margin-top:50px">RAMY SYSTEM ONLINE</h1>
 </div>
 
 <script>
 
-/* BOOT SCREEN */
+/* MATRIX */
+const canvas=document.getElementById("matrix");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let letters="01HACKSYSTEMRAMYXYZ";
+letters=letters.split("");
+
+let font=14;
+let cols=canvas.width/font;
+let drops=Array.from({length:cols}).fill(1);
+
+function draw(){
+ctx.fillStyle="rgba(0,0,0,0.05)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+ctx.fillStyle="#00f5ff";
+ctx.font=font+"px monospace";
+
+for(let i=0;i<drops.length;i++){
+let text=letters[Math.floor(Math.random()*letters.length)];
+ctx.fillText(text,i*font,drops[i]*font);
+
+if(drops[i]*font>canvas.height && Math.random()>0.975)
+drops[i]=0;
+
+drops[i]++;
+}
+}
+setInterval(draw,33);
+
+/* BOOT -> HACK SCREEN */
 setTimeout(()=>{
 document.getElementById("boot").style.display="none";
-document.getElementById("login").style.display="flex";
+startHack();
 },2500);
+
+/* FAKE HACK TERMINAL */
+let lines=[
+"Connecting to server...",
+"Bypassing firewall...",
+"Injecting payload...",
+"Accessing system files...",
+"Decrypting password hash...",
+"Stealing admin access...",
+"Inject complete ✔"
+];
+
+function startHack(){
+document.getElementById("hack").style.display="flex";
+let term=document.getElementById("terminal");
+let i=0;
+
+let interval=setInterval(()=>{
+if(i<lines.length){
+let div=document.createElement("div");
+div.className="line";
+div.innerText=lines[i];
+term.appendChild(div);
+i++;
+}else{
+clearInterval(interval);
+
+setTimeout(()=>{
+document.getElementById("hack").style.display="none";
+document.getElementById("login").style.display="flex";
+},1500);
+
+}
+},700);
+}
 
 /* SOUND */
 function beep(){
 let ctx=new (window.AudioContext||window.webkitAudioContext)();
 let osc=ctx.createOscillator();
 osc.type="square";
-osc.frequency.value=800;
+osc.frequency.value=900;
 osc.connect(ctx.destination);
 osc.start();
-osc.stop(ctx.currentTime+0.2);
+osc.stop(ctx.currentTime+0.15);
 }
 
-/* LOGIN CHECK */
+/* LOGIN */
 function check(){
 if(pass.value==="106080"){
-
 beep();
 
-/* ACCESS GRANTED */
 document.getElementById("login").style.display="none";
 document.getElementById("access").style.display="flex";
 
@@ -233,9 +282,7 @@ document.getElementById("access").style.display="none";
 document.getElementById("main").style.display="block";
 },1200);
 
-}else{
-alert("Wrong Password");
-}
+}else alert("Wrong Password");
 }
 
 pass.addEventListener("keydown",e=>{
