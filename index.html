@@ -23,13 +23,21 @@ body{
   background:#000000dd;
   z-index:999;
 }
+
 .login-box{
-  width:320px;
+  width:340px;
   padding:25px;
-  border-radius:15px;
-  background:#0f172a;
+  border-radius:18px;
+  background:linear-gradient(145deg,#0f172a,#020617);
+  box-shadow:0 0 30px #00c3ff55;
   text-align:center;
 }
+
+.login-box h3{
+  color:#00c3ff;
+  text-shadow:0 0 10px #00c3ff;
+}
+
 .login-box input{
   width:100%;
   padding:12px;
@@ -38,15 +46,23 @@ body{
   background:#020617;
   color:#fff;
   text-align:center;
+  outline:none;
+  box-shadow:0 0 10px #00c3ff33;
 }
+
+.login-box input:focus{
+  box-shadow:0 0 20px #00c3ff;
+}
+
 .login-box button{
   width:100%;
   margin-top:10px;
   padding:10px;
   border:none;
   border-radius:10px;
-  background:#00c3ff;
+  background:linear-gradient(45deg,#00c3ff,#1e3a8a);
   cursor:pointer;
+  color:#fff;
 }
 
 /* TOP */
@@ -57,14 +73,21 @@ body{
   background:#00000066;
 }
 
-/* STATUS */
-.status{
-  color:#00f5ff;
+/* ONLINE + BY RAMY */
+.status,.brand{
   font-weight:bold;
+  animation:fadeGlow 2s infinite;
   text-shadow:0 0 10px #00f5ff;
-  animation:blink 1.5s infinite;
 }
-@keyframes blink{
+
+.status{color:#00f5ff}
+.brand{
+  background:linear-gradient(90deg,#00f5ff,#a855f7,#00c3ff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+@keyframes fadeGlow{
   0%,100%{opacity:1}
   50%{opacity:0.3}
 }
@@ -101,11 +124,11 @@ body{
   -webkit-text-fill-color:transparent;
 }
 
-/* RADIO BUTTONS */
+/* RADIO */
 .radio{
   display:flex;
-  gap:8px;
   flex-wrap:wrap;
+  gap:8px;
   margin-top:10px;
 }
 
@@ -115,9 +138,11 @@ body{
   border-radius:20px;
   background:#00c3ff;
   cursor:pointer;
+  transition:.2s;
 }
+.radio-btn:hover{transform:scale(1.1)}
 
-/* RADIO CONTROL */
+/* RADIO BOX */
 .radio-box{
   margin-top:10px;
   padding:10px;
@@ -127,14 +152,8 @@ body{
   cursor:pointer;
   transition:.3s;
 }
-.radio-box:hover{
-  transform:scale(1.1);
-  box-shadow:0 0 20px #00c3ff;
-}
-.radio-box.active{
-  transform:scale(1.15);
-  box-shadow:0 0 30px #00f5ff;
-}
+.radio-box:hover{transform:scale(1.15);box-shadow:0 0 25px #00c3ff}
+.radio-box.active{transform:scale(1.2);box-shadow:0 0 35px #00f5ff}
 
 /* LINKS */
 .links a{
@@ -145,8 +164,9 @@ body{
   color:#fff;
   text-decoration:none;
   border-radius:8px;
+  transition:.2s;
 }
-.links a:hover{transform:scale(1.05)}
+.links a:hover{transform:scale(1.08)}
 
 /* SONGS */
 .wrap{display:flex;gap:10px;margin-top:10px}
@@ -160,7 +180,16 @@ body{
   background:#00c3ff22;
   border-radius:8px;
   font-size:12px;
+  transition:.2s;
 }
+
+/* 👇 تكبير اسم الأغنية فقط عند hover */
+.song:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 15px #00c3ff;
+}
+
+/* BUTTONS */
 .song button{
   border:none;
   padding:3px 6px;
@@ -178,7 +207,7 @@ body{
 <div class="login" id="login">
 <div class="login-box">
 <h3>🔐 PASSWORD</h3>
-<input type="password" id="pass">
+<input type="password" id="pass" placeholder="Enter Password">
 <button onclick="check()">ENTER</button>
 </div>
 </div>
@@ -188,7 +217,7 @@ body{
 
 <div class="topbar">
 <div class="status">⚡ ONLINE</div>
-<div>BY RAMY</div>
+<div class="brand">BY RAMY</div>
 </div>
 
 <div class="box">
@@ -206,7 +235,7 @@ body{
 <button class="radio-btn" onclick="playRadio(3)">🔥 منوعات</button>
 </div>
 
-<div class="radio-box" onclick="toggleRadio()">▶ / ⏸ تشغيل / إيقاف الراديو</div>
+<div class="radio-box" onclick="toggleRadio()">▶ / ⏸ تشغيل الراديو</div>
 
 <!-- LINKS -->
 <div class="links">
@@ -244,9 +273,9 @@ if(e.key==="Enter") check();
 /* RADIO FIX */
 let radios=[
 "https://stream.radiojar.com/8s5u5tpdtwzuv", // قرآن
-"https://audio.nrpstream.com/listen/nogoumfm/radio.mp3",
-"https://stream.zeno.fm/w7atxdpk1pdvv",
-"https://stream.zeno.fm/hswv0qwu7vgtv"
+"https://audio.nrpstream.com/listen/nogoumfm/radio.mp3", // ميلودي
+"https://stream.zeno.fm/w7atxdpk1pdvv", // حماقي
+"https://stream.zeno.fm/hswv0qwu7vgtv"  // منوعات
 ];
 
 let radio=document.getElementById("radio");
@@ -257,13 +286,10 @@ radio.pause();
 radio.src=radios[i];
 radio.play();
 isRadio=true;
-document.querySelector(".radio-box").classList.add("active");
 }
 
 function toggleRadio(){
-if(!radio.src){
-radio.src=radios[0];
-}
+if(!radio.src) radio.src=radios[0];
 
 if(isRadio){
 radio.pause();
@@ -274,7 +300,7 @@ isRadio=true;
 }
 }
 
-/* SONGS (22 FULL) */
+/* SONGS */
 let songs=[
 ["نفسي أطمن بيك","https://j.top4top.io/m_3769le8x51.mp3"],
 ["الشعر الأسود","https://k.top4top.io/m_3769enq6z2.mp3"],
@@ -288,15 +314,6 @@ let songs=[
 ["فيكي سر","https://b.top4top.io/m_3769lxi681.mp3"],
 ["حياتي قصيدة","https://c.top4top.io/m_3769g0kg52.mp3"],
 ["لسه","https://d.top4top.io/m_3769xz8mi3.mp3"],
-["مش زي غيرها","https://e.top4top.io/m_3769o93s34.mp3"],
-["نسند بعض","https://f.top4top.io/m_3769c3tql5.mp3"],
-["وش السعد","https://g.top4top.io/m_3769r7bcu6.mp3"],
-["يا حظ بيه","https://l.top4top.io/m_3769p7dkd1.mp3"],
-["ياللي ناسيني","https://a.top4top.io/m_37697muuj2.mp3"],
-["هلوسة","https://b.top4top.io/m_3769i9yd13.mp3"],
-["قصة حب","https://c.top4top.io/m_3769ou0bt4.mp3"],
-["ذكريات","https://d.top4top.io/m_37697zirj5.mp3"],
-["حبيتك ليه","https://e.top4top.io/m_3769rnmrk6.mp3"],
 ["توأمي","https://d.top4top.io/m_3769a1jgw1.mp3"]
 ];
 
