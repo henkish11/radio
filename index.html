@@ -3,45 +3,55 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RAMY SYSTEM</title>
+<title>RAMY HACK SYSTEM</title>
 
 <style>
 body{
   margin:0;
   font-family:Arial;
-  background:#020617;
+  background:#05060a;
   color:#00f5ff;
   overflow:hidden;
 }
 
-/* ================= BOOT + HACK SCREEN ================= */
-#boot,#hack{
-  position:fixed;
-  inset:0;
-  background:#000;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  z-index:10000;
+/* ================= GRID LAYOUT ================= */
+.dashboard{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  grid-template-rows:260px 1fr;
+  height:100vh;
+  gap:10px;
+  padding:10px;
 }
 
-.boot-text{
-  font-size:18px;
-  animation:glow 1s infinite alternate;
+/* BOX STYLE */
+.panel{
+  background:rgba(0,0,0,0.6);
+  border:1px solid #00f5ff33;
+  box-shadow:0 0 20px #00f5ff22;
+  border-radius:10px;
+  padding:10px;
+  overflow:hidden;
+}
+
+/* ================= TOP LEFT BOOT ================= */
+.boot{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+
+.boot h1{
+  font-size:22px;
   letter-spacing:3px;
 }
 
-@keyframes glow{
-  from{opacity:0.3;text-shadow:0 0 5px #00f5ff;}
-  to{opacity:1;text-shadow:0 0 20px #00f5ff;}
-}
-
 .bar{
-  width:220px;
-  height:4px;
+  width:80%;
+  height:6px;
   background:#111;
-  margin-top:20px;
+  margin-top:10px;
   border-radius:10px;
   overflow:hidden;
 }
@@ -51,98 +61,102 @@ body{
   height:100%;
   width:0;
   background:#00f5ff;
-  animation:load 2.5s forwards;
+  animation:load 3s forwards;
 }
 
-@keyframes load{
-  to{width:100%;}
+@keyframes load{to{width:100%}}
+
+/* ================= TOP MIDDLE HACK ================= */
+.terminal{
+  font-size:11px;
+  line-height:18px;
+  color:#00ff99;
 }
 
-/* ================= HACK TERMINAL ================= */
-#terminal{
-  width:80%;
-  max-width:600px;
-  height:300px;
-  background:#000;
-  border:1px solid #00f5ff;
-  padding:10px;
-  overflow:hidden;
-  font-size:12px;
-  box-shadow:0 0 20px #00f5ff;
-}
-
-.line{
-  white-space:pre;
-  animation:type 0.3s linear;
-}
-
-@keyframes type{
-  from{opacity:0;}
-  to{opacity:1;}
-}
-
-/* ================= LOGIN ================= */
-.login{
-  position:fixed;
-  inset:0;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  background:#000;
-  z-index:9999;
-}
-
+/* ================= TOP RIGHT LOGIN ================= */
 .login-box{
   text-align:center;
 }
 
 .login-box input{
+  width:80%;
   padding:10px;
-  width:200px;
+  margin-top:10px;
   text-align:center;
-  border:none;
-  border-radius:6px;
   background:#111;
+  border:none;
   color:#00f5ff;
+  border-radius:6px;
 }
 
 .login-box button{
   margin-top:10px;
-  padding:8px 20px;
+  padding:8px 15px;
+  background:#00f5ff;
   border:none;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+/* ================= BOTTOM LEFT PROFILE ================= */
+.profile{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+
+.avatar{
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  border:2px solid #00f5ff;
+}
+
+.name{
+  font-size:40px;
+  margin-top:10px;
+  background:linear-gradient(90deg,#00f5ff,#a855f7);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* ================= BOTTOM CENTER SONGS ================= */
+.songs{
+  overflow:auto;
+  height:100%;
+}
+
+.song{
+  display:flex;
+  justify-content:space-between;
+  padding:6px;
+  margin:5px 0;
+  background:#00f5ff11;
   border-radius:6px;
-  background:#00c3ff;
+  font-size:12px;
+}
+
+.song button{
+  border:none;
   cursor:pointer;
 }
 
-/* ================= ACCESS ================= */
-#access{
-  position:fixed;
-  inset:0;
-  display:none;
-  align-items:center;
+/* ================= BOTTOM RIGHT CONTROL ================= */
+.control{
+  display:flex;
+  flex-direction:column;
   justify-content:center;
-  font-size:24px;
-  letter-spacing:4px;
-  background:#000;
-  z-index:99999;
-  animation:flash 1s ease;
+  align-items:center;
 }
 
-@keyframes flash{
-  0%{opacity:0}
-  50%{opacity:1}
-  100%{opacity:0}
-}
-
-/* ================= MAIN ================= */
-#main{display:none}
-
-/* MATRIX BACKGROUND */
-canvas{
-  position:fixed;
-  inset:0;
-  opacity:0.15;
+.big-btn{
+  padding:10px 20px;
+  background:#00f5ff;
+  border:none;
+  font-weight:bold;
+  cursor:pointer;
+  margin:5px;
 }
 
 </style>
@@ -150,145 +164,64 @@ canvas{
 
 <body>
 
-<!-- MATRIX -->
-<canvas id="matrix"></canvas>
+<div class="dashboard">
 
-<!-- BOOT -->
-<div id="boot">
-<div class="boot-text">BOOTING SYSTEM...</div>
+<!-- TOP LEFT -->
+<div class="panel boot">
+<h1>BOOT SYSTEM</h1>
 <div class="bar"><span></span></div>
 </div>
 
-<!-- HACK SCREEN -->
-<div id="hack" style="display:none">
-<div id="terminal"></div>
+<!-- TOP MIDDLE -->
+<div class="panel terminal">
+[+] Connecting to system...<br>
+[+] Bypassing firewall...<br>
+[+] Injecting payload...<br>
+[+] Accessing server...<br>
+[+] SYSTEM READY ✔
 </div>
 
-<!-- LOGIN -->
-<div class="login" id="login">
-<div class="login-box">
+<!-- TOP RIGHT -->
+<div class="panel login-box">
 <h3>ENTER PASSWORD</h3>
 <input type="password" id="pass">
 <br>
-<button onclick="check()">ENTER</button>
-</div>
+<button onclick="check()">ACCESS</button>
 </div>
 
-<!-- ACCESS -->
-<div id="access">ACCESS GRANTED</div>
+<!-- BOTTOM LEFT -->
+<div class="panel profile">
+<img class="avatar" src="https://xatimg.com/image/RKP5IrStF45l.png">
+<div class="name">RAMY</div>
+</div>
 
-<!-- MAIN -->
-<div id="main">
-<h1 style="text-align:center;margin-top:50px">RAMY SYSTEM ONLINE</h1>
+<!-- BOTTOM CENTER SONGS -->
+<div class="panel songs">
+
+<div class="song">Song 1 <button>▶</button></div>
+<div class="song">Song 2 <button>▶</button></div>
+<div class="song">Song 3 <button>▶</button></div>
+<div class="song">Song 4 <button>▶</button></div>
+<div class="song">Song 5 <button>▶</button></div>
+
+</div>
+
+<!-- BOTTOM RIGHT -->
+<div class="panel control">
+<button class="big-btn">PLAY RADIO</button>
+<button class="big-btn">STOP</button>
+</div>
+
 </div>
 
 <script>
-
-/* MATRIX */
-const canvas=document.getElementById("matrix");
-const ctx=canvas.getContext("2d");
-
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-let letters="01HACKSYSTEMRAMYXYZ";
-letters=letters.split("");
-
-let font=14;
-let cols=canvas.width/font;
-let drops=Array.from({length:cols}).fill(1);
-
-function draw(){
-ctx.fillStyle="rgba(0,0,0,0.05)";
-ctx.fillRect(0,0,canvas.width,canvas.height);
-
-ctx.fillStyle="#00f5ff";
-ctx.font=font+"px monospace";
-
-for(let i=0;i<drops.length;i++){
-let text=letters[Math.floor(Math.random()*letters.length)];
-ctx.fillText(text,i*font,drops[i]*font);
-
-if(drops[i]*font>canvas.height && Math.random()>0.975)
-drops[i]=0;
-
-drops[i]++;
-}
-}
-setInterval(draw,33);
-
-/* BOOT -> HACK SCREEN */
-setTimeout(()=>{
-document.getElementById("boot").style.display="none";
-startHack();
-},2500);
-
-/* FAKE HACK TERMINAL */
-let lines=[
-"Connecting to server...",
-"Bypassing firewall...",
-"Injecting payload...",
-"Accessing system files...",
-"Decrypting password hash...",
-"Stealing admin access...",
-"Inject complete ✔"
-];
-
-function startHack(){
-document.getElementById("hack").style.display="flex";
-let term=document.getElementById("terminal");
-let i=0;
-
-let interval=setInterval(()=>{
-if(i<lines.length){
-let div=document.createElement("div");
-div.className="line";
-div.innerText=lines[i];
-term.appendChild(div);
-i++;
-}else{
-clearInterval(interval);
-
-setTimeout(()=>{
-document.getElementById("hack").style.display="none";
-document.getElementById("login").style.display="flex";
-},1500);
-
-}
-},700);
-}
-
-/* SOUND */
-function beep(){
-let ctx=new (window.AudioContext||window.webkitAudioContext)();
-let osc=ctx.createOscillator();
-osc.type="square";
-osc.frequency.value=900;
-osc.connect(ctx.destination);
-osc.start();
-osc.stop(ctx.currentTime+0.15);
-}
-
-/* LOGIN */
 function check(){
 if(pass.value==="106080"){
-beep();
-
-document.getElementById("login").style.display="none";
-document.getElementById("access").style.display="flex";
-
-setTimeout(()=>{
-document.getElementById("access").style.display="none";
-document.getElementById("main").style.display="block";
-},1200);
-
-}else alert("Wrong Password");
+alert("ACCESS GRANTED");
+}else{
+alert("WRONG PASSWORD");
 }
-
-pass.addEventListener("keydown",e=>{
-if(e.key==="Enter") check();
-});
-
+}
 </script>
 
 </body>
