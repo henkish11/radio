@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ramy Radio Pro</title>
+
+<style>
+body {
+    background: radial-gradient(circle, #111, #000);
+    font-family: Arial;
+    text-align: center;
+    color: #fff;
+}
+
+/* الصندوق */
+.radio-box {
+    margin-top: 80px;
+}
+
+/* العنوان */
+.radio-title {
+    font-size: 26px;
+    margin-bottom: 10px;
+    letter-spacing: 3px;
+}
+
+/* الحالة */
+.status {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 20px;
+}
+
+/* الأزرار */
+.btn {
+    background: #111;
+    border: 1px solid #444;
+    padding: 12px 30px;
+    margin: 10px;
+    color: #fff;
+    font-size: 15px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Glow */
+.btn:hover {
+    background: #fff;
+    color: #000;
+    box-shadow: 0 0 20px #fff, 0 0 40px #fff;
+}
+
+/* موجات صوت */
+.wave {
+    margin-top: 20px;
+}
+
+.wave span {
+    display: inline-block;
+    width: 5px;
+    height: 20px;
+    margin: 2px;
+    background: #fff;
+    animation: wave 1s infinite ease-in-out;
+}
+
+.wave span:nth-child(2) { animation-delay: 0.1s; }
+.wave span:nth-child(3) { animation-delay: 0.2s; }
+.wave span:nth-child(4) { animation-delay: 0.3s; }
+.wave span:nth-child(5) { animation-delay: 0.4s; }
+
+@keyframes wave {
+    0%, 100% { height: 10px; opacity: 0.3; }
+    50% { height: 30px; opacity: 1; }
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="radio-box">
+
+    <div class="radio-title">🎧 RAMY RADIO</div>
+    <div class="status" id="status">🔴 متوقف</div>
+
+    <button class="btn" onclick="playRadio()">▶ تشغيل</button>
+    <button class="btn" onclick="pauseRadio()">⏸ إيقاف</button>
+
+    <div class="wave" id="wave" style="display:none;">
+        <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <audio id="radio">
+        <source src="https://stream.radiojar.com/8s5u5tpdtwzuv" type="audio/mpeg">
+    </audio>
+
+</div>
+
+<script>
+let radio = document.getElementById("radio");
+let statusText = document.getElementById("status");
+let wave = document.getElementById("wave");
+
+function playRadio() {
+    radio.volume = 0;
+    radio.play();
+
+    // Fade in
+    let vol = 0;
+    let fade = setInterval(() => {
+        if (vol < 1) {
+            vol += 0.1;
+            radio.volume = vol;
+        } else {
+            clearInterval(fade);
+        }
+    }, 200);
+
+    statusText.innerHTML = "🟢 شغال الآن";
+    wave.style.display = "block";
+}
+
+function pauseRadio() {
+    // Fade out
+    let vol = radio.volume;
+    let fade = setInterval(() => {
+        if (vol > 0) {
+            vol -= 0.1;
+            radio.volume = vol;
+        } else {
+            clearInterval(fade);
+            radio.pause();
+        }
+    }, 200);
+
+    statusText.innerHTML = "🔴 متوقف";
+    wave.style.display = "none";
+}
+</script>
+
+</body>
+</html>
