@@ -3,275 +3,156 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ramy Profile - BY RAMY</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<title>Ramy Player</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-
 body{
-  background: radial-gradient(circle at top,#010514,#020617);
+  margin:0;
+  font-family:Arial;
+  background:#020617;
   color:#fff;
 }
 
-canvas{position:fixed;inset:0;z-index:-2}
-
-/* LOGIN */
-.login{
-  position:fixed;inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:rgba(0,0,0,0.7);
-  backdrop-filter:blur(12px);
-  z-index:50;
-}
-.login-box{
-  width:300px;
-  padding:18px;
-  border-radius:15px;
-  background:rgba(255,255,255,0.05);
-}
-.login-box input{
-  width:100%;
-  margin:8px 0;
-  padding:9px;
-  background:#0f172a;
-  border:none;
-  color:#fff;
-  border-radius:8px;
-}
-.login-box button{
-  width:100%;
-  padding:9px;
-  background:linear-gradient(45deg,#0ea5e9,#1e3a8a);
-  border:none;
-  color:#fff;
-  border-radius:8px;
-}
-
-/* TOPBAR */
+/* TOP */
 .topbar{
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  padding:8px 15px;
   display:flex;
   justify-content:space-between;
-  background:rgba(0,0,0,0.4);
-  z-index:10;
+  padding:10px;
+  background:#00000066;
 }
 
 .status{
   color:#00f5ff;
-  font-weight:700;
-  text-shadow:0 0 10px #00f5ff;
-  animation:glow 2s infinite alternate;
+  font-weight:bold;
 }
 
-@keyframes glow{
-  from{opacity:.6}
-  to{opacity:1}
-}
-
-/* BY RAMY */
-.brand{
-  font-weight:900;
-  font-size:16px;
-  background:linear-gradient(90deg,#00f5ff,#a855f7,#00c3ff,#00f5ff);
-  background-size:300% 300%;
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  animation:move 2s linear infinite,pulse 1.5s infinite;
-}
-
-@keyframes move{100%{background-position:200%}}
-@keyframes pulse{
-  0%{opacity:.6;filter:drop-shadow(0 0 5px #00f5ff)}
-  50%{opacity:1;filter:drop-shadow(0 0 25px #00f5ff)}
-  100%{opacity:.6;filter:drop-shadow(0 0 5px #a855f7)}
-}
-
-/* MAIN */
-.container{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin-top:80px;
-}
-
-.profile{
+/* CONTAINER */
+.box{
   width:900px;
-  background:linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03));
-  border-radius:20px;
-  padding:20px;
+  margin:80px auto;
+  background:#ffffff0a;
+  padding:15px;
+  border-radius:15px;
 }
-
-/* TOP */
-.top{display:flex;gap:15px;align-items:center}
-.top img{width:100px;border-radius:50%;border:2px solid #00c3ff}
-.name{font-size:30px;color:#4fc3ff;font-weight:700}
 
 /* RADIO */
-.radio-box{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
-.radio-btn{
-  padding:6px 12px;
-  background:linear-gradient(45deg,#00c3ff,#1e3a8a);
-  border:none;border-radius:20px;color:#fff;cursor:pointer;
-}
-.radio-toggle{background:#00ffb3;color:#000;font-weight:700}
-
-/* LINKS + SONGS hover */
-.world,.song{transition:.2s}
-.world:hover,.song:hover{transform:scale(1.06)}
-
-/* LINKS */
-.world{
-  display:block;
-  margin-top:8px;
-  padding:10px;
-  background:rgba(0,195,255,0.1);
-  border-radius:10px;
-  text-decoration:none;
-  color:#fff;
+.radio{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:10px;
 }
 
-/* PLAYER */
-#winamp{
-  margin-top:10px;
-  padding:10px;
-  border-top:1px solid rgba(0,195,255,0.3);
+.radio button{
+  padding:6px 10px;
+  border:none;
+  border-radius:20px;
+  cursor:pointer;
+  background:#00c3ff;
 }
 
-.artist{
-  text-align:center;
-  font-size:22px;
-  color:#00c3ff;
-  font-weight:700;
+.radio .toggle{
+  background:#00ffb3;
+  color:#000;
 }
 
 /* SONGS */
-.list{
+.wrap{
   display:flex;
   gap:10px;
 }
 
-.col{flex:1;max-height:400px;overflow:auto}
+.col{
+  flex:1;
+}
 
 .song{
   display:flex;
   justify-content:space-between;
   padding:6px;
-  margin:4px;
-  background:rgba(0,195,255,0.1);
+  margin:4px 0;
+  background:#00c3ff22;
   border-radius:8px;
   font-size:12px;
 }
 
+.song:hover{
+  transform:scale(1.05);
+  transition:.2s;
+}
+
+/* BUTTONS */
 .song button{
   border:none;
-  padding:4px 6px;
+  padding:3px 6px;
   border-radius:6px;
 }
+
 .play{background:#00c3ff}
 .stop{background:#ff4d4d}
-
-/* TOOLTIP */
-.tooltip{
-  position:fixed;
-  background:rgba(0,0,0,0.8);
-  color:#00f5ff;
-  padding:6px 10px;
-  font-size:12px;
-  border-radius:8px;
-  display:none;
-  z-index:9999;
-}
 </style>
 </head>
 
 <body>
 
-<div class="tooltip" id="tooltip"></div>
-
-<!-- LOGIN -->
-<div class="login" id="login">
-<div class="login-box">
-<input id="password" type="password" placeholder="Password">
-<button onclick="enter()">Enter</button>
-</div>
-</div>
-
 <div class="topbar">
-<div class="status" id="status">⚡ OFFLINE</div>
-<div class="brand">BY RAMY</div>
+<div class="status" id="status">OFFLINE</div>
+<div>BY RAMY</div>
 </div>
 
-<div class="container">
-<div class="profile">
+<div class="box">
 
-<div class="top">
-<img src="https://xatimg.com/image/RKP5IrStF45l.png">
-
-<div>
-<div class="name">Ramy</div>
-
-<div class="radio-box">
-<button class="radio-btn" onclick="playRadio(1)">🎧 قرآن</button>
-<button class="radio-btn" onclick="playRadio(2)">🎶 ميلودي</button>
-<button class="radio-btn" onclick="playRadio(3)">🎤 حماقي</button>
-<button class="radio-btn" onclick="playRadio(4)">🔥 منوعات</button>
-<button class="radio-btn radio-toggle" onclick="toggleRadio()">▶ تشغيل</button>
+<!-- RADIO FIXED -->
+<div class="radio">
+<button onclick="playRadio(0)">قرآن</button>
+<button onclick="playRadio(1)">ميلودي</button>
+<button onclick="playRadio(2)">حماقي</button>
+<button onclick="playRadio(3)">منوعات</button>
+<button class="toggle" onclick="toggleRadio()">▶ تشغيل / إيقاف</button>
 </div>
 
-</div>
-</div>
-
-<a class="world" href="https://xat.com/2ra" target="_blank">🔥 2ra Chat</a>
-<a class="world" href="https://xat.com/7reqa" target="_blank">⚡ 7reqa Chat</a>
-<a class="world" href="https://xat.com/trade" target="_blank">💰 Trade Hub</a>
-<a class="world" href="https://xat.com/cambio" target="_blank">🌐 Cambio Zone</a>
-
-<div id="winamp">
-<div class="artist">🎤 ليل المحمدي</div>
-<div class="list">
+<!-- SONG LIST -->
+<div class="wrap">
 <div class="col" id="left"></div>
 <div class="col" id="right"></div>
 </div>
-</div>
 
 </div>
-</div>
 
-<audio id="audio"></audio>
+<audio id="radio"></audio>
+<audio id="player"></audio>
 
 <script>
 
-/* LOGIN */
-function enter(){
-if(password.value==="106080"){
-login.style.display="none";
-status.innerText="⚡ ONLINE";
-}
-}
-password.addEventListener("keydown",e=>{
-if(e.key==="Enter") enter();
-});
+/* RADIO WORKING */
+let radios=[
+"https://stream.radiojar.com/8s5u5tpdtwzuv",
+"https://audio.nrpstream.com/listen/nogoumfm/radio.mp3",
+"https://stream.zeno.fm/w7atxdpk1pdvv",
+"https://stream.zeno.fm/hswv0qwu7vgtv"
+];
 
-/* RADIO */
-let radios=[radio1,radio2,radio3,radio4];
-let current=null;
+let radio=document.getElementById("radio");
+let isRadio=false;
 
 function playRadio(i){
-radios.forEach(r=>r.pause());
-current=radios[i-1];
-current.play();
+radio.src=radios[i];
+radio.play();
+isRadio=true;
 }
 
-/* SONGS 22 */
+function toggleRadio(){
+if(!radio.src) return;
+if(isRadio){
+radio.pause();
+isRadio=false;
+}else{
+radio.play();
+isRadio=true;
+}
+}
+
+/* 22 SONGS FIXED */
 let songs=[
 ["نفسي أطمن بيك","https://j.top4top.io/m_3769le8x51.mp3"],
 ["الشعر الأسود","https://k.top4top.io/m_3769enq6z2.mp3"],
@@ -299,19 +180,21 @@ let songs=[
 
 let left=document.getElementById("left");
 let right=document.getElementById("right");
-let audio=document.getElementById("audio");
+let player=document.getElementById("player");
 
 songs.forEach((s,i)=>{
 let div=document.createElement("div");
 div.className="song";
+
 div.innerHTML=`
 ${s[0]}
 <div>
-<button class="play" onclick="audio.src='${s[1]}';audio.play()">▶</button>
-<button class="stop" onclick="audio.pause()">⏹</button>
+<button class="play" onclick="player.src='${s[1]}';player.play()">▶</button>
+<button class="stop" onclick="player.pause()">⏹</button>
 </div>`;
 
-(i%2==0?left:right).appendChild(div);
+/* LEFT / RIGHT */
+(i%2===0 ? left : right).appendChild(div);
 });
 
 </script>
