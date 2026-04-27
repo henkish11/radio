@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>XAT TEMPLATE</title>
+<title>Real Design Template</title>
 
 <style>
 body {
@@ -15,38 +15,63 @@ body {
   font-family: Tahoma;
 }
 
-/* القالب */
-.box {
+/* القالب الأساسي */
+.banner {
   width: 728px;
   height: 200px;
   position: relative;
-  border-radius: 12px;
   overflow: hidden;
-  background: #111;
+  border-radius: 14px;
+  background: radial-gradient(circle at 70% 50%, #222 0%, #000 70%);
 }
 
-/* الصورة (اختياري تغيرها) */
-.box img {
-  width: 100%;
+/* إضاءة خفيفة زي الصورة */
+.light {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  top: -100px;
+  right: -100px;
+  background: radial-gradient(circle, rgba(255,255,255,0.15), transparent 70%);
+  filter: blur(40px);
+}
+
+/* تغميق الجوانب */
+.shade-left {
+  position: absolute;
+  width: 50%;
   height: 100%;
-  object-fit: cover;
-  filter: brightness(0.5);
+  left: 0;
+  top: 0;
+  background: linear-gradient(to right, #000 10%, transparent);
 }
 
-/* طبقة التأثير */
-.overlay {
+.shade-right {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  right: 0;
+  top: 0;
+  background: linear-gradient(to left, #000 10%, transparent);
+}
+
+/* خطوط ديزاين خفيفة */
+.lines {
   position: absolute;
   width: 100%;
   height: 100%;
-  background:
-    linear-gradient(to right, rgba(0,0,0,0.9), transparent 50%),
-    linear-gradient(to left, rgba(0,0,0,0.9), transparent 50%);
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 40px,
+    rgba(255,255,255,0.03) 41px
+  );
 }
 
 /* النص */
 .content {
   position: absolute;
-  left: 40px;
+  left: 50px;
   top: 50%;
   transform: translateY(-50%);
 }
@@ -54,35 +79,38 @@ body {
 /* الاسم */
 .name {
   color: #fff;
-  font-size: 50px;
+  font-size: 52px;
   font-weight: bold;
+  letter-spacing: 2px;
   text-shadow:
     0 0 10px #fff,
-    0 0 25px rgba(255,255,255,0.7);
+    0 0 25px rgba(255,255,255,0.6);
 }
 
 /* التوقيع */
 .sign {
   color: #aaa;
+  margin-top: 8px;
+  letter-spacing: 4px;
   font-size: 14px;
-  margin-top: 5px;
-  letter-spacing: 3px;
 }
 </style>
 
 </head>
 <body>
 
-<div class="box">
-  <!-- غير الصورة هنا -->
-  <img src="https://via.placeholder.com/728x200">
+<div class="banner">
 
-  <div class="overlay"></div>
+  <div class="light"></div>
+  <div class="shade-left"></div>
+  <div class="shade-right"></div>
+  <div class="lines"></div>
 
   <div class="content">
     <div class="name">YOUR NAME</div>
     <div class="sign">your sign</div>
   </div>
+
 </div>
 
 </body>
