@@ -2,138 +2,131 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Pro XAT Design</title>
+<title>XAT DESIGN TEMPLATE</title>
 
 <style>
 body {
   margin: 0;
+  height: 100vh;
   background: #000;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   font-family: Tahoma;
 }
 
-/* القالب */
+/* ====== MAIN BANNER ====== */
 .banner {
   width: 728px;
   height: 200px;
   position: relative;
   overflow: hidden;
-  border-radius: 16px;
-  background: linear-gradient(120deg, #000 40%, #111 100%);
+  border-radius: 14px;
+
+  /* نفس إحساس الخلفية في الصورة */
+  background: linear-gradient(120deg, #050505 20%, #0d0d0d 50%, #050505 80%);
 }
 
-/* خلفية ديناميك */
-.bg {
+/* ====== LIGHT GLOW (يمين) ====== */
+.banner::before {
+  content: "";
   position: absolute;
-  width: 120%;
-  height: 120%;
-  top: -10%;
-  left: -10%;
-  background:
-    radial-gradient(circle at 70% 40%, rgba(255,255,255,0.08), transparent 60%),
-    radial-gradient(circle at 80% 60%, rgba(255,255,255,0.05), transparent 70%);
-  filter: blur(30px);
+  width: 500px;
+  height: 500px;
+  right: -180px;
+  top: -180px;
+  background: radial-gradient(circle, rgba(255,255,255,0.18), transparent 70%);
+  filter: blur(60px);
 }
 
-/* إضاءة قوية زي الصورة */
-.glow {
+/* ====== LIGHT GLOW (وسط خفيف) ====== */
+.banner::after {
+  content: "";
   position: absolute;
-  right: -80px;
-  top: -80px;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, rgba(255,255,255,0.25), transparent 70%);
+  width: 350px;
+  height: 350px;
+  left: 30%;
+  top: 10%;
+  background: radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%);
   filter: blur(50px);
 }
 
-/* تغميق الجوانب */
-.dark-left {
+/* ====== DARK SIDES (تقسيم الصورة) ====== */
+.left-dark,
+.right-dark {
   position: absolute;
+  top: 0;
+  width: 55%;
+  height: 100%;
+}
+
+.left-dark {
   left: 0;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(to right, #000 20%, transparent);
+  background: linear-gradient(to right, #000 35%, transparent);
 }
 
-.dark-right {
-  position: absolute;
+.right-dark {
   right: 0;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(to left, #000 20%, transparent);
+  background: linear-gradient(to left, #000 35%, transparent);
 }
 
-/* خطوط احترافية */
-.lines {
+/* ====== TEXTURE LINES (تفصيلة خفيفة زي الصورة) ====== */
+.texture {
   position: absolute;
   width: 100%;
   height: 100%;
   background: repeating-linear-gradient(
     90deg,
     transparent,
-    transparent 60px,
-    rgba(255,255,255,0.02) 61px
+    transparent 55px,
+    rgba(255,255,255,0.02) 56px
   );
 }
 
-/* نويز خفيف */
-.noise {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-image: url('https://www.transparenttextures.com/patterns/noise.png');
-  opacity: 0.05;
-}
-
-/* النص */
+/* ====== TEXT AREA ====== */
 .content {
   position: absolute;
-  left: 60px;
+  left: 50px;
   top: 50%;
   transform: translateY(-50%);
 }
 
-/* الاسم */
+/* الاسم الرئيسي */
 .name {
   color: #fff;
   font-size: 54px;
   font-weight: bold;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
+
   text-shadow:
     0 0 10px #fff,
-    0 0 25px rgba(255,255,255,0.7),
-    0 0 50px rgba(255,255,255,0.4);
+    0 0 25px rgba(255,255,255,0.6),
+    0 0 50px rgba(255,255,255,0.3);
 }
 
 /* التوقيع */
 .sign {
-  color: #bbb;
-  margin-top: 10px;
-  letter-spacing: 5px;
-  font-size: 13px;
+  margin-top: 8px;
+  color: #aaa;
+  font-size: 14px;
+  letter-spacing: 4px;
+  opacity: 0.8;
 }
-</style>
 
+</style>
 </head>
+
 <body>
 
 <div class="banner">
 
-  <div class="bg"></div>
-  <div class="glow"></div>
-
-  <div class="dark-left"></div>
-  <div class="dark-right"></div>
-
-  <div class="lines"></div>
-  <div class="noise"></div>
+  <div class="left-dark"></div>
+  <div class="right-dark"></div>
+  <div class="texture"></div>
 
   <div class="content">
-    <div class="name">YOUR NAME</div>
-    <div class="sign">your sign</div>
+    <div class="name">MOON</div>
+    <div class="sign">нєηкιѕн</div>
   </div>
 
 </div>
