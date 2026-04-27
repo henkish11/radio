@@ -3,20 +3,69 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RAMY SYSTEM</title>
+<title>CYBER OS - RAMY</title>
 
 <style>
 body{
   margin:0;
   font-family:Arial;
-  background:#05060a;
-  color:#00f5ff;
+  background:black;
   overflow:hidden;
+  color:#00ffcc;
 }
 
-/* GRID */
+/* MATRIX BACKGROUND */
+canvas{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:-1;
+}
+
+/* BOOT SCREEN */
+#boot{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:black;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  color:#00ffcc;
+  z-index:10;
+}
+
+.boot-text{
+  font-size:14px;
+  animation:blink 1s infinite;
+}
+
+@keyframes blink{50%{opacity:0.3}}
+
+/* LOGIN */
+#login{
+  display:none;
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:black;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+}
+
+input{
+  padding:10px;
+  text-align:center;
+  background:#111;
+  color:#00ffcc;
+  border:none;
+}
+
+/* DASHBOARD */
 .dashboard{
-  display:grid;
+  display:none;
   grid-template-columns:1fr 1fr 1fr;
   grid-template-rows:230px 1fr;
   height:100vh;
@@ -25,51 +74,18 @@ body{
 }
 
 .panel{
-  background:rgba(0,0,0,0.65);
-  border:1px solid #00f5ff22;
+  background:rgba(0,0,0,0.6);
+  border:1px solid #00ffcc33;
   border-radius:8px;
   padding:8px;
-  overflow:hidden;
+  overflow:auto;
 }
 
-/* BOX 3 LOCK */
-.lock-box{
-  position:relative;
-}
-
+/* LOCK IMAGE */
 .lock-box img{
   width:100%;
   height:100%;
   object-fit:cover;
-  filter:brightness(0.6);
-}
-
-.lock-ui{
-  position:absolute;
-  width:100%;
-  height:100%;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  background:rgba(0,0,0,0.45);
-}
-
-.lock-ui input{
-  padding:8px;
-  background:#111;
-  border:none;
-  color:#00f5ff;
-  text-align:center;
-  margin-top:8px;
-}
-
-.lock-ui button{
-  margin-top:8px;
-  background:#00f5ff;
-  border:none;
-  padding:6px 12px;
-  cursor:pointer;
 }
 
 /* PROFILE */
@@ -78,14 +94,9 @@ body{
 }
 
 .avatar{
-  width:110px;
+  width:100px;
   border-radius:50%;
-  border:2px solid #00f5ff;
-}
-
-.name{
-  font-size:24px;
-  text-shadow:0 0 10px #00f5ff;
+  border:2px solid #00ffcc;
 }
 
 /* SONG */
@@ -94,31 +105,28 @@ body{
   justify-content:space-between;
   padding:5px;
   margin:3px 0;
-  background:#00f5ff11;
+  background:#00ffcc11;
   font-size:11px;
 }
 
-.song button{
-  background:#00f5ff;
+button{
+  background:#00ffcc;
   border:none;
   cursor:pointer;
 }
 
-/* PLAYER UI */
+/* PLAYER */
 .player{
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:10px;
-  padding:5px;
+  gap:8px;
 }
 
 .seek{
   width:90%;
-  height:6px;
+  height:5px;
   background:#111;
-  cursor:pointer;
-  border-radius:4px;
 }
 
 #fill{
@@ -127,16 +135,8 @@ body{
   background:#00ffcc;
 }
 
-/* VOLUME */
 .volume{
   width:90%;
-}
-
-/* HACKER */
-.hacker-box img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
 }
 
 audio{display:none;}
@@ -146,41 +146,49 @@ audio{display:none;}
 
 <body>
 
-<div class="dashboard">
+<canvas id="matrix"></canvas>
 
-<!-- 1 -->
-<div class="panel">
-<img style="width:100%;height:100%;object-fit:cover" src="https://mf.b37mrtl.ru/media/pics/2023.04/article/643e76264c59b716106a1276.PNG">
+<!-- BOOT -->
+<div id="boot">
+<h1>CYBER OS STARTING...</h1>
+<div class="boot-text">loading system modules...</div>
 </div>
 
-<!-- 2 -->
-<div class="panel">
-<img style="width:100%;height:100%;object-fit:cover" src="https://img.pikbest.com/wp/202345/hacker-skeleton-working-on-laptop-dark-background_9581815.jpg!w700wp">
-</div>
-
-<!-- 3 LOCK -->
-<div class="panel lock-box">
-
-<img src="https://img.pikbest.com/backgrounds/20250126/guarding-your-digital-life-power-of-passwords-smarter-password-practices_11452980.jpg!f305cw">
-
-<div class="lock-ui">
-<div>🔐 ENTER PASSWORD</div>
-<input type="password" id="pass">
+<!-- LOGIN -->
+<div id="login">
+<h2>ENTER ACCESS CODE</h2>
+<input id="pass" type="password">
 <button onclick="check()">UNLOCK</button>
 </div>
 
+<!-- DASHBOARD -->
+<div class="dashboard" id="dash">
+
+<!-- BOX 1 -->
+<div class="panel lock-box">
+<img src="https://mf.b37mrtl.ru/media/pics/2023.04/article/643e76264c59b716106a1276.PNG">
 </div>
 
-<!-- 4 -->
+<!-- BOX 2 -->
+<div class="panel lock-box">
+<img src="https://img.pikbest.com/wp/202345/hacker-skeleton-working-on-laptop-dark-background_9581815.jpg!w700wp">
+</div>
+
+<!-- BOX 3 -->
+<div class="panel lock-box">
+<img src="https://img.pikbest.com/backgrounds/20250126/guarding-your-digital-life-power-of-passwords-smarter-password-practices_11452980.jpg!f305cw">
+</div>
+
+<!-- BOX 4 PROFILE -->
 <div class="panel profile">
 <img class="avatar" src="https://xatimg.com/image/PtMzAMEPdOYG.png">
-<div class="name">RAMY</div>
+<h3>RAMY SYSTEM</h3>
 </div>
 
-<!-- 5 PLAYER -->
+<!-- BOX 5 PLAYER -->
 <div class="panel" id="left"></div>
 
-<!-- 6 SONGS + VOLUME -->
+<!-- BOX 6 CONTROL -->
 <div class="panel" id="right"></div>
 
 </div>
@@ -189,76 +197,98 @@ audio{display:none;}
 
 <script>
 
-/* PASSWORD */
+/* BOOT FLOW */
+setTimeout(()=>{
+document.getElementById("boot").style.display="none";
+document.getElementById("login").style.display="flex";
+},2500);
+
+/* LOGIN */
 function check(){
 if(pass.value==="106080"){
+document.getElementById("login").style.display="none";
+document.getElementById("dash").style.display="grid";
 init();
-}else alert("WRONG PASSWORD");
+}else{
+alert("ACCESS DENIED");
 }
+}
+
+/* MATRIX */
+let c=document.getElementById("matrix");
+let ctx=c.getContext("2d");
+c.width=window.innerWidth;
+c.height=window.innerHeight;
+let letters="01HACKCYBERRAMY";
+letters=letters.split("");
+let font=12;
+let cols=c.width/font;
+let drops=[];
+for(let x=0;x<cols;x++) drops[x]=1;
+
+function draw(){
+ctx.fillStyle="rgba(0,0,0,0.05)";
+ctx.fillRect(0,0,c.width,c.height);
+ctx.fillStyle="#00ffcc";
+ctx.font=font+"px monospace";
+
+for(let i=0;i<drops.length;i++){
+let text=letters[Math.floor(Math.random()*letters.length)];
+ctx.fillText(text,i*font,drops[i]*font);
+if(drops[i]*font>c.height&&Math.random()>0.975)drops[i]=0;
+drops[i]++;
+}
+}
+setInterval(draw,33);
 
 /* SONGS */
 let songs=[
-["نفسي أطمن بيك","https://j.top4top.io/m_3769le8x51.mp3"],
-["الشعر الأسود","https://k.top4top.io/m_3769enq6z2.mp3"],
-["حبي الأولاني","https://l.top4top.io/m_3769auk3d3.mp3"],
-["كوابيس","https://a.top4top.io/m_3769kdadn4.mp3"],
-["مش تمام","https://b.top4top.io/m_3769kg8sd5.mp3"],
-["مشوار الحب","https://c.top4top.io/m_3769ien0c6.mp3"],
-["صاحبة الجلالة","https://d.top4top.io/m_3769yw3257.mp3"],
-["عملالي عمل","https://e.top4top.io/m_3769yb3k29.mp3"],
-["بحبها","https://f.top4top.io/m_37690zriz10.mp3"],
-["فيكي سر","https://b.top4top.io/m_3769lxi681.mp3"],
-["حياتي قصيدة","https://c.top4top.io/m_3769g0kg52.mp3"],
-["لسه","https://d.top4top.io/m_3769xz8mi3.mp3"],
-["مش زي غيرها","https://e.top4top.io/m_3769o93s34.mp3"],
-["نسند بعض","https://f.top4top.io/m_3769c3tql5.mp3"],
-["وش السعد","https://g.top4top.io/m_3769r7bcu6.mp3"],
-["يا حظ بيه","https://l.top4top.io/m_3769p7dkd1.mp3"],
-["ياللي ناسيني","https://a.top4top.io/m_37697muuj2.mp3"],
-["هلوسة","https://b.top4top.io/m_3769i9yd13.mp3"],
-["قصة حب","https://c.top4top.io/m_3769ou0bt4.mp3"],
-["ذكريات","https://d.top4top.io/m_37697zirj5.mp3"],
-["حبيتك ليه","https://e.top4top.io/m_3769rnmrk6.mp3"],
-["توأمي","https://d.top4top.io/m_3769a1jgw1.mp3"]
+["Song 1","https://j.top4top.io/m_3769le8x51.mp3"],
+["Song 2","https://k.top4top.io/m_3769enq6z2.mp3"],
+["Song 3","https://l.top4top.io/m_3769auk3d3.mp3"],
+["Song 4","https://a.top4top.io/m_3769kdadn4.mp3"],
+["Song 5","https://b.top4top.io/m_3769kg8sd5.mp3"],
+["Song 6","https://c.top4top.io/m_3769ien0c6.mp3"],
+["Song 7","https://d.top4top.io/m_3769yw3257.mp3"],
+["Song 8","https://e.top4top.io/m_3769yb3k29.mp3"],
+["Song 9","https://f.top4top.io/m_37690zriz10.mp3"],
+["Song 10","https://b.top4top.io/m_3769lxi681.mp3"],
+["Song 11","https://c.top4top.io/m_3769g0kg52.mp3"],
+["Song 12","https://d.top4top.io/m_3769xz8mi3.mp3"],
+["Song 13","https://e.top4top.io/m_3769o93s34.mp3"],
+["Song 14","https://f.top4top.io/m_3769c3tql5.mp3"],
+["Song 15","https://g.top4top.io/m_3769r7bcu6.mp3"],
+["Song 16","https://l.top4top.io/m_3769p7dkd1.mp3"],
+["Song 17","https://a.top4top.io/m_37697muuj2.mp3"],
+["Song 18","https://b.top4top.io/m_3769i9yd13.mp3"],
+["Song 19","https://c.top4top.io/m_3769ou0bt4.mp3"],
+["Song 20","https://d.top4top.io/m_37697zirj5.mp3"],
+["Song 21","https://e.top4top.io/m_3769rnmrk6.mp3"],
+["Song 22","https://d.top4top.io/m_3769a1jgw1.mp3"]
 ];
 
 let audio=document.getElementById("audio");
-let index=0;
-
 let left=document.getElementById("left");
 let right=document.getElementById("right");
 
-/* INIT UI */
+/* INIT */
 function init(){
 
-left.innerHTML=`
-<div class="player">
-<div id="title">NO SONG</div>
-
-<button onclick="toggle()">▶ / ⏸</button>
-
-<div class="seek" onclick="seek(event)">
-<div id="fill"></div>
-</div>
-</div>
-`;
+left.innerHTML="<h3>DJ PLAYER</h3>";
 
 songs.slice(0,11).forEach((s,i)=>{
 left.innerHTML+=`
-<div class="song">${s[0]}<button onclick="play(${i})">▶</button></div>`;
+<div class="song">${s[0]} <button onclick="play(${i})">▶</button></div>`;
 });
 
-/* RIGHT = VOLUME + SONGS */
 right.innerHTML=`
-<div class="player">
-🔊 الصوت
+<h3>VOLUME</h3>
 <input class="volume" type="range" min="0" max="1" step="0.01" oninput="audio.volume=this.value">
-</div>
 `;
 
 songs.slice(11).forEach((s,i)=>{
 right.innerHTML+=`
-<div class="song">${s[0]}<button onclick="play(${i+11})">▶</button></div>`;
+<div class="song">${s[0]} <button onclick="play(${i+11})">▶</button></div>`;
 });
 
 }
@@ -267,26 +297,7 @@ right.innerHTML+=`
 function play(i){
 audio.src=songs[i][1];
 audio.play();
-index=i;
-document.getElementById("title").innerText=songs[i][0];
 }
-
-/* TOGGLE */
-function toggle(){
-audio.paused?audio.play():audio.pause();
-}
-
-/* SEEK */
-function seek(e){
-let pos=e.offsetX/e.currentTarget.offsetWidth;
-audio.currentTime=pos*audio.duration;
-}
-
-/* PROGRESS */
-audio.ontimeupdate=function(){
-document.getElementById("fill").style.width=
-(audio.currentTime/audio.duration)*100+"%";
-};
 
 </script>
 
