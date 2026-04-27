@@ -32,15 +32,7 @@ body{
   overflow:hidden;
 }
 
-/* HACKER BOX */
-.hacker-box{
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-}
-
+/* HACKER */
 .hacker-box img{
   width:100%;
   height:100%;
@@ -49,58 +41,35 @@ body{
 
 /* PROFILE */
 .profile{text-align:center;}
+.avatar{width:110px;border-radius:50%;border:2px solid #00f5ff;}
+.name{font-size:26px;text-shadow:0 0 10px #00f5ff;}
 
-.avatar{
-  width:110px;
-  border-radius:50%;
-  border:2px solid #00f5ff;
-}
-
-.name{
-  font-size:26px;
-  text-shadow:0 0 10px #00f5ff;
-}
-
-/* LOCK BOX (BOX 3) */
-.lock-box{
-  position:relative;
-}
-
-.lock-box img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-/* overlay */
-.lock-overlay{
+/* LOCK */
+.lock{
   position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
+  top:0;left:0;
+  width:100%;height:100%;
   background:rgba(0,0,0,0.75);
   display:flex;
   flex-direction:column;
-  align-items:center;
   justify-content:center;
+  align-items:center;
   gap:10px;
 }
 
-/* hidden panels before unlock */
-.locked{
-  filter:blur(4px);
-  pointer-events:none;
-  opacity:0.4;
-}
-
-/* input */
-.lock-overlay input{
+.lock input{
   padding:8px;
   text-align:center;
   background:#111;
   border:none;
   color:#00f5ff;
+}
+
+.lock button{
+  padding:6px 10px;
+  background:#00f5ff;
+  border:none;
+  cursor:pointer;
 }
 
 /* SONG */
@@ -117,8 +86,34 @@ body{
   background:#00f5ff;
   border:none;
   cursor:pointer;
-  padding:3px 6px;
 }
+
+/* PLAYER */
+.player{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+}
+
+.seek{
+  width:90%;
+  height:6px;
+  background:#111;
+  cursor:pointer;
+}
+
+#fill{
+  height:100%;
+  width:0%;
+  background:#00ffcc;
+}
+
+.volume{
+  width:90%;
+}
+
+.hidden{display:none;}
 
 audio{display:none;}
 
@@ -129,22 +124,22 @@ audio{display:none;}
 
 <div class="dashboard">
 
-<!-- BOX 1 -->
+<!-- 1 -->
 <div class="panel hacker-box">
 <img src="https://mf.b37mrtl.ru/media/pics/2023.04/article/643e76264c59b716106a1276.PNG">
 </div>
 
-<!-- BOX 2 -->
+<!-- 2 -->
 <div class="panel hacker-box">
 <img src="https://img.pikbest.com/wp/202345/hacker-skeleton-working-on-laptop-dark-background_9581815.jpg!w700wp">
 </div>
 
-<!-- BOX 3 LOCK -->
-<div class="panel lock-box" id="box3">
+<!-- 3 LOCK -->
+<div class="panel hacker-box">
 
 <img src="https://img.pikbest.com/backgrounds/20250126/guarding-your-digital-life-power-of-passwords-smarter-password-practices_11452980.jpg!f305cw">
 
-<div class="lock-overlay" id="lockScreen">
+<div class="lock" id="lock">
 <div>🔐 ENTER PASSWORD</div>
 <input type="password" id="pass">
 <button onclick="check()">UNLOCK</button>
@@ -152,41 +147,118 @@ audio{display:none;}
 
 </div>
 
-<!-- BOX 4 -->
-<div class="panel profile locked" id="box4">
+<!-- 4 PROFILE -->
+<div class="panel profile hidden" id="box4">
 <img class="avatar" src="https://xatimg.com/image/PtMzAMEPdOYG.png">
 <div class="name">RAMY</div>
 </div>
 
-<!-- BOX 5 -->
-<div class="panel locked" id="box5">SONGS 1</div>
+<!-- 5 PLAYER + SONGS -->
+<div class="panel hidden" id="box5">
 
-<!-- BOX 6 -->
-<div class="panel locked" id="box6">SONGS 2</div>
+<div class="player">
+<div id="title">NO SONG</div>
+
+<button onclick="toggle()">▶ / ⏸</button>
+
+<div class="seek" onclick="seek(event)">
+<div id="fill"></div>
+</div>
+
+<input class="volume" type="range" min="0" max="1" step="0.1" onchange="audio.volume=this.value">
 
 </div>
 
+<div id="list1"></div>
+
+</div>
+
+<!-- 6 SONGS -->
+<div class="panel hidden" id="box6">
+<div id="list2"></div>
+</div>
+
+</div>
+
+<audio id="audio"></audio>
+
 <script>
 
-/* PASSWORD SYSTEM */
-function check(){
-let p=document.getElementById("pass").value;
+let audio=document.getElementById("audio");
 
-if(p==="106080"){
+/* SONGS */
+let songs=[
+["نفسي أطمن بيك","https://j.top4top.io/m_3769le8x51.mp3"],
+["الشعر الأسود","https://k.top4top.io/m_3769enq6z2.mp3"],
+["حبي الأولاني","https://l.top4top.io/m_3769auk3d3.mp3"],
+["كوابيس","https://a.top4top.io/m_3769kdadn4.mp3"],
+["مش تمام","https://b.top4top.io/m_3769kg8sd5.mp3"],
+["مشوار الحب","https://c.top4top.io/m_3769ien0c6.mp3"],
+["صاحبة الجلالة","https://d.top4top.io/m_3769yw3257.mp3"],
+["عملالي عمل","https://e.top4top.io/m_3769yb3k29.mp3"],
+["بحبها","https://f.top4top.io/m_37690zriz10.mp3"],
+["فيكي سر","https://b.top4top.io/m_3769lxi681.mp3"],
+["حياتي قصيدة","https://c.top4top.io/m_3769g0kg52.mp3"],
+["لسه","https://d.top4top.io/m_3769xz8mi3.mp3"],
+["مش زي غيرها","https://e.top4top.io/m_3769o93s34.mp3"],
+["نسند بعض","https://f.top4top.io/m_3769c3tql5.mp3"],
+["وش السعد","https://g.top4top.io/m_3769r7bcu6.mp3"],
+["يا حظ بيه","https://l.top4top.io/m_3769p7dkd1.mp3"],
+["ياللي ناسيني","https://a.top4top.io/m_37697muuj2.mp3"],
+["هلوسة","https://b.top4top.io/m_3769i9yd13.mp3"],
+["قصة حب","https://c.top4top.io/m_3769ou0bt4.mp3"],
+["ذكريات","https://d.top4top.io/m_37697zirj5.mp3"],
+["حبيتك ليه","https://e.top4top.io/m_3769rnmrk6.mp3"],
+["توأمي","https://d.top4top.io/m_3769a1jgw1.mp3"]
+];
 
-document.getElementById("lockScreen").style.display="none";
+let index=0;
 
-/* unlock all */
-document.getElementById("box4").classList.remove("locked");
-document.getElementById("box5").classList.remove("locked");
-document.getElementById("box6").classList.remove("locked");
+/* BUILD LIST */
+let list1=document.getElementById("list1");
+let list2=document.getElementById("list2");
 
-alert("ACCESS GRANTED ✔");
-
-}else{
-alert("WRONG PASSWORD ❌");
+for(let i=0;i<11;i++){
+list1.innerHTML+=`<div class="song">${songs[i][0]} <button onclick="play(${i})">▶</button></div>`;
 }
 
+for(let i=11;i<songs.length;i++){
+list2.innerHTML+=`<div class="song">${songs[i][0]} <button onclick="play(${i})">▶</button></div>`;
+}
+
+/* PLAY */
+function play(i){
+audio.src=songs[i][1];
+audio.play();
+index=i;
+document.getElementById("title").innerText=songs[i][0];
+}
+
+/* TOGGLE */
+function toggle(){
+audio.paused?audio.play():audio.pause();
+}
+
+/* SEEK */
+function seek(e){
+let pos=e.offsetX/e.currentTarget.offsetWidth;
+audio.currentTime=pos*audio.duration;
+}
+
+/* PROGRESS */
+audio.ontimeupdate=function(){
+document.getElementById("fill").style.width=
+(audio.currentTime/audio.duration)*100+"%";
+};
+
+/* PASSWORD */
+function check(){
+if(pass.value==="106080"){
+document.getElementById("lock").style.display="none";
+document.getElementById("box4").classList.remove("hidden");
+document.getElementById("box5").classList.remove("hidden");
+document.getElementById("box6").classList.remove("hidden");
+}else alert("WRONG PASSWORD");
 }
 
 </script>
