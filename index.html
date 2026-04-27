@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>XAT FINAL SYSTEM</title>
+<title>RAMY PRO MAX XAT</title>
 
 <style>
 body{
@@ -15,59 +15,70 @@ body{
   height:100vh;
 }
 
-/* ===== XAT TEMPLATE ===== */
+/* ===== MAIN TEMPLATE ===== */
 .banner{
   width:728px;
   height:200px;
   position:relative;
   overflow:hidden;
-  border-radius:14px;
+  border-radius:16px;
+
   background:linear-gradient(120deg,#050505,#0a0a0a,#050505);
 }
 
-/* Glow */
-.banner:before{
-  content:"";
-  position:absolute;
-  width:500px;height:500px;
-  right:-180px;top:-180px;
-  background:radial-gradient(circle,rgba(255,255,255,0.18),transparent 70%);
-  filter:blur(60px);
+/* animated glow */
+@keyframes moveGlow{
+  0%{transform:translate(0,0)}
+  50%{transform:translate(-20px,20px)}
+  100%{transform:translate(0,0)}
 }
 
-.banner:after{
-  content:"";
+.glow{
   position:absolute;
-  width:350px;height:350px;
-  left:30%;top:10%;
-  background:radial-gradient(circle,rgba(255,255,255,0.08),transparent 70%);
+  width:500px;
+  height:500px;
+  right:-180px;
+  top:-180px;
+  background:radial-gradient(circle,rgba(0,195,255,0.25),transparent 70%);
+  filter:blur(60px);
+  animation:moveGlow 6s infinite ease-in-out;
+}
+
+.glow2{
+  position:absolute;
+  width:300px;
+  height:300px;
+  left:20%;
+  top:20%;
+  background:radial-gradient(circle,rgba(168,85,247,0.15),transparent 70%);
   filter:blur(50px);
 }
 
-/* sides */
+/* dark edges */
 .left,.right{
   position:absolute;
-  top:0;
   width:55%;
   height:100%;
+  top:0;
 }
 
-.left{left:0;background:linear-gradient(to right,#000 35%,transparent);}
-.right{right:0;background:linear-gradient(to left,#000 35%,transparent);}
+.left{left:0;background:linear-gradient(to right,#000 40%,transparent);}
+.right{right:0;background:linear-gradient(to left,#000 40%,transparent);}
 
 /* texture */
 .texture{
   position:absolute;
-  width:100%;height:100%;
+  width:100%;
+  height:100%;
   background:repeating-linear-gradient(
     90deg,
     transparent,
-    transparent 55px,
-    rgba(255,255,255,0.02) 56px
+    transparent 60px,
+    rgba(255,255,255,0.02) 61px
   );
 }
 
-/* content */
+/* ===== CONTENT ===== */
 .content{
   position:absolute;
   left:40px;
@@ -77,18 +88,22 @@ body{
 
 .name{
   color:#fff;
-  font-size:52px;
-  font-weight:bold;
-  text-shadow:0 0 10px #fff,0 0 30px rgba(255,255,255,0.5);
+  font-size:54px;
+  font-weight:900;
+  letter-spacing:2px;
+  text-shadow:
+    0 0 10px #00c3ff,
+    0 0 25px #00f5ff,
+    0 0 40px #a855f7;
 }
 
 .sign{
   color:#aaa;
   font-size:13px;
-  letter-spacing:3px;
+  letter-spacing:4px;
 }
 
-/* ===== RADIO ===== */
+/* ===== RADIO PANEL ===== */
 .radio{
   position:absolute;
   bottom:10px;
@@ -98,38 +113,69 @@ body{
 }
 
 .radio button{
-  padding:4px 8px;
+  padding:5px 10px;
   border:none;
-  border-radius:12px;
-  background:#00c3ff;
+  border-radius:20px;
+  font-size:10px;
   cursor:pointer;
-  font-size:11px;
+
+  background:linear-gradient(45deg,#00c3ff,#a855f7);
+  color:#fff;
+
+  transition:.3s;
 }
 
-/* ===== SONG PANEL ===== */
+.radio button:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 15px #00f5ff;
+}
+
+/* ===== SONGS PANEL ===== */
 .songs{
   position:absolute;
   right:10px;
   top:10px;
-  width:250px;
+  width:260px;
   height:180px;
   overflow:auto;
+  padding-right:5px;
+}
+
+/* scrollbar */
+.songs::-webkit-scrollbar{
+  width:4px;
+}
+.songs::-webkit-scrollbar-thumb{
+  background:#00c3ff;
+  border-radius:10px;
 }
 
 .song{
   display:flex;
   justify-content:space-between;
-  padding:4px;
-  margin:3px 0;
-  background:#00c3ff22;
-  border-radius:6px;
+  align-items:center;
+  padding:5px;
+  margin:4px 0;
+
+  background:rgba(0,195,255,0.12);
+  border-radius:8px;
+
   font-size:10px;
+  color:#fff;
+
+  transition:.2s;
+}
+
+.song:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 15px #00c3ff;
 }
 
 .song button{
   border:none;
-  padding:2px 5px;
-  border-radius:4px;
+  padding:3px 6px;
+  border-radius:6px;
+  cursor:pointer;
 }
 
 .play{background:#00c3ff}
@@ -142,13 +188,16 @@ body{
 
 <div class="banner">
 
+<div class="glow"></div>
+<div class="glow2"></div>
+
 <div class="left"></div>
 <div class="right"></div>
 <div class="texture"></div>
 
 <div class="content">
   <div class="name">RAMY</div>
-  <div class="sign">SYSTEM XAT DESIGN</div>
+  <div class="sign">PRO MAX SYSTEM</div>
 </div>
 
 <!-- RADIO -->
@@ -190,28 +239,28 @@ else{radio.play();is=true;}
 
 /* 22 SONGS */
 let songs=[
-["1","https://j.top4top.io/m_3769le8x51.mp3"],
-["2","https://k.top4top.io/m_3769enq6z2.mp3"],
-["3","https://l.top4top.io/m_3769auk3d3.mp3"],
-["4","https://a.top4top.io/m_3769kdadn4.mp3"],
-["5","https://b.top4top.io/m_3769kg8sd5.mp3"],
-["6","https://c.top4top.io/m_3769ien0c6.mp3"],
-["7","https://d.top4top.io/m_3769yw3257.mp3"],
-["8","https://e.top4top.io/m_3769yb3k29.mp3"],
-["9","https://f.top4top.io/m_37690zriz10.mp3"],
-["10","https://b.top4top.io/m_3769lxi681.mp3"],
-["11","https://c.top4top.io/m_3769g0kg52.mp3"],
-["12","https://d.top4top.io/m_3769xz8mi3.mp3"],
-["13","https://e.top4top.io/m_3769o93s34.mp3"],
-["14","https://f.top4top.io/m_3769c3tql5.mp3"],
-["15","https://g.top4top.io/m_3769r7bcu6.mp3"],
-["16","https://l.top4top.io/m_3769p7dkd1.mp3"],
-["17","https://a.top4top.io/m_37697muuj2.mp3"],
-["18","https://b.top4top.io/m_3769i9yd13.mp3"],
-["19","https://c.top4top.io/m_3769ou0bt4.mp3"],
-["20","https://d.top4top.io/m_37697zirj5.mp3"],
-["21","https://e.top4top.io/m_3769rnmrk6.mp3"],
-["22","https://d.top4top.io/m_3769a1jgw1.mp3"]
+["Song 1","https://j.top4top.io/m_3769le8x51.mp3"],
+["Song 2","https://k.top4top.io/m_3769enq6z2.mp3"],
+["Song 3","https://l.top4top.io/m_3769auk3d3.mp3"],
+["Song 4","https://a.top4top.io/m_3769kdadn4.mp3"],
+["Song 5","https://b.top4top.io/m_3769kg8sd5.mp3"],
+["Song 6","https://c.top4top.io/m_3769ien0c6.mp3"],
+["Song 7","https://d.top4top.io/m_3769yw3257.mp3"],
+["Song 8","https://e.top4top.io/m_3769yb3k29.mp3"],
+["Song 9","https://f.top4top.io/m_37690zriz10.mp3"],
+["Song 10","https://b.top4top.io/m_3769lxi681.mp3"],
+["Song 11","https://c.top4top.io/m_3769g0kg52.mp3"],
+["Song 12","https://d.top4top.io/m_3769xz8mi3.mp3"],
+["Song 13","https://e.top4top.io/m_3769o93s34.mp3"],
+["Song 14","https://f.top4top.io/m_3769c3tql5.mp3"],
+["Song 15","https://g.top4top.io/m_3769r7bcu6.mp3"],
+["Song 16","https://l.top4top.io/m_3769p7dkd1.mp3"],
+["Song 17","https://a.top4top.io/m_37697muuj2.mp3"],
+["Song 18","https://b.top4top.io/m_3769i9yd13.mp3"],
+["Song 19","https://c.top4top.io/m_3769ou0bt4.mp3"],
+["Song 20","https://d.top4top.io/m_37697zirj5.mp3"],
+["Song 21","https://e.top4top.io/m_3769rnmrk6.mp3"],
+["Song 22","https://d.top4top.io/m_3769a1jgw1.mp3"]
 ];
 
 let box=document.getElementById("songs");
