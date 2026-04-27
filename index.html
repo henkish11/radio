@@ -32,7 +32,7 @@ body{
   overflow:hidden;
 }
 
-/* HACKER BOX */
+/* HACKER */
 .hacker-box{
   position:relative;
   display:flex;
@@ -46,7 +46,7 @@ body{
   object-fit:cover;
 }
 
-/* BOX 3 LOCK */
+/* LOCK */
 .lock-box{
   position:relative;
   display:flex;
@@ -65,11 +65,11 @@ body{
   position:absolute;
   width:100%;
   height:100%;
-  background:rgba(0,0,0,0.45);
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
+  background:rgba(0,0,0,0.45);
 }
 
 .lock-ui input{
@@ -95,39 +95,6 @@ body{
 .avatar{width:110px;border-radius:50%;border:2px solid #00f5ff;}
 .name{font-size:24px;text-shadow:0 0 10px #00f5ff;}
 
-/* RADIO */
-.radio{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:5px;
-  margin-top:5px;
-}
-
-.radio button{
-  background:#00f5ff;
-  border:none;
-  padding:5px 7px;
-  font-size:11px;
-  cursor:pointer;
-}
-
-/* LINKS */
-.links{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  margin-top:8px;
-}
-
-.links a{
-  color:#00ffcc;
-  text-decoration:none;
-  padding:5px;
-  background:#00f5ff11;
-  border-radius:5px;
-}
-
 /* SONG */
 .song{
   display:flex;
@@ -145,17 +112,19 @@ body{
 }
 
 /* PLAYER */
-.player-mini{
+.player{
   display:flex;
   flex-direction:column;
   align-items:center;
   gap:6px;
+  padding:5px;
 }
 
 .seek{
   width:90%;
-  height:5px;
+  height:6px;
   background:#111;
+  cursor:pointer;
 }
 
 #fill{
@@ -164,8 +133,12 @@ body{
   background:#00ffcc;
 }
 
-.volume-box{
-  text-align:center;
+/* VOLUME */
+.volume{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
 }
 
 audio{display:none;}
@@ -177,17 +150,17 @@ audio{display:none;}
 
 <div class="dashboard">
 
-<!-- 1 HACKER -->
+<!-- 1 -->
 <div class="panel hacker-box">
-  <img src="https://mf.b37mrtl.ru/media/pics/2023.04/article/643e76264c59b716106a1276.PNG">
+<img src="https://mf.b37mrtl.ru/media/pics/2023.04/article/643e76264c59b716106a1276.PNG">
 </div>
 
-<!-- 2 HACKER -->
+<!-- 2 -->
 <div class="panel hacker-box">
-  <img src="https://img.pikbest.com/wp/202345/hacker-skeleton-working-on-laptop-dark-background_9581815.jpg!w700wp">
+<img src="https://img.pikbest.com/wp/202345/hacker-skeleton-working-on-laptop-dark-background_9581815.jpg!w700wp">
 </div>
 
-<!-- 3 LOCKED BOX (UPDATED) -->
+<!-- 3 LOCK -->
 <div class="panel lock-box">
 
 <img src="https://img.pikbest.com/backgrounds/20250126/guarding-your-digital-life-power-of-passwords-smarter-password-practices_11452980.jpg!f305cw">
@@ -200,77 +173,30 @@ audio{display:none;}
 
 </div>
 
-<!-- 4 PROFILE + RADIO -->
+<!-- 4 -->
 <div class="panel profile">
-
 <img class="avatar" src="https://xatimg.com/image/PtMzAMEPdOYG.png">
 <div class="name">RAMY</div>
-
-<div class="radio">
-<button onclick="playRadio(0)">🎧 قرآن</button>
-<button onclick="playRadio(1)">🎶 ميلودي</button>
-<button onclick="playRadio(2)">🎤 حماقي</button>
-<button onclick="playRadio(3)">🔥 منوعات</button>
 </div>
 
-<button onclick="toggleRadio()" style="margin-top:5px;background:#00ffcc;border:none;padding:5px;cursor:pointer;">
-▶ / ⏸ راديو
-</button>
-
-<div class="links">
-<a href="https://xat.com/2ra" target="_blank">🔥 2ra Chat</a>
-<a href="https://xat.com/7reqa" target="_blank">⚡ 7reqa Chat</a>
-<a href="https://xat.com/trade" target="_blank">💰 Trade</a>
-<a href="https://xat.com/cambio" target="_blank">🌐 Cambio</a>
-</div>
-
-</div>
-
-<!-- 5 -->
+<!-- 5 = PLAYER -->
 <div class="panel" id="left"></div>
 
-<!-- 6 -->
+<!-- 6 = SONGS + VOLUME -->
 <div class="panel" id="right"></div>
 
 </div>
 
 <audio id="audio"></audio>
-<audio id="radio"></audio>
 
 <script>
 
 /* PASSWORD */
 function check(){
 if(pass.value==="106080"){
-document.getElementById("pass").disabled=true;
-alert("ACCESS GRANTED ✔");
+document.querySelectorAll(".panel").forEach(p=>p.style.opacity="1");
 init();
-}else{
-alert("WRONG PASSWORD");
-}
-}
-
-/* RADIO */
-let radios=[
-"https://stream.radiojar.com/8s5u5tpdtwzuv",
-"https://audio.nrpstream.com/listen/nogoumfm/radio.mp3",
-"https://stream.zeno.fm/w7atxdpk1pdvv",
-"https://stream.zeno.fm/hswv0qwu7vgtv"
-];
-
-let radio=document.getElementById("radio");
-let rstate=false;
-
-function playRadio(i){
-radio.src=radios[i];
-radio.play();
-rstate=true;
-}
-
-function toggleRadio(){
-if(!radio.src) radio.src=radios[0];
-rstate?radio.pause():radio.play();
-rstate=!rstate;
+}else alert("WRONG PASSWORD");
 }
 
 /* SONGS */
@@ -305,30 +231,72 @@ let index=0;
 let left=document.getElementById("left");
 let right=document.getElementById("right");
 
+/* PLAYER BOX (LEFT) */
 function init(){
 
-left.innerHTML="<h3>PLAYER READY</h3>";
+left.innerHTML=`
+<div class="player">
+<div id="title">NO SONG</div>
+
+<button onclick="toggle()">▶ / ⏸</button>
+
+<div class="seek" onclick="seek(event)">
+<div id="fill"></div>
+</div>
+</div>
+`;
 
 songs.slice(0,11).forEach((s,i)=>{
 left.innerHTML+=`
-<div class="song">${s[0]}<button onclick="playSong(${i})">▶</button></div>`;
+<div class="song">
+${s[0]}
+<button onclick="play(i=${i})">▶</button>
+</div>`;
 });
 
-right.innerHTML="<div class='volume-box'>🔊 Volume</div>";
+/* RIGHT = songs + volume */
+right.innerHTML=`
+<div class="volume">
+🔊 الصوت
+<button onclick="audio.volume=Math.min(audio.volume+0.1,1)">➕ رفع</button>
+<button onclick="audio.volume=Math.max(audio.volume-0.1,0)">➖ خفض</button>
+</div>
+`;
 
 songs.slice(11).forEach((s,i)=>{
 right.innerHTML+=`
-<div class="song">${s[0]}<button onclick="playSong(${i+11})">▶</button></div>`;
+<div class="song">
+${s[0]}
+<button onclick="play(${i+11})">▶</button>
+</div>`;
 });
 
 }
 
 /* PLAY */
-function playSong(i){
+function play(i){
 audio.src=songs[i][1];
 audio.play();
 index=i;
+document.getElementById("title").innerText=songs[i][0];
 }
+
+/* TOGGLE */
+function toggle(){
+audio.paused?audio.play():audio.pause();
+}
+
+/* SEEK */
+function seek(e){
+let pos=e.offsetX/e.currentTarget.offsetWidth;
+audio.currentTime=pos*audio.duration;
+}
+
+/* PROGRESS */
+audio.ontimeupdate=function(){
+document.getElementById("fill").style.width=
+(audio.currentTime/audio.duration)*100+"%";
+};
 
 </script>
 
