@@ -67,7 +67,7 @@ p{
 <script>
 let radio = document.getElementById("radio");
 
-// 🎵 Playlist بتاعتك
+// 🎵 Playlist
 let songs = [
 "https://files.catbox.moe/l3v5de.mp3",
 "https://files.catbox.moe/3dgk4m.mp3",
@@ -96,15 +96,17 @@ let index = 0;
 radio.src = songs[index];
 radio.volume = 0.7;
 
+// ▶ تشغيل
 function playRadio(){
     radio.play();
 }
 
+// ⏸ إيقاف
 function stopRadio(){
     radio.pause();
 }
 
-// لما الأغنية تخلص يروح للي بعدها
+// ⏭️ الانتقال للأغنية اللي بعدها تلقائي
 radio.onended = function(){
     index++;
     if(index >= songs.length){
