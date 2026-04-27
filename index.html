@@ -14,7 +14,7 @@ body{
   overflow:hidden;
 }
 
-/* ================= GRID LAYOUT ================= */
+/* ================= GRID ================= */
 .dashboard{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
@@ -24,7 +24,7 @@ body{
   padding:10px;
 }
 
-/* BOX STYLE */
+/* ================= PANEL ================= */
 .panel{
   background:rgba(0,0,0,0.6);
   border:1px solid #00f5ff33;
@@ -40,14 +40,11 @@ body{
   flex-direction:column;
   justify-content:center;
   align-items:center;
-  text-align:center;
 }
 
 .boot h1{
   font-size:18px;
   letter-spacing:2px;
-  text-transform:uppercase;
-  color:#00f5ff;
 }
 
 .loader{
@@ -57,12 +54,10 @@ body{
   filter:drop-shadow(0 0 10px #00f5ff);
 }
 
-/* BAR */
 .bar{
   width:80%;
   height:6px;
   background:#111;
-  margin-top:10px;
   border-radius:10px;
   overflow:hidden;
 }
@@ -75,56 +70,99 @@ body{
   animation:load 3s forwards;
 }
 
-@keyframes load{to{width:100%}}
+@keyframes load{
+  to{width:100%}
+}
 
-/* ================= TERMINAL (HACKER MODE) ================= */
+/* ================= TERMINAL ================= */
 .terminal{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
   color:#00ff00;
   font-family:monospace;
-  text-align:left;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.hack-container{
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
 .hacker-img{
-  width:80px;
-  height:80px;
-  margin-bottom:10px;
+  width:70px;
+  height:70px;
   filter:drop-shadow(0 0 10px #00ff00);
 }
 
 .hack-text{
   font-size:12px;
-  line-height:20px;
-  color:#00ff00;
+  line-height:18px;
   text-shadow:0 0 5px #00ff00;
 }
 
-/* ================= LOGIN ================= */
-.login-box{
-  text-align:center;
+.mini-bar{
+  margin-top:10px;
+  width:100%;
+  height:5px;
+  background:#111;
+  border-radius:10px;
+  overflow:hidden;
 }
 
+.mini-bar span{
+  display:block;
+  height:100%;
+  width:0;
+  background:#00ff00;
+  animation:load 3s forwards;
+}
+
+/* ================= LOGIN (UPDATED) ================= */
+.login-box{
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+
+.login-box h3{
+  color:#66faff;
+  text-shadow:0 0 10px #66faff;
+  letter-spacing:2px;
+}
+
+/* lock image */
+.lock-img{
+  width:80px;
+  height:80px;
+  margin:10px 0;
+  filter:drop-shadow(0 0 15px #66faff);
+}
+
+/* input */
 .login-box input{
   width:80%;
   padding:10px;
   margin-top:10px;
   text-align:center;
   background:#111;
-  border:none;
-  color:#00f5ff;
+  border:1px solid #66faff;
+  color:#66faff;
   border-radius:6px;
+  box-shadow:0 0 10px #66faff33;
 }
 
+/* button */
 .login-box button{
   margin-top:10px;
   padding:8px 15px;
-  background:#00f5ff;
+  background:#66faff;
   border:none;
   cursor:pointer;
   font-weight:bold;
+  box-shadow:0 0 15px #66faff;
 }
 
 /* ================= PROFILE ================= */
@@ -153,7 +191,6 @@ body{
 /* ================= SONGS ================= */
 .songs{
   overflow:auto;
-  height:100%;
 }
 
 .song{
@@ -164,11 +201,6 @@ body{
   background:#00f5ff11;
   border-radius:6px;
   font-size:12px;
-}
-
-.song button{
-  border:none;
-  cursor:pointer;
 }
 
 /* ================= CONTROL ================= */
@@ -198,32 +230,41 @@ body{
 <!-- BOOT -->
 <div class="panel boot">
   <h1>BOOTING RAMY SYSTEM</h1>
-  <img class="loader" src="https://i.gifer.com/ZZ5H.gif" alt="loading">
+  <img class="loader" src="https://i.gifer.com/ZZ5H.gif">
   <div class="bar"><span></span></div>
 </div>
 
-<!-- TERMINAL (HACKER MODE) -->
+<!-- TERMINAL -->
 <div class="panel terminal">
 
-  <img class="hacker-img" src="https://i.imgur.com/3ZQ3Z4M.png" alt="hacker">
+  <div class="hack-container">
+    <img class="hacker-img" src="https://i.imgur.com/3ZQ3Z4M.png">
+    
+    <div class="hack-text">
+      [+] Initializing stealth protocol...<br>
+      [+] Breaching firewall layers...<br>
+      [+] Injecting root access...<br>
+      [+] SYSTEM COMPROMISED ✔
+    </div>
+  </div>
 
-  <div class="hack-text">
-    [+] Initializing stealth protocol...<br>
-    [+] Breaching firewall layers...<br>
-    [+] Decrypting security nodes...<br>
-    [+] Injecting root access...<br>
-    [+] Bypassing tracking system...<br>
-    [+] SYSTEM COMPROMISED ✔
+  <div class="mini-bar">
+    <span></span>
   </div>
 
 </div>
 
-<!-- LOGIN -->
+<!-- LOGIN UPDATED -->
 <div class="panel login-box">
+
 <h3>ENTER PASSWORD</h3>
+
+<img class="lock-img" src="https://cdn-icons-png.flaticon.com/512/2911/2911230.png">
+
 <input type="password" id="pass">
 <br>
 <button onclick="check()">ACCESS</button>
+
 </div>
 
 <!-- PROFILE -->
@@ -234,13 +275,11 @@ body{
 
 <!-- SONGS -->
 <div class="panel songs">
-
 <div class="song">Song 1 <button>▶</button></div>
 <div class="song">Song 2 <button>▶</button></div>
 <div class="song">Song 3 <button>▶</button></div>
 <div class="song">Song 4 <button>▶</button></div>
 <div class="song">Song 5 <button>▶</button></div>
-
 </div>
 
 <!-- CONTROL -->
