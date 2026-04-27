@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RAMY CONTROL SYSTEM</title>
+<title>RAMY SYSTEM ULTIMATE</title>
 
 <style>
 body{
@@ -18,7 +18,7 @@ body{
 .dashboard{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
-  grid-template-rows:220px 1fr;
+  grid-template-rows:230px 1fr;
   height:100vh;
   gap:6px;
   padding:6px;
@@ -37,8 +37,8 @@ body{
 .boot{
   display:flex;
   flex-direction:column;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
 }
 
 .bar{
@@ -57,8 +57,8 @@ body{
 
 /* TERMINAL */
 .terminal{
-  color:#00ff00;
   font-family:monospace;
+  color:#00ff00;
 }
 
 /* LOGIN */
@@ -85,31 +85,38 @@ body{
   text-shadow:0 0 10px #00f5ff;
 }
 
-/* SONGS */
+/* SONG ITEM */
 .song{
   display:flex;
   justify-content:space-between;
   padding:5px;
+  margin:3px 0;
   font-size:11px;
+  background:#00f5ff11;
 }
 
-/* ===== PLAYER BIG SPLIT ===== */
+.song button{
+  background:#00f5ff;
+  border:none;
+  cursor:pointer;
+}
+
+/* ===== BIG PLAYER ===== */
 .player{
   position:fixed;
   bottom:10px;
   left:50%;
   transform:translateX(-50%);
-  width:900px;
-  height:120px;
+  width:850px;
+  height:110px;
   background:rgba(0,0,0,0.85);
   border:1px solid #00f5ff55;
   border-radius:12px;
   display:flex;
   overflow:hidden;
-  backdrop-filter:blur(10px);
 }
 
-/* BOX 4 (TRACK + SEEK) */
+/* BOX 4 */
 .p4{
   flex:1;
   padding:10px;
@@ -118,15 +125,14 @@ body{
 
 #title{
   font-size:12px;
-  margin-bottom:10px;
 }
 
 .seek{
   width:100%;
   height:6px;
   background:#111;
+  margin-top:10px;
   cursor:pointer;
-  position:relative;
 }
 
 #fill{
@@ -135,38 +141,22 @@ body{
   background:#00ffcc;
 }
 
-/* BOX 5 (PLAY + SPEED) */
+/* BOX 5 */
 .p5{
   flex:1;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
   border-right:1px solid #00f5ff33;
+  padding:5px;
+  overflow:auto;
 }
 
-.p5 button{
-  background:#00f5ff;
-  border:none;
-  padding:5px 8px;
-  cursor:pointer;
-}
-
-/* BOX 6 (VOLUME) */
+/* BOX 6 */
 .p6{
   flex:1;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
+  padding:5px;
+  overflow:auto;
 }
 
-.p6 input{
-  width:120px;
-}
-
+/* AUDIO */
 audio{display:none;}
 
 </style>
@@ -178,19 +168,17 @@ audio{display:none;}
 
 <!-- 1 -->
 <div class="panel boot">
-<h3>BOOT SYSTEM</h3>
+<h3>BOOT RAMY SYSTEM</h3>
 <div class="bar"><span></span></div>
 </div>
 
 <!-- 2 -->
 <div class="panel terminal">
-SYSTEM ONLINE<br>
-ROOT ACCESS ✔
+SYSTEM ONLINE ✔
 </div>
 
 <!-- 3 -->
 <div class="panel login">
-<h3>LOGIN</h3>
 <input type="password" id="pass">
 <button onclick="check()">ENTER</button>
 </div>
@@ -201,18 +189,17 @@ ROOT ACCESS ✔
 <div class="name">RAMY</div>
 </div>
 
-<!-- 5 -->
-<div class="panel" id="left"></div>
+<!-- 5 SONG LIST -->
+<div class="panel p5" id="left"></div>
 
-<!-- 6 -->
-<div class="panel" id="right"></div>
+<!-- 6 SONG LIST -->
+<div class="panel p6" id="right"></div>
 
 </div>
 
-<!-- ===== BIG PLAYER ===== -->
+<!-- PLAYER -->
 <div class="player">
 
-<!-- 4 -->
 <div class="p4">
 <div id="title">No Song</div>
 <div class="seek" onclick="seek(event)">
@@ -220,26 +207,17 @@ ROOT ACCESS ✔
 </div>
 </div>
 
-<!-- 5 -->
-<div class="p5">
-<button onclick="prev()">⏮</button>
-<button onclick="toggle()">▶ / ⏸</button>
-<button onclick="next()">⏭</button>
-<button onclick="speed(1.25)">1.25x</button>
-<button onclick="speed(1.5)">1.5x</button>
-</div>
-
-<!-- 6 -->
-<div class="p6">
-🔊
-<input type="range" min="0" max="1" step="0.1" onchange="volume(this.value)">
-</div>
-
 </div>
 
 <audio id="audio"></audio>
 
 <script>
+
+/* LOGIN */
+function check(){
+if(pass.value==="106080") alert("ACCESS GRANTED");
+else alert("WRONG");
+}
 
 /* SONGS */
 let songs=[
@@ -270,6 +248,21 @@ let songs=[
 let audio=document.getElementById("audio");
 let index=0;
 
+/* RENDER SONGS IN BOX 5 & 6 */
+let left=document.getElementById("left");
+let right=document.getElementById("right");
+
+songs.forEach((s,i)=>{
+let div=document.createElement("div");
+div.className="song";
+div.innerHTML=`
+${s[0]}
+<button onclick="playSong(${i})">▶</button>
+`;
+
+(i<11?left:right).appendChild(div);
+});
+
 /* PLAY */
 function playSong(i){
 audio.src=songs[i][1];
@@ -278,42 +271,17 @@ index=i;
 document.getElementById("title").innerText=songs[i][0];
 }
 
-/* NEXT PREV */
-function next(){
-index=(index+1)%songs.length;
-playSong(index);
-}
-
-function prev(){
-index=(index-1+songs.length)%songs.length;
-playSong(index);
-}
-
-/* PLAY PAUSE */
-function toggle(){
-audio.paused?audio.play():audio.pause();
-}
-
-/* SPEED */
-function speed(v){
-audio.playbackRate=v;
-}
-
-/* VOLUME */
-function volume(v){
-audio.volume=v;
-}
-
-/* SEEK BAR */
+/* SEEK */
 function seek(e){
 let bar=e.currentTarget;
 let pos=e.offsetX/bar.offsetWidth;
 audio.currentTime=pos*audio.duration;
 }
 
+/* UPDATE BAR */
 audio.ontimeupdate=function(){
-let p=(audio.currentTime/audio.duration)*100;
-document.getElementById("fill").style.width=p+"%";
+document.getElementById("fill").style.width=
+(audio.currentTime/audio.duration)*100+"%";
 };
 
 </script>
