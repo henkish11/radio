@@ -181,7 +181,7 @@ body{
   background:#00ffcc;
 }
 
-/* VOLUME */
+/* VOLUME FIX IMPROVEMENT */
 .volume-box{
   display:flex;
   flex-direction:column;
@@ -203,7 +203,7 @@ audio{display:none;}
 
 <div class="dashboard">
 
-<!-- 1 -->
+<!-- BOX 1 -->
 <div class="panel hacker-box">
   <img src="https://mf.b37mrtl.ru/media/pics/2023.04/article/643e76264c59b716106a1276.PNG">
   <div class="hack-overlay">
@@ -215,7 +215,7 @@ audio{display:none;}
   </div>
 </div>
 
-<!-- 2 -->
+<!-- BOX 2 -->
 <div class="panel hacker-box">
   <img src="https://img.pikbest.com/wp/202345/hacker-skeleton-working-on-laptop-dark-background_9581815.jpg!w700wp">
   <div class="hack-overlay">
@@ -227,10 +227,10 @@ audio{display:none;}
   </div>
 </div>
 
-<!-- 3 -->
+<!-- BOX 3 -->
 <div class="panel">LOGIN SYSTEM</div>
 
-<!-- 4 PROFILE + RADIO + VOLUME -->
+<!-- BOX 4 -->
 <div class="panel profile">
 
 <img class="avatar" src="https://xatimg.com/image/PtMzAMEPdOYG.png">
@@ -247,15 +247,6 @@ audio{display:none;}
 ▶ / ⏸ راديو
 </button>
 
-<!-- 🔊 VOLUME CONTROL ADDED -->
-<div style="margin-top:10px;text-align:center;">
-<div style="font-size:12px;margin-bottom:5px;">🔊 التحكم في الصوت</div>
-
-<button onclick="radio.volume=Math.min(radio.volume+0.1,1)" style="padding:5px;margin:2px;background:#00f5ff;border:none;cursor:pointer;">➕ رفع</button>
-
-<button onclick="radio.volume=Math.max(radio.volume-0.1,0)" style="padding:5px;margin:2px;background:#00f5ff;border:none;cursor:pointer;">➖ خفض</button>
-</div>
-
 <div class="links">
 <a href="https://xat.com/2ra" target="_blank">🔥 2ra Chat</a>
 <a href="https://xat.com/7reqa" target="_blank">⚡ 7reqa Chat</a>
@@ -265,10 +256,10 @@ audio{display:none;}
 
 </div>
 
-<!-- 5 -->
+<!-- BOX 5 -->
 <div class="panel" id="left"></div>
 
-<!-- 6 -->
+<!-- BOX 6 -->
 <div class="panel" id="right"></div>
 
 </div>
@@ -287,18 +278,14 @@ let radios=[
 ];
 
 let radio=document.getElementById("radio");
-let rstate=false;
 
 function playRadio(i){
 radio.src=radios[i];
 radio.play();
-rstate=true;
 }
 
 function toggleRadio(){
-if(!radio.src) radio.src=radios[0];
-rstate?radio.pause():radio.play();
-rstate=!rstate;
+radio.paused ? radio.play() : radio.pause();
 }
 
 /* SONGS */
@@ -328,8 +315,6 @@ let songs=[
 ];
 
 let audio=document.getElementById("audio");
-let index=0;
-
 let left=document.getElementById("left");
 let right=document.getElementById("right");
 
@@ -347,41 +332,30 @@ left.innerHTML=`
 
 for(let i=0;i<11;i++){
 left.innerHTML+=`
-<div class="song">
-${songs[i][0]}
-<button onclick="playSong(${i})">▶</button>
-</div>`;
+<div class="song">${songs[i][0]}<button onclick="playSong(${i})">▶</button></div>`;
 }
 
 right.innerHTML=`
 <div class="volume-box">
 🔊 الصوت
-<input type="range" min="0" max="1" step="0.1" onchange="volume(this.value)">
+<input type="range" min="0" max="1" step="0.1" onchange="audio.volume=this.value">
 </div>
 `;
 
 for(let i=11;i<songs.length;i++){
 right.innerHTML+=`
-<div class="song">
-${songs[i][0]}
-<button onclick="playSong(${i})">▶</button>
-</div>`;
+<div class="song">${songs[i][0]}<button onclick="playSong(${i})">▶</button></div>`;
 }
 
 /* FUNCTIONS */
 function playSong(i){
 audio.src=songs[i][1];
 audio.play();
-index=i;
 document.getElementById("title").innerText=songs[i][0];
 }
 
 function toggle(){
-audio.paused?audio.play():audio.pause();
-}
-
-function volume(v){
-audio.volume=v;
+audio.paused ? audio.play() : audio.pause();
 }
 
 function seek(e){
