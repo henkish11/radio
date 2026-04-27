@@ -77,7 +77,7 @@ canvas{
 
 .status{color:#38bdf8}
 
-/* MAIN */
+/* PROFILE */
 .container{
   min-height:100vh;
   display:flex;
@@ -97,7 +97,6 @@ canvas{
   box-shadow:0 0 50px rgba(0,140,255,0.25);
 }
 
-/* TOP */
 .top{
   display:flex;
   gap:15px;
@@ -135,6 +134,16 @@ canvas{
   font-size:11px;
 }
 
+.play-toggle{
+  padding:6px 12px;
+  background:#00ffb3;
+  border:none;
+  border-radius:20px;
+  cursor:pointer;
+  color:#000;
+  font-weight:bold;
+}
+
 /* LINKS */
 .world{
   display:block;
@@ -155,30 +164,30 @@ canvas{
 #winamp{
   width:92%;
   max-width:900px;
-  margin:25px auto;
-  background:#000;
+  margin:20px auto;
+  background:linear-gradient(135deg,#000,#001a2e);
   border:2px solid #00c3ff;
   border-radius:18px;
   padding:15px;
-  box-shadow:0 0 25px #00c3ff;
+  box-shadow:0 0 30px #00c3ff;
 }
 
 .song{
-  width:160px;
-  font-size:11px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
   padding:8px;
-  margin:5px;
-  background:#001;
-  border:1px solid #00c3ff;
+  margin:6px 0;
+  background:rgba(0,195,255,0.1);
+  border:1px solid rgba(0,195,255,0.3);
   border-radius:10px;
-  text-align:center;
   cursor:pointer;
-  display:inline-block;
+  font-size:12px;
+  transition:.2s;
 }
-
-hr{
-  border:1px solid rgba(255,255,255,0.1);
-  margin:20px 0;
+.song:hover{
+  background:rgba(0,195,255,0.3);
+  transform:scale(1.02);
 }
 </style>
 </head>
@@ -187,7 +196,7 @@ hr{
 
 <canvas id="bg"></canvas>
 
-<!-- AUDIO -->
+<!-- RADIO -->
 <audio id="radio1" src="https://stream.radiojar.com/8s5u5tpdtwzuv"></audio>
 <audio id="radio2" src="https://audio.nrpstream.com/listen/nogoumfm/radio.mp3"></audio>
 <audio id="radio3" src="https://stream.zeno.fm/w7atxdpk1pdvv"></audio>
@@ -214,12 +223,14 @@ hr{
 
 <div>
 <div class="name">Ramy</div>
+<div style="font-size:12px;color:#aaa;">ID: 106080</div>
 
 <div class="radio-box">
 <button class="radio-btn" onclick="playRadio(1)">🎧 قرآن</button>
 <button class="radio-btn" onclick="playRadio(2)">🎶 ميلودي</button>
 <button class="radio-btn" onclick="playRadio(3)">🎤 حماقي</button>
 <button class="radio-btn" onclick="playRadio(4)">🔥 منوعات</button>
+<button class="play-toggle" onclick="toggleRadio()">⏯ تشغيل/إيقاف</button>
 </div>
 
 </div>
@@ -241,18 +252,16 @@ hr{
 </div>
 </div>
 
-<!-- 🔥 WINAMP UNDER LINKS -->
-<hr>
-
+<!-- WINAMP -->
 <div id="winamp">
-<h2 style="text-align:center;color:#00c3ff;">🎧 LIL ELMOHAMEDY PLAYER</h2>
+<h2 style="text-align:center;color:#00c3ff;margin-bottom:10px;">🎧 LIL ELMOHAMEDY PLAYER</h2>
 <audio id="player"></audio>
 <div id="list"></div>
 </div>
 
 <script>
 
-/* LOGIN */
+/* LOGIN ENTER */
 function enter(){
   let p=document.getElementById('password').value;
   if(p==="106080"){
@@ -260,6 +269,10 @@ function enter(){
     document.getElementById('status').innerText='⚡ ONLINE';
   }
 }
+
+document.getElementById("password").addEventListener("keydown",e=>{
+  if(e.key==="Enter") enter();
+});
 
 /* RADIO */
 let radios=[
@@ -269,17 +282,25 @@ new Audio("https://stream.zeno.fm/w7atxdpk1pdvv"),
 new Audio("https://stream.zeno.fm/hswv0qwu7vgtv")
 ];
 
+let currentRadio=null;
+
 function playRadio(i){
   radios.forEach(r=>{r.pause();r.currentTime=0});
-  radios[i-1].play();
+  currentRadio=radios[i-1];
+  currentRadio.play();
+}
+
+function toggleRadio(){
+  if(!currentRadio) return;
+  currentRadio.paused ? currentRadio.play() : currentRadio.pause();
 }
 
 /* WINAMP */
 const player=document.getElementById("player");
 
-function playSong(u){
-  player.src=u;
-  player.play().catch(()=>{});
+function playSong(url){
+  player.src=url;
+  player.play();
 }
 
 let songs=[
@@ -298,7 +319,6 @@ let songs=[
 {n:"حبي الاولاني",u:"https://e.top4top.io/m_3769o93s34.mp3"},
 {n:"لسه",u:"https://f.top4top.io/m_3769c3tql5.mp3"},
 {n:"مش زي غيرها",u:"https://g.top4top.io/m_3769r7bcu6.mp3"},
-{n:"نفسى أطمن بيك 2",u:"https://l.top4top.io/m_3769p7dkd1.mp3"},
 {n:"نسند بعض",u:"https://a.top4top.io/m_37697muuj2.mp3"},
 {n:"ياللي ناسيني",u:"https://b.top4top.io/m_3769i9yd13.mp3"},
 {n:"وش السعد",u:"https://c.top4top.io/m_3769ou0bt4.mp3"},
@@ -306,14 +326,14 @@ let songs=[
 {n:"يا اللي نسيني",u:"https://e.top4top.io/m_3769rnmrk6.mp3"}
 ];
 
-let box=document.getElementById("list");
+let list=document.getElementById("list");
 
 songs.forEach(s=>{
   let d=document.createElement("div");
   d.className="song";
-  d.innerText=s.n;
+  d.innerHTML=`🎵 ${s.n}`;
   d.onclick=()=>playSong(s.u);
-  box.appendChild(d);
+  list.appendChild(d);
 });
 
 </script>
