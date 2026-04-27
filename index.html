@@ -2,68 +2,60 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>CYBER SYSTEM</title>
+<title>MATRIX MODE</title>
 
 <style>
 body{
   margin:0;
+  overflow:hidden;
   background:#000;
   font-family:monospace;
-  color:#00ff88;
-  overflow:hidden;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
+  color:#00ff66;
 }
 
-/* ===== scan lines ===== */
-body::before{
-  content:"";
-  position:absolute;
-  width:100%;
-  height:100%;
-  background:repeating-linear-gradient(
-    0deg,
-    rgba(0,255,120,0.03),
-    rgba(0,255,120,0.03) 2px,
-    transparent 2px,
-    transparent 4px
-  );
-  pointer-events:none;
+/* ===== MATRIX BACKGROUND ===== */
+canvas{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:0;
 }
 
-/* MAIN TERMINAL */
+/* ===== TERMINAL ===== */
 .terminal{
-  width:750px;
-  height:400px;
-  background:#000;
-  border:1px solid #00ff88;
-  box-shadow:0 0 30px #00ff8855;
-  padding:15px;
   position:relative;
+  z-index:2;
+  width:750px;
+  height:420px;
+  margin:auto;
+  top:50%;
+  transform:translateY(-50%);
+  border:1px solid #00ff66;
+  box-shadow:0 0 30px #00ff6633;
+  padding:15px;
+  background:rgba(0,0,0,0.85);
 }
 
 /* header */
 .header{
-  color:#00ff88;
   font-size:12px;
   margin-bottom:10px;
 }
 
-/* system text */
-.log{
+/* logs */
+.logs{
   font-size:11px;
   height:120px;
   overflow:hidden;
 }
 
-/* blinking cursor */
+/* cursor */
 .cursor{
   display:inline-block;
   width:8px;
-  background:#00ff88;
-  animation:blink .8s infinite;
+  height:12px;
+  background:#00ff66;
+  animation:blink .7s infinite;
 }
 
 @keyframes blink{
@@ -71,21 +63,18 @@ body::before{
   50%{opacity:0}
 }
 
-/* radio */
-.radio{
-  margin-top:10px;
-}
-
-.radio button{
-  background:#000;
-  border:1px solid #00ff88;
-  color:#00ff88;
+/* buttons */
+button{
+  background:transparent;
+  border:1px solid #00ff66;
+  color:#00ff66;
   padding:5px 10px;
   cursor:pointer;
+  font-family:monospace;
 }
 
-.radio button:hover{
-  background:#00ff8820;
+button:hover{
+  background:#00ff6620;
 }
 
 /* songs */
@@ -93,24 +82,16 @@ body::before{
   margin-top:10px;
   height:180px;
   overflow:auto;
-  border-top:1px solid #00ff88;
+  border-top:1px solid #00ff66;
   padding-top:10px;
 }
 
 .song{
   display:flex;
   justify-content:space-between;
+  font-size:10px;
   padding:3px;
-  font-size:10px;
-  border-bottom:1px dashed #00ff8844;
-}
-
-.song button{
-  background:#000;
-  border:1px solid #00ff88;
-  color:#00ff88;
-  font-size:10px;
-  cursor:pointer;
+  border-bottom:1px dashed #00ff6633;
 }
 
 </style>
@@ -118,25 +99,27 @@ body::before{
 
 <body>
 
+<canvas id="matrix"></canvas>
+
 <div class="terminal">
 
 <div class="header">
-> CYBER SYSTEM ONLINE... OK<br>
-> STATUS: CONNECTED<br>
-> SECURITY: LOW PROFILE MODE<br>
+> MATRIX SYSTEM ACTIVE<br>
+> STATUS: CONNECTED TO CORE<br>
+> SECURITY: BYPASSED
 </div>
 
-<div class="log" id="log"></div>
+<div class="logs" id="logs"></div>
 
-<div class="radio">
-<button onclick="playRadio()">START RADIO</button>
-<button onclick="toggle()">STOP</button>
+<div>
+<button onclick="playRadio()">RADIO ON</button>
+<button onclick="stopRadio()">STOP</button>
 </div>
 
 <div class="songs" id="songs"></div>
 
 <div style="margin-top:10px;">
-> root@system:<span class="cursor"></span>
+root@matrix:<span class="cursor"></span>
 </div>
 
 </div>
@@ -146,62 +129,93 @@ body::before{
 
 <script>
 
-/* fake terminal log */
+/* ===== MATRIX RAIN ===== */
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let letters = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ$#@";
+letters = letters.split("");
+
+let fontSize = 14;
+let columns = canvas.width / fontSize;
+
+let drops = [];
+
+for(let x=0;x<columns;x++)
+drops[x]=1;
+
+function drawMatrix(){
+ctx.fillStyle="rgba(0,0,0,0.08)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+ctx.fillStyle="#00ff66";
+ctx.font=fontSize+"px monospace";
+
+for(let i=0;i<drops.length;i++){
+let text = letters[Math.floor(Math.random()*letters.length)];
+ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+
+if(drops[i]*fontSize>canvas.height && Math.random()>0.975)
+drops[i]=0;
+
+drops[i]++;
+}
+}
+setInterval(drawMatrix,35);
+
+/* ===== LOGS ===== */
 let logs=[
-"[OK] initializing system...",
-"[OK] loading modules...",
-"[OK] connecting radio server...",
-"[OK] decrypting media list...",
-"[OK] system ready."
+"[OK] boot sequence started...",
+"[OK] scanning network...",
+"[OK] firewall disabled...",
+"[OK] system unlocked...",
+"[OK] matrix connected."
 ];
 
 let i=0;
-let logBox=document.getElementById("log");
+let box=document.getElementById("logs");
 
 setInterval(()=>{
 if(i<logs.length){
-logBox.innerHTML+=logs[i]+"<br>";
+box.innerHTML+=logs[i]+"<br>";
 i++;
 }
 },800);
 
-/* radio */
+/* ===== RADIO ===== */
 let radio=document.getElementById("radio");
-let on=false;
 
 function playRadio(){
 radio.src="https://stream.radiojar.com/8s5u5tpdtwzuv";
 radio.play();
-on=true;
 }
 
-function toggle(){
+function stopRadio(){
 radio.pause();
-on=false;
 }
 
-/* songs */
+/* ===== SONGS ===== */
 let songs=[
 ["track_01","https://j.top4top.io/m_3769le8x51.mp3"],
 ["track_02","https://k.top4top.io/m_3769enq6z2.mp3"],
 ["track_03","https://l.top4top.io/m_3769auk3d3.mp3"],
-["track_04","https://a.top4top.io/m_3769kdadn4.mp3"],
-["track_05","https://b.top4top.io/m_3769kg8sd5.mp3"],
-["track_06","https://c.top4top.io/m_3769ien0c6.mp3"]
+["track_04","https://a.top4top.io/m_3769kdadn4.mp3"]
 ];
 
-let box=document.getElementById("songs");
+let list=document.getElementById("songs");
 let player=document.getElementById("player");
 
 songs.forEach(s=>{
-let div=document.createElement("div");
-div.className="song";
-div.innerHTML=`
+let d=document.createElement("div");
+d.className="song";
+d.innerHTML=`
 ${s[0]}
-<div>
 <button onclick="player.src='${s[1]}';player.play()">RUN</button>
-</div>`;
-box.appendChild(div);
+`;
+list.appendChild(d);
 });
 
 </script>
