@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RAMY SYSTEM RESTORE FINAL</title>
+<title>RAMY SYSTEM</title>
 
 <style>
 body{
@@ -14,6 +14,7 @@ body{
   overflow:hidden;
 }
 
+/* GRID */
 .dashboard{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
@@ -31,7 +32,7 @@ body{
   overflow:auto;
 }
 
-/* PROFILE */
+/* PROFILE (UPDATED BOX 4) */
 .profile{
   text-align:center;
 }
@@ -47,7 +48,46 @@ body{
   text-shadow:0 0 10px #00f5ff;
 }
 
-/* SONG */
+/* RADIO */
+.radio{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:5px;
+  margin-top:5px;
+}
+
+.radio button{
+  background:#00f5ff;
+  border:none;
+  padding:5px 8px;
+  font-size:11px;
+  cursor:pointer;
+}
+
+/* LINKS */
+.links{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  margin-top:8px;
+}
+
+.links a{
+  color:#00ffcc;
+  text-decoration:none;
+  padding:6px;
+  background:#00f5ff11;
+  border-radius:6px;
+  transition:0.2s;
+}
+
+.links a:hover{
+  transform:scale(1.1);
+  background:#00f5ff33;
+}
+
+/* SONG ITEM */
 .song{
   display:flex;
   justify-content:space-between;
@@ -64,49 +104,13 @@ body{
   padding:3px 6px;
 }
 
-/* RADIO */
-.radio{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:5px;
-}
-
-.radio button{
-  background:#00f5ff;
-  border:none;
-  padding:5px 8px;
-  font-size:11px;
-  cursor:pointer;
-}
-
-/* LINKS */
-.links{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-}
-
-.links a{
-  color:#00ffcc;
-  text-decoration:none;
-  padding:5px;
-  background:#00f5ff11;
-  border-radius:6px;
-}
-
-.links a:hover{
-  transform:scale(1.1);
-  transition:0.2s;
-}
-
-/* MINI PLAYER (RESTORED) */
+/* MINI PLAYER */
 .player-mini{
   display:flex;
   flex-direction:column;
   align-items:center;
+  justify-content:center;
   gap:6px;
-  padding:5px;
 }
 
 .player-mini button{
@@ -117,7 +121,28 @@ body{
   border-radius:5px;
 }
 
-/* VOLUME BOX */
+#title{
+  font-size:12px;
+  text-align:center;
+}
+
+/* SEEK */
+.seek{
+  width:90%;
+  height:5px;
+  background:#111;
+  cursor:pointer;
+  border-radius:5px;
+  overflow:hidden;
+}
+
+#fill{
+  height:100%;
+  width:0%;
+  background:#00ffcc;
+}
+
+/* VOLUME */
 .volume-box{
   display:flex;
   flex-direction:column;
@@ -130,7 +155,6 @@ body{
   width:120px;
 }
 
-/* AUDIO */
 audio{display:none;}
 
 </style>
@@ -141,15 +165,15 @@ audio{display:none;}
 <div class="dashboard">
 
 <!-- 1 -->
-<div class="panel">BOOT</div>
+<div class="panel">BOOT SYSTEM</div>
 
 <!-- 2 -->
-<div class="panel">SYSTEM</div>
+<div class="panel">HACK TERMINAL</div>
 
 <!-- 3 -->
 <div class="panel">LOGIN</div>
 
-<!-- 4 PROFILE + RADIO -->
+<!-- 4 ===== ADDED BACK ===== -->
 <div class="panel profile">
 
 <img class="avatar" src="https://xatimg.com/image/PtMzAMEPdOYG.png">
@@ -163,29 +187,25 @@ audio{display:none;}
 <button onclick="playRadio(3)">🔥 منوعات</button>
 </div>
 
-<!-- RADIO ON/OFF -->
 <button onclick="toggleRadio()" style="margin-top:5px;background:#00ffcc;border:none;padding:5px;cursor:pointer;">
 ▶ / ⏸ راديو
 </button>
 
-<!-- LINKS -->
+<!-- LINKS (OPEN NEW TAB) -->
 <div class="links">
-<a href="https://xat.com/2ra">2ra Chat</a>
-<a href="https://xat.com/7reqa">7reqa Chat</a>
-<a href="https://xat.com/trade">Trade Hub</a>
-<a href="https://xat.com/cambio">Cambio Zone</a>
+<a href="https://xat.com/2ra" target="_blank">🔥 2ra Chat</a>
+<a href="https://xat.com/7reqa" target="_blank">⚡ 7reqa Chat</a>
+<a href="https://xat.com/trade" target="_blank">💰 Trade Hub</a>
+<a href="https://xat.com/cambio" target="_blank">🌐 Cambio Zone</a>
 </div>
 
 </div>
 
-<!-- 5 SONGS -->
+<!-- 5 -->
 <div class="panel" id="left"></div>
 
-<!-- 6 VOLUME -->
-<div class="panel volume-box">
-🔊 الصوت
-<input type="range" min="0" max="1" step="0.1" onchange="volume(this.value)">
-</div>
+<!-- 6 -->
+<div class="panel" id="right"></div>
 
 </div>
 
@@ -218,7 +238,7 @@ rstate?radio.pause():radio.play();
 rstate=!rstate;
 }
 
-/* SONGS */
+/* SONGS (UNCHANGED) */
 let songs=[
 ["نفسي أطمن بيك","https://j.top4top.io/m_3769le8x51.mp3"],
 ["الشعر الأسود","https://k.top4top.io/m_3769enq6z2.mp3"],
@@ -245,28 +265,72 @@ let songs=[
 ];
 
 let audio=document.getElementById("audio");
+let index=0;
 
-/* LEFT LIST ONLY */
+/* LEFT */
 let left=document.getElementById("left");
+left.innerHTML=`
+<div class="player-mini">
+<div id="title">No Song</div>
+<button onclick="toggle()">▶ / ⏸</button>
 
-songs.forEach((s,i)=>{
+<div class="seek" onclick="seek(event)">
+<div id="fill"></div>
+</div>
+</div>
+`;
+
+for(let i=0;i<11;i++){
 left.innerHTML+=`
 <div class="song">
-${s[0]}
+${songs[i][0]}
 <button onclick="playSong(${i})">▶</button>
 </div>`;
-});
+}
 
-/* PLAY */
+/* RIGHT */
+let right=document.getElementById("right");
+
+right.innerHTML=`
+<div class="volume-box">
+🔊 الصوت
+<input type="range" min="0" max="1" step="0.1" onchange="volume(this.value)">
+</div>
+`;
+
+for(let i=11;i<songs.length;i++){
+right.innerHTML+=`
+<div class="song">
+${songs[i][0]}
+<button onclick="playSong(${i})">▶</button>
+</div>`;
+}
+
+/* FUNCTIONS */
 function playSong(i){
 audio.src=songs[i][1];
 audio.play();
+index=i;
+document.getElementById("title").innerText=songs[i][0];
 }
 
-/* VOLUME */
+function toggle(){
+audio.paused?audio.play():audio.pause();
+}
+
 function volume(v){
 audio.volume=v;
 }
+
+function seek(e){
+let pos=e.offsetX/e.currentTarget.offsetWidth;
+audio.currentTime=pos*audio.duration;
+}
+
+audio.ontimeupdate=function(){
+document.getElementById("fill").style.width=
+(audio.currentTime/audio.duration)*100+"%";
+};
 
 </script>
 
