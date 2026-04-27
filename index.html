@@ -15,171 +15,78 @@ body{
   color:#fff;
 }
 
-canvas{
-  position:fixed;
-  inset:0;
-  z-index:-2;
-}
+canvas{position:fixed;inset:0;z-index:-2}
 
 /* LOGIN */
-.login{
-  position:fixed;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:rgba(0,0,0,0.7);
-  backdrop-filter:blur(12px);
-  z-index:50;
-}
-.login-box{
-  width:300px;
-  padding:18px;
-  border-radius:15px;
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.1);
-}
-.login-box input{
-  width:100%;
-  margin:8px 0;
-  padding:9px;
-  background:#0f172a;
-  border:none;
-  color:#fff;
-  border-radius:8px;
-}
-.login-box button{
-  width:100%;
-  padding:9px;
-  background:linear-gradient(45deg,#0ea5e9,#1e3a8a);
-  border:none;
-  color:#fff;
-  cursor:pointer;
-  border-radius:8px;
-}
+.login{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.7);backdrop-filter:blur(12px);z-index:50}
+.login-box{width:300px;padding:18px;border-radius:15px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1)}
+.login-box input{width:100%;margin:8px 0;padding:9px;background:#0f172a;border:none;color:#fff;border-radius:8px}
+.login-box button{width:100%;padding:9px;background:linear-gradient(45deg,#0ea5e9,#1e3a8a);border:none;color:#fff;cursor:pointer;border-radius:8px}
 
 /* TOPBAR */
-.topbar{
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  padding:8px 15px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:rgba(0,0,0,0.4);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid rgba(255,255,255,0.08);
-  z-index:10;
-  font-size:13px;
-}
-
+.topbar{position:fixed;top:0;left:0;right:0;padding:8px 15px;display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,0.4);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.08);z-index:10;font-size:13px}
 .status{color:#38bdf8}
 
 /* PROFILE */
-.container{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:10px;
-}
+.container{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:10px}
+.profile{width:900px;max-width:95%;background:linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03));border-radius:20px;border:1px solid rgba(255,255,255,0.1);padding:20px;backdrop-filter:blur(18px);box-shadow:0 0 50px rgba(0,140,255,0.25)}
 
-.profile{
-  width:900px;
-  max-width:95%;
-  background:linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03));
-  border-radius:20px;
-  border:1px solid rgba(255,255,255,0.1);
-  padding:20px;
-  backdrop-filter:blur(18px);
-  box-shadow:0 0 50px rgba(0,140,255,0.25);
-}
-
-.top{
-  display:flex;
-  gap:15px;
-  align-items:center;
-}
-
-.top img{
-  width:100px;
-  height:100px;
-  border-radius:50%;
-  border:2px solid #00c3ff;
-}
-
-.name{
-  font-size:32px;
-  font-weight:700;
-  color:#4fc3ff;
-}
+.top{display:flex;gap:15px;align-items:center}
+.top img{width:100px;height:100px;border-radius:50%;border:2px solid #00c3ff}
+.name{font-size:32px;font-weight:700;color:#4fc3ff}
 
 /* RADIO */
-.radio-box{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:6px;
-}
-
-.radio-btn{
-  padding:6px 12px;
-  background:linear-gradient(45deg,#00c3ff,#1e3a8a);
-  border:none;
-  border-radius:20px;
-  cursor:pointer;
-  color:#fff;
-  font-size:11px;
-}
-
-.play-toggle{
-  padding:6px 12px;
-  background:#00ffb3;
-  border:none;
-  border-radius:20px;
-  cursor:pointer;
-  color:#000;
-  font-weight:bold;
-}
+.radio-box{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.radio-btn{padding:6px 12px;background:linear-gradient(45deg,#00c3ff,#1e3a8a);border:none;border-radius:20px;cursor:pointer;color:#fff;font-size:11px}
+.play-toggle{padding:6px 12px;background:#00ffb3;border:none;border-radius:20px;cursor:pointer;color:#000;font-weight:bold}
 
 /* LINKS */
-.world{
-  display:block;
-  padding:10px;
-  border-radius:10px;
-  background:rgba(0,195,255,0.1);
-  text-decoration:none;
-  color:#fff;
-  font-size:13px;
-  transition:.3s;
-}
-.world:hover{
-  background:rgba(0,195,255,0.25);
-  transform:scale(1.02);
-}
+.world{display:block;padding:10px;border-radius:10px;background:rgba(0,195,255,0.1);text-decoration:none;color:#fff;font-size:13px}
+.world:hover{background:rgba(0,195,255,0.25);transform:scale(1.02)}
 
 /* PLAYER */
 #winamp{
-  margin-top:10px;
+  margin-top:0; /* مفيش مسافة */
   background:linear-gradient(135deg,#000,#001a2e);
-  border:2px solid #00c3ff;
-  border-radius:15px;
-  padding:10px;
+  border-top:1px solid rgba(0,195,255,0.3);
+  padding:8px;
 }
 
 .song{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
   padding:6px;
-  margin:4px 0;
+  margin:3px 0;
   background:rgba(0,195,255,0.1);
-  border-radius:8px;
-  cursor:pointer;
+  border-radius:6px;
   font-size:12px;
 }
-.song:hover{
-  background:rgba(0,195,255,0.3);
+
+.song button{
+  margin-left:5px;
+  border:none;
+  padding:4px 8px;
+  border-radius:6px;
+  cursor:pointer;
 }
+
+.play{background:#00c3ff;color:#000}
+.stop{background:#ff4d4d;color:#fff}
+
+.controls{
+  text-align:center;
+  margin-bottom:6px;
+}
+.controls button{
+  margin:2px;
+  padding:5px 10px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
+.all{background:#00ffb3}
+.stopall{background:#ff4d4d;color:#fff}
 </style>
 </head>
 
@@ -222,7 +129,6 @@ canvas{
 <button class="radio-btn" onclick="playRadio(4)">🔥 منوعات</button>
 <button class="play-toggle" onclick="toggleRadio()">⏯ تشغيل/إيقاف</button>
 </div>
-
 </div>
 </div>
 
@@ -238,11 +144,17 @@ canvas{
 <a class="world" href="https://xat.com/cambio">🌐 Cambio Zone</a>
 </div>
 
-<!-- 🎧 PLAYER تحت اللينكات -->
+<!-- PLAYER -->
 <div id="winamp">
-<h3 style="text-align:center;color:#00c3ff;">🎧 LIL PLAYER</h3>
+
+<div class="controls">
+<button class="all" onclick="playAll()">▶ تشغيل الكل</button>
+<button class="stopall" onclick="stopAll()">⏹ إيقاف الكل</button>
+</div>
+
 <audio id="player"></audio>
 <div id="list"></div>
+
 </div>
 
 </div>
@@ -252,15 +164,12 @@ canvas{
 
 /* LOGIN */
 function enter(){
-  let p=document.getElementById('password').value;
-  if(p==="106080"){
-    document.getElementById('login').style.display='none';
-    document.getElementById('status').innerText='⚡ ONLINE';
+  if(password.value==="106080"){
+    login.style.display="none";
+    status.innerText="⚡ ONLINE";
   }
 }
-document.getElementById("password").addEventListener("keydown",e=>{
-  if(e.key==="Enter") enter();
-});
+password.addEventListener("keydown",e=>{if(e.key==="Enter") enter()});
 
 /* RADIO */
 let radios=[radio1,radio2,radio3,radio4];
@@ -271,14 +180,13 @@ function playRadio(i){
   current=radios[i-1];
   current.play();
 }
-
 function toggleRadio(){
   if(!current) return;
-  current.paused ? current.play() : current.pause();
+  current.paused?current.play():current.pause();
 }
 
 /* SONGS */
-let songs=[
+let songs=[ /* نفس ال21 */ 
 {n:"نفسى أطمن بيك",u:"https://j.top4top.io/m_3769le8x51.mp3"},
 {n:"الشر الاسود",u:"https://k.top4top.io/m_3769enq6z2.mp3"},
 {n:"حبي الاولاني",u:"https://l.top4top.io/m_3769auk3d3.mp3"},
@@ -300,39 +208,43 @@ let songs=[
 {n:"يا اللي نسيني",u:"https://e.top4top.io/m_3769rnmrk6.mp3"}
 ];
 
-let list=document.getElementById("list");
 let player=document.getElementById("player");
+let list=document.getElementById("list");
+let index=0;
 
-songs.forEach(s=>{
+function playSong(i){
+  player.src=songs[i].u;
+  player.play();
+  index=i;
+}
+
+songs.forEach((s,i)=>{
   let div=document.createElement("div");
   div.className="song";
-  div.innerHTML="🎵 "+s.n;
-  div.onclick=()=>{player.src=s.u;player.play();}
+  div.innerHTML=`${s.n}
+  <div>
+  <button class="play" onclick="playSong(${i})">▶</button>
+  <button class="stop" onclick="player.pause()">⏸</button>
+  </div>`;
   list.appendChild(div);
 });
 
-/* BG */
-const c=document.getElementById('bg');
-const x=c.getContext('2d');
-c.width=innerWidth;
-c.height=innerHeight;
+/* تشغيل تلقائي */
+player.onended=()=>{
+  index++;
+  if(index<songs.length){
+    playSong(index);
+  }
+};
 
-let p=[];
-for(let i=0;i<60;i++){
-  p.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*2});
+function playAll(){
+  index=0;
+  playSong(index);
 }
-
-function a(){
-  x.clearRect(0,0,c.width,c.height);
-  x.fillStyle="#38bdf8";
-  p.forEach(o=>{
-    x.beginPath();
-    x.arc(o.x,o.y,o.r,0,6.28);
-    x.fill();
-  });
-  requestAnimationFrame(a);
+function stopAll(){
+  player.pause();
+  player.currentTime=0;
 }
-a();
 
 </script>
 
