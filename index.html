@@ -77,7 +77,7 @@ canvas{
 
 .status{color:#38bdf8}
 
-/* PROFILE */
+/* MAIN */
 .container{
   min-height:100vh;
   display:flex;
@@ -135,45 +135,63 @@ canvas{
   font-size:11px;
 }
 
+/* LINKS */
+.world{
+  display:block;
+  padding:10px;
+  border-radius:10px;
+  background:rgba(0,195,255,0.1);
+  text-decoration:none;
+  color:#fff;
+  font-size:13px;
+  transition:.3s;
+}
+.world:hover{
+  background:rgba(0,195,255,0.25);
+  transform:scale(1.02);
+}
+
 /* WINAMP */
 #winamp{
   width:92%;
-  max-width:850px;
+  max-width:900px;
   margin:25px auto;
   background:#000;
-  border:2px solid #00ffcc;
+  border:2px solid #00c3ff;
   border-radius:18px;
   padding:15px;
-  box-shadow:0 0 25px #00ffcc;
-}
-
-#playlist{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  justify-content:center;
-  padding:10px;
+  box-shadow:0 0 25px #00c3ff;
 }
 
 .song{
-  width:140px;
-  height:70px;
+  width:160px;
+  font-size:11px;
+  padding:8px;
+  margin:5px;
   background:#001;
-  border:1px solid #00ffcc;
+  border:1px solid #00c3ff;
   border-radius:10px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:10px;
   text-align:center;
   cursor:pointer;
+  display:inline-block;
+}
+
+hr{
+  border:1px solid rgba(255,255,255,0.1);
+  margin:20px 0;
 }
 </style>
 </head>
 
 <body>
 
-<canvas></canvas>
+<canvas id="bg"></canvas>
+
+<!-- AUDIO -->
+<audio id="radio1" src="https://stream.radiojar.com/8s5u5tpdtwzuv"></audio>
+<audio id="radio2" src="https://audio.nrpstream.com/listen/nogoumfm/radio.mp3"></audio>
+<audio id="radio3" src="https://stream.zeno.fm/w7atxdpk1pdvv"></audio>
+<audio id="radio4" src="https://stream.zeno.fm/hswv0qwu7vgtv"></audio>
 
 <!-- LOGIN -->
 <div class="login" id="login">
@@ -183,13 +201,11 @@ canvas{
   </div>
 </div>
 
-<!-- TOP -->
 <div class="topbar">
   <div class="status" id="status">⚡ OFFLINE</div>
   <div>by iegypt (106080) ramy</div>
 </div>
 
-<!-- PROFILE -->
 <div class="container">
 <div class="profile">
 
@@ -209,31 +225,41 @@ canvas{
 </div>
 </div>
 
+<!-- LINKS -->
+<div class="grid">
+<div class="card">⚡ I love trading on xat website</div>
+<div class="card">❤️ I got involved with Dolly ❤️</div>
+</div>
+
+<div class="grid">
+<a class="world" href="https://xat.com/2ra">🔥 2ra Chat</a>
+<a class="world" href="https://xat.com/7reqa">⚡ 7reqa Chat</a>
+<a class="world" href="https://xat.com/trade">💰 Trade Hub</a>
+<a class="world" href="https://xat.com/cambio">🌐 Cambio Zone</a>
+</div>
+
 </div>
 </div>
 
-<!-- WINAMP -->
+<!-- 🔥 WINAMP UNDER LINKS -->
+<hr>
+
 <div id="winamp">
-<h3 style="text-align:center;color:#00ffcc;">🎧 WINAMP PLAYER</h3>
+<h2 style="text-align:center;color:#00c3ff;">🎧 LIL ELMOHAMEDY PLAYER</h2>
 <audio id="player"></audio>
-<div id="playlist"></div>
+<div id="list"></div>
 </div>
 
 <script>
 
-window.onload = function(){
-
 /* LOGIN */
-window.enter = function(){
-  if(document.getElementById("password").value==="106080"){
-    document.getElementById("login").style.display="none";
-    document.getElementById("status").innerText="⚡ ONLINE";
+function enter(){
+  let p=document.getElementById('password').value;
+  if(p==="106080"){
+    document.getElementById('login').style.display='none';
+    document.getElementById('status').innerText='⚡ ONLINE';
   }
 }
-
-document.getElementById("password").addEventListener("keydown",e=>{
-  if(e.key==="Enter") enter();
-});
 
 /* RADIO */
 let radios=[
@@ -243,55 +269,44 @@ new Audio("https://stream.zeno.fm/w7atxdpk1pdvv"),
 new Audio("https://stream.zeno.fm/hswv0qwu7vgtv")
 ];
 
-window.playRadio = function(i){
+function playRadio(i){
   radios.forEach(r=>{r.pause();r.currentTime=0});
   radios[i-1].play();
 }
 
-/* WINAMP SAFE PLAYER */
+/* WINAMP */
 const player=document.getElementById("player");
 
-window.playSong = function(url){
-
-  if(!url || url==="#"){
-    alert("❌ غير متاحة");
-    return;
-  }
-
-  try{
-    player.src=url;
-    player.play().catch(()=>console.log("blocked"));
-  }catch(e){
-    console.log(e);
-  }
+function playSong(u){
+  player.src=u;
+  player.play().catch(()=>{});
 }
 
-/* SONG LIST */
 let songs=[
-{n:"Song 1",u:"https://j.top4top.io/m_3769le8x51.mp3"},
-{n:"Song 2",u:"https://k.top4top.io/m_3769enq6z2.mp3"},
-{n:"Song 3",u:"https://l.top4top.io/m_3769auk3d3.mp3"},
-{n:"Song 4",u:"https://a.top4top.io/m_3769kdadn4.mp3"},
-{n:"Song 5",u:"https://b.top4top.io/m_3769kg8sd5.mp3"},
-{n:"Song 6",u:"https://c.top4top.io/m_3769ien0c6.mp3"},
-{n:"Song 7",u:"https://d.top4top.io/m_3769yw3257.mp3"},
-{n:"Song 8",u:"https://e.top4top.io/m_3769yb3k29.mp3"},
-{n:"Song 9",u:"https://f.top4top.io/m_37690zriz10.mp3"},
-{n:"Song 10",u:"https://b.top4top.io/m_3769lxi681.mp3"},
-{n:"Song 11",u:"https://c.top4top.io/m_3769g0kg52.mp3"},
-{n:"Song 12",u:"https://d.top4top.io/m_3769xz8mi3.mp3"},
-{n:"Song 13",u:"https://e.top4top.io/m_3769o93s34.mp3"},
-{n:"Song 14",u:"https://f.top4top.io/m_3769c3tql5.mp3"},
-{n:"Song 15",u:"https://g.top4top.io/m_3769r7bcu6.mp3"},
-{n:"Song 16",u:"https://l.top4top.io/m_3769p7dkd1.mp3"},
-{n:"Song 17",u:"https://a.top4top.io/m_37697muuj2.mp3"},
-{n:"Song 18",u:"https://b.top4top.io/m_3769i9yd13.mp3"},
-{n:"Song 19",u:"https://c.top4top.io/m_3769ou0bt4.mp3"},
-{n:"Song 20",u:"https://d.top4top.io/m_37697zirj5.mp3"},
-{n:"Song 21",u:"https://e.top4top.io/m_3769rnmrk6.mp3"}
+{n:"نفسى أطمن بيك",u:"https://j.top4top.io/m_3769le8x51.mp3"},
+{n:"الشر الاسود",u:"https://k.top4top.io/m_3769enq6z2.mp3"},
+{n:"حبي الاولاني",u:"https://l.top4top.io/m_3769auk3d3.mp3"},
+{n:"كوابيس",u:"https://a.top4top.io/m_3769kdadn4.mp3"},
+{n:"ما تيجي نركن الزعل",u:"https://b.top4top.io/m_3769kg8sd5.mp3"},
+{n:"مش تمام",u:"https://c.top4top.io/m_3769ien0c6.mp3"},
+{n:"مشوار الحب",u:"https://d.top4top.io/m_3769yw3257.mp3"},
+{n:"صاحبة الجلالة",u:"https://e.top4top.io/m_3769yb3k29.mp3"},
+{n:"عمالالي عمل",u:"https://f.top4top.io/m_37690zriz10.mp3"},
+{n:"بحبها",u:"https://b.top4top.io/m_3769lxi681.mp3"},
+{n:"فيكي سر",u:"https://c.top4top.io/m_3769g0kg52.mp3"},
+{n:"حياتي قصيدة",u:"https://d.top4top.io/m_3769xz8mi3.mp3"},
+{n:"حبي الاولاني",u:"https://e.top4top.io/m_3769o93s34.mp3"},
+{n:"لسه",u:"https://f.top4top.io/m_3769c3tql5.mp3"},
+{n:"مش زي غيرها",u:"https://g.top4top.io/m_3769r7bcu6.mp3"},
+{n:"نفسى أطمن بيك 2",u:"https://l.top4top.io/m_3769p7dkd1.mp3"},
+{n:"نسند بعض",u:"https://a.top4top.io/m_37697muuj2.mp3"},
+{n:"ياللي ناسيني",u:"https://b.top4top.io/m_3769i9yd13.mp3"},
+{n:"وش السعد",u:"https://c.top4top.io/m_3769ou0bt4.mp3"},
+{n:"يا حظ بيه",u:"https://d.top4top.io/m_37697zirj5.mp3"},
+{n:"يا اللي نسيني",u:"https://e.top4top.io/m_3769rnmrk6.mp3"}
 ];
 
-let box=document.getElementById("playlist");
+let box=document.getElementById("list");
 
 songs.forEach(s=>{
   let d=document.createElement("div");
@@ -300,8 +315,6 @@ songs.forEach(s=>{
   d.onclick=()=>playSong(s.u);
   box.appendChild(d);
 });
-
-}
 
 </script>
 
