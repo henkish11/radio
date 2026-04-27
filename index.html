@@ -13,72 +13,24 @@ body{
   color:#fff;
 }
 
-/* 🇪🇬 BACKGROUND FLAG */
-.egypt-bg{
-  position:fixed;
-  inset:0;
-  z-index:-5;
-  background:linear-gradient(to bottom,#ce1126 0%,#ce1126 33%,#ffffff 33%,#ffffff 66%,#000000 66%,#000000 100%);
-  opacity:0.08;
-}
-
-/* 🎤 MAIN TITLE */
-.main-title{
-  position:fixed;
-  top:10px;
-  left:50%;
-  transform:translateX(-50%);
-  z-index:20;
-
-  font-size:34px;
-  font-weight:900;
-
-  background:linear-gradient(90deg,#00f5ff,#ffffff,#ff0000,#00c3ff);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-
-  animation:titleGlow 2.5s infinite;
-}
-
-@keyframes titleGlow{
-  0%,100%{opacity:1;transform:translateX(-50%) scale(1)}
-  50%{opacity:0.4;transform:translateX(-50%) scale(1.08)}
-}
-
-/* 🎯 BANNER */
-.banner{
-  position:fixed;
-  top:55px;
-  left:50%;
-  transform:translateX(-50%);
-  z-index:10;
-}
-
-.banner-text{
-  font-size:22px;
-  font-weight:900;
-  background:linear-gradient(90deg,#00f5ff,#a855f7,#00c3ff);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  animation:bannerGlow 3s infinite;
-}
-
-@keyframes bannerGlow{
-  0%,100%{opacity:1}
-  50%{opacity:0.5}
-}
-
-/* LOGIN GLASS */
+/* ================= LOGIN ================= */
 .login{
   position:fixed;
   inset:0;
   display:flex;
   align-items:center;
   justify-content:center;
-  background:#000000dd;
+
+  background:
+    radial-gradient(circle at top,#00c3ff22,transparent 40%),
+    radial-gradient(circle at bottom,#a855f722,transparent 40%),
+    #020617;
+
+  backdrop-filter:blur(10px);
   z-index:999;
 }
 
+/* ✨ Glass futuristic box */
 .login-box{
   width:320px;
   padding:25px;
@@ -89,7 +41,9 @@ body{
 
   border:1px solid rgba(0,195,255,0.25);
 
-  box-shadow:0 0 60px #00f5ff22;
+  box-shadow:
+    0 0 25px #00c3ff33,
+    0 0 60px #00f5ff22;
 
   text-align:center;
 
@@ -101,28 +55,61 @@ body{
   50%{transform:translateY(-6px)}
 }
 
+.login-box h3{
+  font-size:13px;
+  letter-spacing:2px;
+  color:#00f5ff;
+  text-shadow:0 0 10px #00c3ff;
+}
+
 .login-box input{
   width:100%;
-  padding:10px;
+  padding:12px;
+  margin-top:10px;
+
   border:none;
-  border-radius:10px;
-  background:#020617;
+  border-radius:12px;
+
+  background:rgba(2,6,23,0.8);
   color:#fff;
+
   text-align:center;
+  font-size:12px;
+
+  outline:none;
+
+  box-shadow:0 0 10px #00c3ff33;
+  transition:.3s;
+}
+
+.login-box input:focus{
+  transform:scale(1.03);
+  box-shadow:0 0 20px #00f5ff;
 }
 
 .login-box button{
   width:100%;
-  margin-top:10px;
+  margin-top:12px;
   padding:10px;
+
   border:none;
-  border-radius:10px;
+  border-radius:12px;
+
   background:linear-gradient(45deg,#00c3ff,#1e3a8a,#a855f7);
   color:#fff;
+
   cursor:pointer;
+
+  box-shadow:0 0 20px #00c3ff33;
+  transition:.3s;
 }
 
-/* TOP BAR */
+.login-box button:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 30px #00f5ff;
+}
+
+/* ================= TOP ================= */
 .topbar{
   display:flex;
   justify-content:space-between;
@@ -130,10 +117,12 @@ body{
   background:#00000066;
 }
 
+/* ONLINE */
 .status{
   color:#00f5ff;
   font-weight:bold;
   animation:blink 1.5s infinite;
+  text-shadow:0 0 10px #00f5ff;
 }
 
 @keyframes blink{
@@ -141,17 +130,24 @@ body{
   50%{opacity:0.3}
 }
 
+/* BY RAMY */
 .brand{
   font-weight:bold;
   background:linear-gradient(90deg,#00f5ff,#a855f7,#00c3ff);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
+  animation:fadeGlow 2s infinite;
 }
 
-/* MAIN BOX */
+@keyframes fadeGlow{
+  0%,100%{opacity:1}
+  50%{opacity:0.3}
+}
+
+/* ================= BOX ================= */
 .box{
   width:900px;
-  margin:100px auto;
+  margin:70px auto;
   background:#ffffff0a;
   padding:15px;
   border-radius:15px;
@@ -164,24 +160,41 @@ body{
   align-items:center;
 }
 
+/* ✨ AVATAR PULSE GLOW */
 .avatar{
   width:110px;
   height:110px;
   border-radius:50%;
   border:2px solid #00c3ff;
-  animation:avatarPulse 2s infinite;
+
+  animation:avatarPulse 2.2s infinite ease-in-out;
 }
 
 @keyframes avatarPulse{
   0%,100%{
-    box-shadow:0 0 10px #00c3ff,0 0 25px #00f5ff;
+    box-shadow:
+      0 0 5px #00c3ff,
+      0 0 15px #00f5ff,
+      0 0 25px #00c3ff;
+    transform:scale(1);
+    opacity:1;
   }
+
   50%{
-    box-shadow:0 0 0px #00c3ff,0 0 40px #00f5ff;
+    box-shadow:
+      0 0 0px #00c3ff,
+      0 0 10px #00f5ff,
+      0 0 40px #00c3ff;
     transform:scale(1.05);
+    opacity:0.85;
   }
 }
 
+.avatar:hover{
+  transform:scale(1.1);
+}
+
+/* NAME */
 .name{
   font-size:44px;
   font-weight:900;
@@ -192,8 +205,14 @@ body{
 }
 
 @keyframes ramyGlow{
-  0%,100%{opacity:1}
-  50%{opacity:0.3}
+  0%,100%{
+    opacity:1;
+    text-shadow:0 0 10px #00c3ff,0 0 20px #00f5ff;
+  }
+  50%{
+    opacity:0.3;
+    text-shadow:0 0 5px #00c3ff;
+  }
 }
 
 /* RADIO */
@@ -210,14 +229,30 @@ body{
   border-radius:20px;
   background:#00c3ff;
   cursor:pointer;
+  transition:.2s;
 }
 
+.radio-btn:hover{transform:scale(1.1)}
+
+/* RADIO BOX */
 .radio-box{
   margin-top:10px;
   padding:10px;
   background:#00c3ff22;
   border-radius:12px;
+  display:inline-block;
   cursor:pointer;
+  transition:.3s;
+}
+
+.radio-box:hover{
+  transform:scale(1.15);
+  box-shadow:0 0 25px #00c3ff;
+}
+
+.radio-box.active{
+  transform:scale(1.2);
+  box-shadow:0 0 35px #00f5ff;
 }
 
 /* LINKS */
@@ -229,6 +264,11 @@ body{
   color:#fff;
   text-decoration:none;
   border-radius:8px;
+  transition:.2s;
+}
+
+.links a:hover{
+  transform:scale(1.08);
 }
 
 /* SONGS */
@@ -243,6 +283,12 @@ body{
   background:#00c3ff22;
   border-radius:8px;
   font-size:12px;
+  transition:.2s;
+}
+
+.song:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 15px #00c3ff;
 }
 
 .song button{
@@ -250,6 +296,7 @@ body{
   padding:3px 6px;
   border-radius:6px;
 }
+
 .play{background:#00c3ff}
 .stop{background:#ff4d4d}
 
@@ -257,17 +304,6 @@ body{
 </head>
 
 <body>
-
-<!-- 🇪🇬 BG -->
-<div class="egypt-bg"></div>
-
-<!-- 🎤 TITLE -->
-<div class="main-title">🎤 LIL EL MOHAMEDY</div>
-
-<!-- 🎯 BANNER -->
-<div class="banner">
-  <div class="banner-text">RAMY PROFILE SYSTEM</div>
-</div>
 
 <!-- LOGIN -->
 <div class="login" id="login">
@@ -293,6 +329,7 @@ body{
 <div class="name">RAMY</div>
 </div>
 
+<!-- RADIO -->
 <div class="radio">
 <button class="radio-btn" onclick="playRadio(0)">🎧 قرآن</button>
 <button class="radio-btn" onclick="playRadio(1)">🎶 ميلودي</button>
@@ -302,11 +339,15 @@ body{
 
 <div class="radio-box" onclick="toggleRadio()">▶ / ⏸ تشغيل الراديو</div>
 
+<!-- LINKS -->
 <div class="links">
 <a href="https://xat.com/2ra" target="_blank">🔥 2ra Chat</a>
 <a href="https://xat.com/7reqa" target="_blank">⚡ 7reqa Chat</a>
+<a href="https://xat.com/trade" target="_blank">💰 Trade Hub</a>
+<a href="https://xat.com/cambio" target="_blank">🌐 Cambio Zone</a>
 </div>
 
+<!-- SONGS -->
 <div class="wrap">
 <div class="col" id="left"></div>
 <div class="col" id="right"></div>
@@ -320,17 +361,18 @@ body{
 
 <script>
 
+/* LOGIN */
 function check(){
 if(pass.value==="106080"){
 login.style.display="none";
 main.style.display="block";
 }else alert("Wrong Password");
 }
-
 pass.addEventListener("keydown",e=>{
 if(e.key==="Enter") check();
 });
 
+/* RADIO */
 let radios=[
 "https://stream.radiojar.com/8s5u5tpdtwzuv",
 "https://audio.nrpstream.com/listen/nogoumfm/radio.mp3",
@@ -360,7 +402,29 @@ isRadio=true;
 }
 }
 
+/* SONGS */
 let songs=[
+["نفسي أطمن بيك","https://j.top4top.io/m_3769le8x51.mp3"],
+["الشعر الأسود","https://k.top4top.io/m_3769enq6z2.mp3"],
+["حبي الأولاني","https://l.top4top.io/m_3769auk3d3.mp3"],
+["كوابيس","https://a.top4top.io/m_3769kdadn4.mp3"],
+["مش تمام","https://b.top4top.io/m_3769kg8sd5.mp3"],
+["مشوار الحب","https://c.top4top.io/m_3769ien0c6.mp3"],
+["صاحبة الجلالة","https://d.top4top.io/m_3769yw3257.mp3"],
+["عملالي عمل","https://e.top4top.io/m_3769yb3k29.mp3"],
+["بحبها","https://f.top4top.io/m_37690zriz10.mp3"],
+["فيكي سر","https://b.top4top.io/m_3769lxi681.mp3"],
+["حياتي قصيدة","https://c.top4top.io/m_3769g0kg52.mp3"],
+["لسه","https://d.top4top.io/m_3769xz8mi3.mp3"],
+["مش زي غيرها","https://e.top4top.io/m_3769o93s34.mp3"],
+["نسند بعض","https://f.top4top.io/m_3769c3tql5.mp3"],
+["وش السعد","https://g.top4top.io/m_3769r7bcu6.mp3"],
+["يا حظ بيه","https://l.top4top.io/m_3769p7dkd1.mp3"],
+["ياللي ناسيني","https://a.top4top.io/m_37697muuj2.mp3"],
+["هلوسة","https://b.top4top.io/m_3769i9yd13.mp3"],
+["قصة حب","https://c.top4top.io/m_3769ou0bt4.mp3"],
+["ذكريات","https://d.top4top.io/m_37697zirj5.mp3"],
+["حبيتك ليه","https://e.top4top.io/m_3769rnmrk6.mp3"],
 ["توأمي","https://d.top4top.io/m_3769a1jgw1.mp3"]
 ];
 
