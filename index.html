@@ -46,7 +46,7 @@ canvas{position:fixed;inset:0;z-index:-2}
 
 /* PLAYER */
 #winamp{
-  margin-top:0; /* مفيش مسافة */
+  margin-top:0;
   background:linear-gradient(135deg,#000,#001a2e);
   border-top:1px solid rgba(0,195,255,0.3);
   padding:8px;
@@ -75,8 +75,11 @@ canvas{position:fixed;inset:0;z-index:-2}
 .stop{background:#ff4d4d;color:#fff}
 
 .controls{
-  text-align:center;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
   margin-bottom:6px;
+  font-size:13px;
 }
 .controls button{
   margin:2px;
@@ -87,6 +90,11 @@ canvas{position:fixed;inset:0;z-index:-2}
 }
 .all{background:#00ffb3}
 .stopall{background:#ff4d4d;color:#fff}
+
+.artist{
+  color:#00c3ff;
+  font-weight:bold;
+}
 </style>
 </head>
 
@@ -138,18 +146,22 @@ canvas{position:fixed;inset:0;z-index:-2}
 </div>
 
 <div class="grid">
-<a class="world" href="https://xat.com/2ra">🔥 2ra Chat</a>
-<a class="world" href="https://xat.com/7reqa">⚡ 7reqa Chat</a>
-<a class="world" href="https://xat.com/trade">💰 Trade Hub</a>
-<a class="world" href="https://xat.com/cambio">🌐 Cambio Zone</a>
+<a class="world" href="https://xat.com/2ra" target="_blank">🔥 2ra Chat</a>
+<a class="world" href="https://xat.com/7reqa" target="_blank">⚡ 7reqa Chat</a>
+<a class="world" href="https://xat.com/trade" target="_blank">💰 Trade Hub</a>
+<a class="world" href="https://xat.com/cambio" target="_blank">🌐 Cambio Zone</a>
 </div>
 
 <!-- PLAYER -->
 <div id="winamp">
 
 <div class="controls">
+<div>
 <button class="all" onclick="playAll()">▶ تشغيل الكل</button>
 <button class="stopall" onclick="stopAll()">⏹ إيقاف الكل</button>
+</div>
+
+<div class="artist">🎤 ليل المحمدي</div>
 </div>
 
 <audio id="player"></audio>
@@ -186,7 +198,7 @@ function toggleRadio(){
 }
 
 /* SONGS */
-let songs=[ /* نفس ال21 */ 
+let songs=[
 {n:"نفسى أطمن بيك",u:"https://j.top4top.io/m_3769le8x51.mp3"},
 {n:"الشر الاسود",u:"https://k.top4top.io/m_3769enq6z2.mp3"},
 {n:"حبي الاولاني",u:"https://l.top4top.io/m_3769auk3d3.mp3"},
@@ -229,7 +241,6 @@ songs.forEach((s,i)=>{
   list.appendChild(div);
 });
 
-/* تشغيل تلقائي */
 player.onended=()=>{
   index++;
   if(index<songs.length){
