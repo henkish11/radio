@@ -160,34 +160,25 @@ canvas{
   transform:scale(1.02);
 }
 
-/* WINAMP */
+/* PLAYER */
 #winamp{
-  width:92%;
-  max-width:900px;
-  margin:20px auto;
+  margin-top:10px;
   background:linear-gradient(135deg,#000,#001a2e);
   border:2px solid #00c3ff;
-  border-radius:18px;
-  padding:15px;
-  box-shadow:0 0 30px #00c3ff;
+  border-radius:15px;
+  padding:10px;
 }
 
 .song{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:8px;
-  margin:6px 0;
+  padding:6px;
+  margin:4px 0;
   background:rgba(0,195,255,0.1);
-  border:1px solid rgba(0,195,255,0.3);
-  border-radius:10px;
+  border-radius:8px;
   cursor:pointer;
   font-size:12px;
-  transition:.2s;
 }
 .song:hover{
   background:rgba(0,195,255,0.3);
-  transform:scale(1.02);
 }
 </style>
 </head>
@@ -220,7 +211,6 @@ canvas{
 
 <div class="top">
 <img src="https://xatimg.com/image/RKP5IrStF45l.png">
-
 <div>
 <div class="name">Ramy</div>
 <div style="font-size:12px;color:#aaa;">ID: 106080</div>
@@ -236,7 +226,6 @@ canvas{
 </div>
 </div>
 
-<!-- LINKS -->
 <div class="grid">
 <div class="card">⚡ I love trading on xat website</div>
 <div class="card">❤️ I got involved with Dolly ❤️</div>
@@ -249,19 +238,19 @@ canvas{
 <a class="world" href="https://xat.com/cambio">🌐 Cambio Zone</a>
 </div>
 
-</div>
-</div>
-
-<!-- WINAMP -->
+<!-- 🎧 PLAYER تحت اللينكات -->
 <div id="winamp">
-<h2 style="text-align:center;color:#00c3ff;margin-bottom:10px;">🎧 LIL ELMOHAMEDY PLAYER</h2>
+<h3 style="text-align:center;color:#00c3ff;">🎧 LIL PLAYER</h3>
 <audio id="player"></audio>
 <div id="list"></div>
 </div>
 
+</div>
+</div>
+
 <script>
 
-/* LOGIN ENTER */
+/* LOGIN */
 function enter(){
   let p=document.getElementById('password').value;
   if(p==="106080"){
@@ -269,40 +258,26 @@ function enter(){
     document.getElementById('status').innerText='⚡ ONLINE';
   }
 }
-
 document.getElementById("password").addEventListener("keydown",e=>{
   if(e.key==="Enter") enter();
 });
 
 /* RADIO */
-let radios=[
-new Audio("https://stream.radiojar.com/8s5u5tpdtwzuv"),
-new Audio("https://audio.nrpstream.com/listen/nogoumfm/radio.mp3"),
-new Audio("https://stream.zeno.fm/w7atxdpk1pdvv"),
-new Audio("https://stream.zeno.fm/hswv0qwu7vgtv")
-];
-
-let currentRadio=null;
+let radios=[radio1,radio2,radio3,radio4];
+let current=null;
 
 function playRadio(i){
   radios.forEach(r=>{r.pause();r.currentTime=0});
-  currentRadio=radios[i-1];
-  currentRadio.play();
+  current=radios[i-1];
+  current.play();
 }
 
 function toggleRadio(){
-  if(!currentRadio) return;
-  currentRadio.paused ? currentRadio.play() : currentRadio.pause();
+  if(!current) return;
+  current.paused ? current.play() : current.pause();
 }
 
-/* WINAMP */
-const player=document.getElementById("player");
-
-function playSong(url){
-  player.src=url;
-  player.play();
-}
-
+/* SONGS */
 let songs=[
 {n:"نفسى أطمن بيك",u:"https://j.top4top.io/m_3769le8x51.mp3"},
 {n:"الشر الاسود",u:"https://k.top4top.io/m_3769enq6z2.mp3"},
@@ -316,7 +291,6 @@ let songs=[
 {n:"بحبها",u:"https://b.top4top.io/m_3769lxi681.mp3"},
 {n:"فيكي سر",u:"https://c.top4top.io/m_3769g0kg52.mp3"},
 {n:"حياتي قصيدة",u:"https://d.top4top.io/m_3769xz8mi3.mp3"},
-{n:"حبي الاولاني",u:"https://e.top4top.io/m_3769o93s34.mp3"},
 {n:"لسه",u:"https://f.top4top.io/m_3769c3tql5.mp3"},
 {n:"مش زي غيرها",u:"https://g.top4top.io/m_3769r7bcu6.mp3"},
 {n:"نسند بعض",u:"https://a.top4top.io/m_37697muuj2.mp3"},
@@ -327,14 +301,38 @@ let songs=[
 ];
 
 let list=document.getElementById("list");
+let player=document.getElementById("player");
 
 songs.forEach(s=>{
-  let d=document.createElement("div");
-  d.className="song";
-  d.innerHTML=`🎵 ${s.n}`;
-  d.onclick=()=>playSong(s.u);
-  list.appendChild(d);
+  let div=document.createElement("div");
+  div.className="song";
+  div.innerHTML="🎵 "+s.n;
+  div.onclick=()=>{player.src=s.u;player.play();}
+  list.appendChild(div);
 });
+
+/* BG */
+const c=document.getElementById('bg');
+const x=c.getContext('2d');
+c.width=innerWidth;
+c.height=innerHeight;
+
+let p=[];
+for(let i=0;i<60;i++){
+  p.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*2});
+}
+
+function a(){
+  x.clearRect(0,0,c.width,c.height);
+  x.fillStyle="#38bdf8";
+  p.forEach(o=>{
+    x.beginPath();
+    x.arc(o.x,o.y,o.r,0,6.28);
+    x.fill();
+  });
+  requestAnimationFrame(a);
+}
+a();
 
 </script>
 
