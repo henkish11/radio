@@ -27,10 +27,28 @@ canvas{position:fixed;inset:0;z-index:-2}
 .topbar{position:fixed;top:0;left:0;right:0;padding:8px 15px;display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,0.4);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.08);z-index:10;font-size:13px}
 .status{color:#38bdf8}
 
-/* PROFILE */
-.container{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:10px}
-.profile{width:900px;max-width:95%;background:linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03));border-radius:20px;border:1px solid rgba(255,255,255,0.1);padding:20px;backdrop-filter:blur(18px);box-shadow:0 0 50px rgba(0,140,255,0.25)}
+/* MAIN */
+.container{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px;
+  margin-top:80px; /* 👈 نزّلنا القالب */
+}
 
+.profile{
+  width:900px;
+  max-width:95%;
+  background:linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03));
+  border-radius:20px;
+  border:1px solid rgba(255,255,255,0.1);
+  padding:20px;
+  backdrop-filter:blur(18px);
+  box-shadow:0 0 50px rgba(0,140,255,0.25);
+}
+
+/* TOP */
 .top{display:flex;gap:15px;align-items:center}
 .top img{width:100px;height:100px;border-radius:50%;border:2px solid #00c3ff}
 .name{font-size:32px;font-weight:700;color:#4fc3ff}
@@ -173,8 +191,6 @@ canvas{position:fixed;inset:0;z-index:-2}
 </div>
 
 <script>
-
-/* LOGIN */
 function enter(){
   if(password.value==="106080"){
     login.style.display="none";
@@ -182,82 +198,6 @@ function enter(){
   }
 }
 password.addEventListener("keydown",e=>{if(e.key==="Enter") enter()});
-
-/* RADIO */
-let radios=[radio1,radio2,radio3,radio4];
-let current=null;
-
-function playRadio(i){
-  radios.forEach(r=>{r.pause();r.currentTime=0});
-  current=radios[i-1];
-  current.play();
-}
-function toggleRadio(){
-  if(!current) return;
-  current.paused?current.play():current.pause();
-}
-
-/* SONGS */
-let songs=[
-{n:"نفسى أطمن بيك",u:"https://j.top4top.io/m_3769le8x51.mp3"},
-{n:"الشر الاسود",u:"https://k.top4top.io/m_3769enq6z2.mp3"},
-{n:"حبي الاولاني",u:"https://l.top4top.io/m_3769auk3d3.mp3"},
-{n:"كوابيس",u:"https://a.top4top.io/m_3769kdadn4.mp3"},
-{n:"ما تيجي نركن الزعل",u:"https://b.top4top.io/m_3769kg8sd5.mp3"},
-{n:"مش تمام",u:"https://c.top4top.io/m_3769ien0c6.mp3"},
-{n:"مشوار الحب",u:"https://d.top4top.io/m_3769yw3257.mp3"},
-{n:"صاحبة الجلالة",u:"https://e.top4top.io/m_3769yb3k29.mp3"},
-{n:"عمالالي عمل",u:"https://f.top4top.io/m_37690zriz10.mp3"},
-{n:"بحبها",u:"https://b.top4top.io/m_3769lxi681.mp3"},
-{n:"فيكي سر",u:"https://c.top4top.io/m_3769g0kg52.mp3"},
-{n:"حياتي قصيدة",u:"https://d.top4top.io/m_3769xz8mi3.mp3"},
-{n:"لسه",u:"https://f.top4top.io/m_3769c3tql5.mp3"},
-{n:"مش زي غيرها",u:"https://g.top4top.io/m_3769r7bcu6.mp3"},
-{n:"نسند بعض",u:"https://a.top4top.io/m_37697muuj2.mp3"},
-{n:"ياللي ناسيني",u:"https://b.top4top.io/m_3769i9yd13.mp3"},
-{n:"وش السعد",u:"https://c.top4top.io/m_3769ou0bt4.mp3"},
-{n:"يا حظ بيه",u:"https://d.top4top.io/m_37697zirj5.mp3"},
-{n:"توأمي",u:"https://d.top4top.io/m_3769a1jgw1.mp3"},
-{n:"يا اللي نسيني",u:"https://e.top4top.io/m_3769rnmrk6.mp3"}
-];
-
-let player=document.getElementById("player");
-let list=document.getElementById("list");
-let index=0;
-
-function playSong(i){
-  player.src=songs[i].u;
-  player.play();
-  index=i;
-}
-
-songs.forEach((s,i)=>{
-  let div=document.createElement("div");
-  div.className="song";
-  div.innerHTML=`${s.n}
-  <div>
-  <button class="play" onclick="playSong(${i})">▶</button>
-  <button class="stop" onclick="player.pause()">⏸</button>
-  </div>`;
-  list.appendChild(div);
-});
-
-player.onended=()=>{
-  index++;
-  if(index<songs.length){
-    playSong(index);
-  }
-};
-
-function playAll(){
-  index=0;
-  playSong(index);
-}
-function stopAll(){
-  player.pause();
-  player.currentTime=0;
-}
-
 </script>
 
 </body>
