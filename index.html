@@ -25,33 +25,36 @@ body{
 }
 
 .login-box{
-  width:340px;
-  padding:25px;
-  border-radius:18px;
+  width:300px;
+  padding:20px;
+  border-radius:16px;
   background:linear-gradient(145deg,#0f172a,#020617);
   box-shadow:0 0 30px #00c3ff55;
   text-align:center;
 }
 
 .login-box h3{
+  font-size:14px;
   color:#00c3ff;
   text-shadow:0 0 10px #00c3ff;
 }
 
 .login-box input{
   width:100%;
-  padding:12px;
+  padding:10px;
   border:none;
   border-radius:10px;
   background:#020617;
   color:#fff;
   text-align:center;
-  outline:none;
+  font-size:12px;
   box-shadow:0 0 10px #00c3ff33;
+  transition:.3s;
 }
 
 .login-box input:focus{
-  box-shadow:0 0 20px #00c3ff;
+  box-shadow:0 0 20px #00f5ff;
+  transform:scale(1.03);
 }
 
 .login-box button{
@@ -61,8 +64,8 @@ body{
   border:none;
   border-radius:10px;
   background:linear-gradient(45deg,#00c3ff,#1e3a8a);
-  cursor:pointer;
   color:#fff;
+  cursor:pointer;
 }
 
 /* TOP */
@@ -73,22 +76,29 @@ body{
   background:#00000066;
 }
 
-/* ONLINE + BY RAMY */
-.status,.brand{
+/* ONLINE */
+.status{
+  color:#00f5ff;
   font-weight:bold;
-  animation:fadeGlow 2s infinite;
+  animation:blink 1.5s infinite;
   text-shadow:0 0 10px #00f5ff;
 }
+@keyframes blink{
+  0%,100%{opacity:1}
+  50%{opacity:0.3}
+}
 
-.status{color:#00f5ff}
+/* BY RAMY */
 .brand{
+  font-weight:bold;
   background:linear-gradient(90deg,#00f5ff,#a855f7,#00c3ff);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
+  animation:fadeGlow 2s infinite;
 }
 
 @keyframes fadeGlow{
-  0%,100%{opacity:1}
+  0%,100%{opacity:1;text-shadow:0 0 10px #00c3ff}
   50%{opacity:0.3}
 }
 
@@ -116,12 +126,25 @@ body{
   box-shadow:0 0 25px #00c3ff;
 }
 
+/* NAME */
 .name{
   font-size:44px;
   font-weight:900;
   background:linear-gradient(90deg,#00f5ff,#a855f7,#00c3ff);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
+  animation:ramyGlow 2s infinite;
+}
+
+@keyframes ramyGlow{
+  0%,100%{
+    opacity:1;
+    text-shadow:0 0 10px #00c3ff,0 0 20px #00f5ff;
+  }
+  50%{
+    opacity:0.3;
+    text-shadow:0 0 5px #00c3ff;
+  }
 }
 
 /* RADIO */
@@ -152,8 +175,14 @@ body{
   cursor:pointer;
   transition:.3s;
 }
-.radio-box:hover{transform:scale(1.15);box-shadow:0 0 25px #00c3ff}
-.radio-box.active{transform:scale(1.2);box-shadow:0 0 35px #00f5ff}
+.radio-box:hover{
+  transform:scale(1.15);
+  box-shadow:0 0 25px #00c3ff;
+}
+.radio-box.active{
+  transform:scale(1.2);
+  box-shadow:0 0 35px #00f5ff;
+}
 
 /* LINKS */
 .links a{
@@ -182,14 +211,11 @@ body{
   font-size:12px;
   transition:.2s;
 }
-
-/* 👇 تكبير اسم الأغنية فقط عند hover */
 .song:hover{
   transform:scale(1.05);
   box-shadow:0 0 15px #00c3ff;
 }
 
-/* BUTTONS */
 .song button{
   border:none;
   padding:3px 6px;
@@ -207,7 +233,7 @@ body{
 <div class="login" id="login">
 <div class="login-box">
 <h3>🔐 PASSWORD</h3>
-<input type="password" id="pass" placeholder="Enter Password">
+<input type="password" id="pass" placeholder="Enter password">
 <button onclick="check()">ENTER</button>
 </div>
 </div>
@@ -259,7 +285,7 @@ body{
 
 <script>
 
-/* PASSWORD */
+/* LOGIN */
 function check(){
 if(pass.value==="106080"){
 login.style.display="none";
@@ -270,12 +296,12 @@ pass.addEventListener("keydown",e=>{
 if(e.key==="Enter") check();
 });
 
-/* RADIO FIX */
+/* RADIO */
 let radios=[
-"https://stream.radiojar.com/8s5u5tpdtwzuv", // قرآن
-"https://audio.nrpstream.com/listen/nogoumfm/radio.mp3", // ميلودي
-"https://stream.zeno.fm/w7atxdpk1pdvv", // حماقي
-"https://stream.zeno.fm/hswv0qwu7vgtv"  // منوعات
+"https://stream.radiojar.com/8s5u5tpdtwzuv",
+"https://audio.nrpstream.com/listen/nogoumfm/radio.mp3",
+"https://stream.zeno.fm/w7atxdpk1pdvv",
+"https://stream.zeno.fm/hswv0qwu7vgtv"
 ];
 
 let radio=document.getElementById("radio");
@@ -314,15 +340,6 @@ let songs=[
 ["فيكي سر","https://b.top4top.io/m_3769lxi681.mp3"],
 ["حياتي قصيدة","https://c.top4top.io/m_3769g0kg52.mp3"],
 ["لسه","https://d.top4top.io/m_3769xz8mi3.mp3"],
-["مش زي غيرها","https://e.top4top.io/m_3769o93s34.mp3"],
-["نسند بعض","https://f.top4top.io/m_3769c3tql5.mp3"],
-["وش السعد","https://g.top4top.io/m_3769r7bcu6.mp3"],
-["يا حظ بيه","https://l.top4top.io/m_3769p7dkd1.mp3"],
-["ياللي ناسيني","https://a.top4top.io/m_37697muuj2.mp3"],
-["هلوسة","https://b.top4top.io/m_3769i9yd13.mp3"],
-["قصة حب","https://c.top4top.io/m_3769ou0bt4.mp3"],
-["ذكريات","https://d.top4top.io/m_37697zirj5.mp3"],
-["حبيتك ليه","https://e.top4top.io/m_3769rnmrk6.mp3"],
 ["توأمي","https://d.top4top.io/m_3769a1jgw1.mp3"]
 ];
 
