@@ -52,6 +52,30 @@ canvas{position:fixed;inset:0;z-index:-2}
   padding:8px;
 }
 
+/* اسم المغني */
+.artist{
+  text-align:center;
+  font-size:20px;
+  font-weight:700;
+  color:#00c3ff;
+  margin-bottom:8px;
+}
+
+/* أزرار التحكم */
+.controls{
+  text-align:center;
+  margin-bottom:8px;
+}
+.controls button{
+  margin:3px;
+  padding:6px 12px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
+.all{background:#00ffb3}
+.stopall{background:#ff4d4d;color:#fff}
+
 .song{
   display:flex;
   justify-content:space-between;
@@ -73,28 +97,6 @@ canvas{position:fixed;inset:0;z-index:-2}
 
 .play{background:#00c3ff;color:#000}
 .stop{background:#ff4d4d;color:#fff}
-
-.controls{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:6px;
-  font-size:13px;
-}
-.controls button{
-  margin:2px;
-  padding:5px 10px;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
-}
-.all{background:#00ffb3}
-.stopall{background:#ff4d4d;color:#fff}
-
-.artist{
-  color:#00c3ff;
-  font-weight:bold;
-}
 </style>
 </head>
 
@@ -155,13 +157,11 @@ canvas{position:fixed;inset:0;z-index:-2}
 <!-- PLAYER -->
 <div id="winamp">
 
+<div class="artist">🎤 ليل المحمدي</div>
+
 <div class="controls">
-<div>
 <button class="all" onclick="playAll()">▶ تشغيل الكل</button>
 <button class="stopall" onclick="stopAll()">⏹ إيقاف الكل</button>
-</div>
-
-<div class="artist">🎤 ليل المحمدي</div>
 </div>
 
 <audio id="player"></audio>
