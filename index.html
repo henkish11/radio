@@ -2,80 +2,64 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>XAT DESIGN TEMPLATE</title>
+<title>XAT FINAL SYSTEM</title>
 
 <style>
-body {
-  margin: 0;
-  height: 100vh;
-  background: #000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: Tahoma;
+body{
+  margin:0;
+  background:#000;
+  font-family:Tahoma;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
 }
 
-/* ====== MAIN BANNER ====== */
-.banner {
-  width: 728px;
-  height: 200px;
-  position: relative;
-  overflow: hidden;
-  border-radius: 14px;
-
-  /* نفس إحساس الخلفية في الصورة */
-  background: linear-gradient(120deg, #050505 20%, #0d0d0d 50%, #050505 80%);
+/* ===== XAT TEMPLATE ===== */
+.banner{
+  width:728px;
+  height:200px;
+  position:relative;
+  overflow:hidden;
+  border-radius:14px;
+  background:linear-gradient(120deg,#050505,#0a0a0a,#050505);
 }
 
-/* ====== LIGHT GLOW (يمين) ====== */
-.banner::before {
-  content: "";
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  right: -180px;
-  top: -180px;
-  background: radial-gradient(circle, rgba(255,255,255,0.18), transparent 70%);
-  filter: blur(60px);
+/* Glow */
+.banner:before{
+  content:"";
+  position:absolute;
+  width:500px;height:500px;
+  right:-180px;top:-180px;
+  background:radial-gradient(circle,rgba(255,255,255,0.18),transparent 70%);
+  filter:blur(60px);
 }
 
-/* ====== LIGHT GLOW (وسط خفيف) ====== */
-.banner::after {
-  content: "";
-  position: absolute;
-  width: 350px;
-  height: 350px;
-  left: 30%;
-  top: 10%;
-  background: radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%);
-  filter: blur(50px);
+.banner:after{
+  content:"";
+  position:absolute;
+  width:350px;height:350px;
+  left:30%;top:10%;
+  background:radial-gradient(circle,rgba(255,255,255,0.08),transparent 70%);
+  filter:blur(50px);
 }
 
-/* ====== DARK SIDES (تقسيم الصورة) ====== */
-.left-dark,
-.right-dark {
-  position: absolute;
-  top: 0;
-  width: 55%;
-  height: 100%;
+/* sides */
+.left,.right{
+  position:absolute;
+  top:0;
+  width:55%;
+  height:100%;
 }
 
-.left-dark {
-  left: 0;
-  background: linear-gradient(to right, #000 35%, transparent);
-}
+.left{left:0;background:linear-gradient(to right,#000 35%,transparent);}
+.right{right:0;background:linear-gradient(to left,#000 35%,transparent);}
 
-.right-dark {
-  right: 0;
-  background: linear-gradient(to left, #000 35%, transparent);
-}
-
-/* ====== TEXTURE LINES (تفصيلة خفيفة زي الصورة) ====== */
-.texture {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: repeating-linear-gradient(
+/* texture */
+.texture{
+  position:absolute;
+  width:100%;height:100%;
+  background:repeating-linear-gradient(
     90deg,
     transparent,
     transparent 55px,
@@ -83,35 +67,73 @@ body {
   );
 }
 
-/* ====== TEXT AREA ====== */
-.content {
-  position: absolute;
-  left: 50px;
-  top: 50%;
-  transform: translateY(-50%);
+/* content */
+.content{
+  position:absolute;
+  left:40px;
+  top:50%;
+  transform:translateY(-50%);
 }
 
-/* الاسم الرئيسي */
-.name {
-  color: #fff;
-  font-size: 54px;
-  font-weight: bold;
-  letter-spacing: 2px;
-
-  text-shadow:
-    0 0 10px #fff,
-    0 0 25px rgba(255,255,255,0.6),
-    0 0 50px rgba(255,255,255,0.3);
+.name{
+  color:#fff;
+  font-size:52px;
+  font-weight:bold;
+  text-shadow:0 0 10px #fff,0 0 30px rgba(255,255,255,0.5);
 }
 
-/* التوقيع */
-.sign {
-  margin-top: 8px;
-  color: #aaa;
-  font-size: 14px;
-  letter-spacing: 4px;
-  opacity: 0.8;
+.sign{
+  color:#aaa;
+  font-size:13px;
+  letter-spacing:3px;
 }
+
+/* ===== RADIO ===== */
+.radio{
+  position:absolute;
+  bottom:10px;
+  left:40px;
+  display:flex;
+  gap:6px;
+}
+
+.radio button{
+  padding:4px 8px;
+  border:none;
+  border-radius:12px;
+  background:#00c3ff;
+  cursor:pointer;
+  font-size:11px;
+}
+
+/* ===== SONG PANEL ===== */
+.songs{
+  position:absolute;
+  right:10px;
+  top:10px;
+  width:250px;
+  height:180px;
+  overflow:auto;
+}
+
+.song{
+  display:flex;
+  justify-content:space-between;
+  padding:4px;
+  margin:3px 0;
+  background:#00c3ff22;
+  border-radius:6px;
+  font-size:10px;
+}
+
+.song button{
+  border:none;
+  padding:2px 5px;
+  border-radius:4px;
+}
+
+.play{background:#00c3ff}
+.stop{background:#ff4d4d}
 
 </style>
 </head>
@@ -120,16 +142,94 @@ body {
 
 <div class="banner">
 
-  <div class="left-dark"></div>
-  <div class="right-dark"></div>
-  <div class="texture"></div>
+<div class="left"></div>
+<div class="right"></div>
+<div class="texture"></div>
 
-  <div class="content">
-    <div class="name">MOON</div>
-    <div class="sign">нєηкιѕн</div>
-  </div>
+<div class="content">
+  <div class="name">RAMY</div>
+  <div class="sign">SYSTEM XAT DESIGN</div>
+</div>
+
+<!-- RADIO -->
+<div class="radio">
+<button onclick="playRadio(0)">QURAN</button>
+<button onclick="playRadio(1)">MUSIC</button>
+<button onclick="toggleRadio()">PLAY</button>
+</div>
+
+<!-- SONGS -->
+<div class="songs" id="songs"></div>
 
 </div>
+
+<audio id="radio"></audio>
+<audio id="player"></audio>
+
+<script>
+
+/* RADIO */
+let radios=[
+"https://stream.radiojar.com/8s5u5tpdtwzuv",
+"https://audio.nrpstream.com/listen/nogoumfm/radio.mp3"
+];
+
+let radio=document.getElementById("radio");
+let is=false;
+
+function playRadio(i){
+radio.src=radios[i];
+radio.play();
+is=true;
+}
+
+function toggleRadio(){
+if(is){radio.pause();is=false;}
+else{radio.play();is=true;}
+}
+
+/* 22 SONGS */
+let songs=[
+["1","https://j.top4top.io/m_3769le8x51.mp3"],
+["2","https://k.top4top.io/m_3769enq6z2.mp3"],
+["3","https://l.top4top.io/m_3769auk3d3.mp3"],
+["4","https://a.top4top.io/m_3769kdadn4.mp3"],
+["5","https://b.top4top.io/m_3769kg8sd5.mp3"],
+["6","https://c.top4top.io/m_3769ien0c6.mp3"],
+["7","https://d.top4top.io/m_3769yw3257.mp3"],
+["8","https://e.top4top.io/m_3769yb3k29.mp3"],
+["9","https://f.top4top.io/m_37690zriz10.mp3"],
+["10","https://b.top4top.io/m_3769lxi681.mp3"],
+["11","https://c.top4top.io/m_3769g0kg52.mp3"],
+["12","https://d.top4top.io/m_3769xz8mi3.mp3"],
+["13","https://e.top4top.io/m_3769o93s34.mp3"],
+["14","https://f.top4top.io/m_3769c3tql5.mp3"],
+["15","https://g.top4top.io/m_3769r7bcu6.mp3"],
+["16","https://l.top4top.io/m_3769p7dkd1.mp3"],
+["17","https://a.top4top.io/m_37697muuj2.mp3"],
+["18","https://b.top4top.io/m_3769i9yd13.mp3"],
+["19","https://c.top4top.io/m_3769ou0bt4.mp3"],
+["20","https://d.top4top.io/m_37697zirj5.mp3"],
+["21","https://e.top4top.io/m_3769rnmrk6.mp3"],
+["22","https://d.top4top.io/m_3769a1jgw1.mp3"]
+];
+
+let box=document.getElementById("songs");
+let player=document.getElementById("player");
+
+songs.forEach(s=>{
+let div=document.createElement("div");
+div.className="song";
+div.innerHTML=`
+${s[0]}
+<div>
+<button class="play" onclick="player.src='${s[1]}';player.play()">▶</button>
+<button class="stop" onclick="player.pause()">⏹</button>
+</div>`;
+box.appendChild(div);
+});
+
+</script>
 
 </body>
 </html>
