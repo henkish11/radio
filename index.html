@@ -32,8 +32,66 @@ body{
   overflow:hidden;
 }
 
+/* HACKER BOX */
+.hacker-box{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.hacker-box img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* LOCK BOX */
+.lock-box{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.lock-box img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:brightness(0.6);
+}
+
+.lock-ui{
+  position:absolute;
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,0.45);
+}
+
+.lock-ui input{
+  padding:8px;
+  background:#111;
+  border:none;
+  color:#00f5ff;
+  text-align:center;
+  margin-top:8px;
+}
+
+.lock-ui button{
+  margin-top:8px;
+  background:#00f5ff;
+  border:none;
+  padding:6px 12px;
+  cursor:pointer;
+}
+
 /* PROFILE */
-.profile{text-align:center;}
+.profile{
+  text-align:center;
+}
 
 .avatar{
   width:110px;
@@ -46,7 +104,7 @@ body{
   text-shadow:0 0 10px #00f5ff;
 }
 
-/* SONG LIST */
+/* SONG SIMPLE LIST */
 .song{
   display:flex;
   justify-content:space-between;
@@ -62,46 +120,6 @@ body{
   cursor:pointer;
 }
 
-/* PLAYER (BOX 5) */
-.player{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:8px;
-}
-
-.seek{
-  width:90%;
-  height:6px;
-  background:#111;
-  cursor:pointer;
-}
-
-#fill{
-  height:100%;
-  width:0%;
-  background:#00ffcc;
-}
-
-/* VOLUME (BOX 6) */
-.volume-box{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:10px;
-}
-
-.volume-box input{
-  width:120px;
-}
-
-/* HACKER BOX */
-.hacker-box img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
 audio{display:none;}
 
 </style>
@@ -111,42 +129,42 @@ audio{display:none;}
 
 <div class="dashboard">
 
-<!-- 1 -->
-<div class="panel">
-<img style="width:100%;height:100%;object-fit:cover" src="https://mf.b37mrtl.ru/media/pics/2023.04/article/643e76264c59b716106a1276.PNG">
+<!-- BOX 1 -->
+<div class="panel hacker-box">
+<img src="https://mf.b37mrtl.ru/media/pics/2023.04/article/643e76264c59b716106a1276.PNG">
 </div>
 
-<!-- 2 -->
-<div class="panel">
-<img style="width:100%;height:100%;object-fit:cover" src="https://img.pikbest.com/wp/202345/hacker-skeleton-working-on-laptop-dark-background_9581815.jpg!w700wp">
+<!-- BOX 2 -->
+<div class="panel hacker-box">
+<img src="https://img.pikbest.com/wp/202345/hacker-skeleton-working-on-laptop-dark-background_9581815.jpg!w700wp">
 </div>
 
-<!-- 3 LOCK -->
+<!-- BOX 3 LOCK -->
 <div class="panel lock-box">
-<img style="width:100%;height:100%;object-fit:cover;filter:brightness(0.6)" src="https://img.pikbest.com/backgrounds/20250126/guarding-your-digital-life-power-of-passwords-smarter-password-practices_11452980.jpg!f305cw">
+
+<img src="https://img.pikbest.com/backgrounds/20250126/guarding-your-digital-life-power-of-passwords-smarter-password-practices_11452980.jpg!f305cw">
 
 <div class="lock-ui">
 <div>🔐 ENTER PASSWORD</div>
 <input type="password" id="pass">
 <button onclick="check()">UNLOCK</button>
 </div>
+
 </div>
 
-<!-- 4 -->
+<!-- BOX 4 -->
 <div class="panel profile">
 <img class="avatar" src="https://xatimg.com/image/PtMzAMEPdOYG.png">
 <div class="name">RAMY SYSTEM</div>
 </div>
 
-<!-- 5 PLAYER -->
+<!-- BOX 5 -->
 <div class="panel" id="left"></div>
 
-<!-- 6 VOLUME + SONGS -->
+<!-- BOX 6 -->
 <div class="panel" id="right"></div>
 
 </div>
-
-<audio id="audio"></audio>
 
 <script>
 
@@ -159,55 +177,46 @@ init();
 
 /* SONGS */
 let songs=[
-["نفسي أطمن بيك","https://j.top4top.io/m_3769le8x51.mp3"],
-["الشعر الأسود","https://k.top4top.io/m_3769enq6z2.mp3"],
-["حبي الأولاني","https://l.top4top.io/m_3769auk3d3.mp3"],
-["كوابيس","https://a.top4top.io/m_3769kdadn4.mp3"],
-["مش تمام","https://b.top4top.io/m_3769kg8sd5.mp3"],
-["مشوار الحب","https://c.top4top.io/m_3769ien0c6.mp3"],
-["صاحبة الجلالة","https://d.top4top.io/m_3769yw3257.mp3"],
-["عملالي عمل","https://e.top4top.io/m_3769yb3k29.mp3"],
-["بحبها","https://f.top4top.io/m_37690zriz10.mp3"],
-["فيكي سر","https://b.top4top.io/m_3769lxi681.mp3"],
-["حياتي قصيدة","https://c.top4top.io/m_3769g0kg52.mp3"],
-["لسه","https://d.top4top.io/m_3769xz8mi3.mp3"],
-["مش زي غيرها","https://e.top4top.io/m_3769o93s34.mp3"],
-["نسند بعض","https://f.top4top.io/m_3769c3tql5.mp3"],
-["وش السعد","https://g.top4top.io/m_3769r7bcu6.mp3"],
-["يا حظ بيه","https://l.top4top.io/m_3769p7dkd1.mp3"],
-["ياللي ناسيني","https://a.top4top.io/m_37697muuj2.mp3"],
-["هلوسة","https://b.top4top.io/m_3769i9yd13.mp3"],
-["قصة حب","https://c.top4top.io/m_3769ou0bt4.mp3"],
-["ذكريات","https://d.top4top.io/m_37697zirj5.mp3"],
-["حبيتك ليه","https://e.top4top.io/m_3769rnmrk6.mp3"],
-["توأمي","https://d.top4top.io/m_3769a1jgw1.mp3"]
+["Song 1","https://j.top4top.io/m_3769le8x51.mp3"],
+["Song 2","https://k.top4top.io/m_3769enq6z2.mp3"],
+["Song 3","https://l.top4top.io/m_3769auk3d3.mp3"],
+["Song 4","https://a.top4top.io/m_3769kdadn4.mp3"],
+["Song 5","https://b.top4top.io/m_3769kg8sd5.mp3"],
+["Song 6","https://c.top4top.io/m_3769ien0c6.mp3"],
+["Song 7","https://d.top4top.io/m_3769yw3257.mp3"],
+["Song 8","https://e.top4top.io/m_3769yb3k29.mp3"],
+["Song 9","https://f.top4top.io/m_37690zriz10.mp3"],
+["Song 10","https://b.top4top.io/m_3769lxi681.mp3"],
+["Song 11","https://c.top4top.io/m_3769g0kg52.mp3"],
+["Song 12","https://d.top4top.io/m_3769xz8mi3.mp3"],
+["Song 13","https://e.top4top.io/m_3769o93s34.mp3"],
+["Song 14","https://f.top4top.io/m_3769c3tql5.mp3"],
+["Song 15","https://g.top4top.io/m_3769r7bcu6.mp3"],
+["Song 16","https://l.top4top.io/m_3769p7dkd1.mp3"],
+["Song 17","https://a.top4top.io/m_37697muuj2.mp3"],
+["Song 18","https://b.top4top.io/m_3769i9yd13.mp3"],
+["Song 19","https://c.top4top.io/m_3769ou0bt4.mp3"],
+["Song 20","https://d.top4top.io/m_37697zirj5.mp3"],
+["Song 21","https://e.top4top.io/m_3769rnmrk6.mp3"],
+["Song 22","https://d.top4top.io/m_3769a1jgw1.mp3"]
 ];
 
-let audio=document.getElementById("audio");
-let left=document.getElementById("left");
-let right=document.getElementById("right");
+let audio=new Audio();
 
-/* INIT */
+/* INIT SIMPLE LIST */
 function init(){
 
-left.innerHTML="🎵 PLAYER";
+left.innerHTML="🎵 SONGS";
+right.innerHTML="🎧 LIST";
 
 songs.slice(0,11).forEach((s,i)=>{
 left.innerHTML+=`
-<div class="song">${s[0]} <button onclick="play(${i})">▶</button></div>`;
+<div class="song">${s[0]}<button onclick="play(${i})">▶</button></div>`;
 });
-
-/* RIGHT VOLUME */
-right.innerHTML=`
-<div class="volume-box">
-🔊 Volume
-<input type="range" min="0" max="1" step="0.01" oninput="audio.volume=this.value">
-</div>
-`;
 
 songs.slice(11).forEach((s,i)=>{
 right.innerHTML+=`
-<div class="song">${s[0]} <button onclick="play(${i+11})">▶</button></div>`;
+<div class="song">${s[0]}<button onclick="play(${i+11})">▶</button></div>`;
 });
 
 }
