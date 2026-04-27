@@ -64,33 +64,44 @@ body{
   cursor:pointer;
 }
 
-/* PLAYER BOX */
-.player{
+/* LOCK */
+.lock-box{
+  position:relative;
+}
+
+.lock-box img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:brightness(0.6);
+}
+
+.lock-ui{
+  position:absolute;
+  width:100%;
+  height:100%;
   display:flex;
   flex-direction:column;
+  justify-content:center;
   align-items:center;
-  gap:8px;
-  padding:5px;
+  background:rgba(0,0,0,0.45);
 }
 
-.seek{
-  width:90%;
-  height:6px;
+.lock-ui input{
+  padding:8px;
   background:#111;
+  border:none;
+  color:#00f5ff;
+  text-align:center;
+  margin-top:8px;
+}
+
+.lock-ui button{
+  margin-top:8px;
+  background:#00f5ff;
+  border:none;
+  padding:6px 12px;
   cursor:pointer;
-  border-radius:4px;
-  overflow:hidden;
-}
-
-#fill{
-  height:100%;
-  width:0%;
-  background:#00ffcc;
-}
-
-/* VOLUME */
-.volume{
-  width:90%;
 }
 
 audio{display:none;}
@@ -108,8 +119,16 @@ audio{display:none;}
 <!-- BOX 2 -->
 <div class="panel">HACK</div>
 
-<!-- BOX 3 -->
-<div class="panel">LOGIN</div>
+<!-- BOX 3 LOCK -->
+<div class="panel lock-box">
+<img src="https://img.pikbest.com/backgrounds/20250126/guarding-your-digital-life-power-of-passwords-smarter-password-practices_11452980.jpg!f305cw">
+
+<div class="lock-ui">
+<div>🔐 ENTER PASSWORD</div>
+<input type="password" id="pass">
+<button onclick="check()">UNLOCK</button>
+</div>
+</div>
 
 <!-- BOX 4 -->
 <div class="panel profile">
@@ -117,17 +136,22 @@ audio{display:none;}
 <div class="name">RAMY SYSTEM</div>
 </div>
 
-<!-- BOX 5 PLAYER -->
+<!-- BOX 5 -->
 <div class="panel" id="left"></div>
 
-<!-- BOX 6 SONG + VOLUME -->
+<!-- BOX 6 -->
 <div class="panel" id="right"></div>
 
 </div>
 
-<audio id="audio"></audio>
-
 <script>
+
+/* PASSWORD */
+function check(){
+if(pass.value==="106080"){
+init();
+}else alert("WRONG PASSWORD");
+}
 
 /* SONGS */
 let songs=[
@@ -155,38 +179,22 @@ let songs=[
 ["توأمي","https://d.top4top.io/m_3769a1jgw1.mp3"]
 ];
 
-let audio=document.getElementById("audio");
-let left=document.getElementById("left");
-let right=document.getElementById("right");
+let audio=new Audio();
 
 /* INIT */
 function init(){
 
-left.innerHTML=`
-<div class="player">
-<div id="title">NO SONG</div>
-
-<button onclick="toggle()">▶ / ⏸</button>
-
-<div class="seek" onclick="seek(event)">
-<div id="fill"></div>
-</div>
-</div>
-`;
+left.innerHTML="🎵 SONG LIST";
+right.innerHTML="🎧 SONG LIST";
 
 songs.slice(0,11).forEach((s,i)=>{
 left.innerHTML+=`
-<div class="song">${s[0]} <button onclick="play(${i})">▶</button></div>`;
+<div class="song">${s[0]}<button onclick="play(${i})">▶</button></div>`;
 });
-
-right.innerHTML=`
-<div style="text-align:center">🔊 Volume</div>
-<input class="volume" type="range" min="0" max="1" step="0.01" oninput="audio.volume=this.value">
-`;
 
 songs.slice(11).forEach((s,i)=>{
 right.innerHTML+=`
-<div class="song">${s[0]} <button onclick="play(${i+11})">▶</button></div>`;
+<div class="song">${s[0]}<button onclick="play(${i+11})">▶</button></div>`;
 });
 
 }
@@ -195,25 +203,7 @@ right.innerHTML+=`
 function play(i){
 audio.src=songs[i][1];
 audio.play();
-document.getElementById("title").innerText=songs[i][0];
 }
-
-/* TOGGLE */
-function toggle(){
-audio.paused?audio.play():audio.pause();
-}
-
-/* SEEK */
-function seek(e){
-let pos=e.offsetX/e.currentTarget.offsetWidth;
-audio.currentTime=pos*audio.duration;
-}
-
-/* PROGRESS */
-audio.ontimeupdate=function(){
-document.getElementById("fill").style.width=
-(audio.currentTime/audio.duration)*100+"%";
-};
 
 </script>
 
