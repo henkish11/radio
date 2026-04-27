@@ -29,33 +29,31 @@ body{
   border:1px solid #00f5ff22;
   border-radius:8px;
   padding:8px;
-  overflow:auto;
+  overflow:hidden;
 }
 
 /* ===== HACKER BOX ===== */
 .hacker-box{
   position:relative;
-  overflow:hidden;
   display:flex;
   align-items:center;
   justify-content:center;
+  overflow:hidden;
 }
 
-/* IMAGE FULL BOX */
 .hacker-box img{
   width:100%;
   height:100%;
   object-fit:cover;
-  filter:contrast(1.2) brightness(0.85);
+  filter:contrast(1.2) brightness(0.8);
 }
 
-/* OVERLAY TEXT */
 .hack-overlay{
   position:absolute;
-  top:0;
-  left:0;
   width:100%;
   height:100%;
+  top:0;
+  left:0;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -64,7 +62,7 @@ body{
 
 .hack-text{
   color:#00ff66;
-  font-size:13px;
+  font-size:12px;
   text-align:center;
   text-shadow:0 0 10px #00ff66;
   animation:flicker 1.5s infinite;
@@ -72,7 +70,7 @@ body{
 
 @keyframes flicker{
   0%,100%{opacity:1}
-  50%{opacity:0.4}
+  50%{opacity:0.3}
 }
 
 /* PROFILE */
@@ -207,34 +205,34 @@ audio{display:none;}
 
 <div class="dashboard">
 
-<!-- 1 UPDATED IMAGE BOX -->
+<!-- 1 HACKER BOOT -->
 <div class="panel hacker-box">
-
   <img src="https://mf.b37mrtl.ru/media/pics/2023.04/article/643e76264c59b716106a1276.PNG">
-
   <div class="hack-overlay">
     <div class="hack-text">
-      BOOTING RAMY SYSTEM...<br>
-      ACCESSING MAINFRAME...<br>
-      SYSTEM ONLINE ✔
+      BOOTING SYSTEM...<br>
+      RAMY CORE ONLINE<br>
+      ACCESS GRANTED ✔
     </div>
   </div>
-
 </div>
 
-<!-- 2 HACK TERMINAL -->
+<!-- 2 SKELETON HACKER -->
 <div class="panel hacker-box">
-  <div class="hack-text">
-    INJECTING PAYLOAD...<br>
-    FIREWALL BYPASSED...<br>
-    SYSTEM UNDER CONTROL
+  <img src="https://img.pikbest.com/wp/202345/hacker-skeleton-working-on-laptop-dark-background_9581815.jpg!w700wp">
+  <div class="hack-overlay">
+    <div class="hack-text">
+      HACK MODE ACTIVE<br>
+      BREACHING SYSTEM...<br>
+      FIREWALL DOWN ✔
+    </div>
   </div>
 </div>
 
 <!-- 3 -->
 <div class="panel">LOGIN SYSTEM</div>
 
-<!-- 4 PROFILE -->
+<!-- 4 PROFILE + RADIO -->
 <div class="panel profile">
 
 <img class="avatar" src="https://xatimg.com/image/PtMzAMEPdOYG.png">
@@ -260,10 +258,10 @@ audio{display:none;}
 
 </div>
 
-<!-- 5 -->
+<!-- 5 LEFT SONGS -->
 <div class="panel" id="left"></div>
 
-<!-- 6 -->
+<!-- 6 RIGHT SONGS + VOLUME -->
 <div class="panel" id="right"></div>
 
 </div>
@@ -296,7 +294,7 @@ rstate?radio.pause():radio.play();
 rstate=!rstate;
 }
 
-/* SONGS */
+/* SONGS (22) */
 let songs=[
 ["نفسي أطمن بيك","https://j.top4top.io/m_3769le8x51.mp3"],
 ["الشعر الأسود","https://k.top4top.io/m_3769enq6z2.mp3"],
