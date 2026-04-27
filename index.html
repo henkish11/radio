@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RAMY SYSTEM RESTORE</title>
+<title>RAMY SYSTEM RESTORE FINAL</title>
 
 <style>
 body{
@@ -31,7 +31,7 @@ body{
   overflow:auto;
 }
 
-/* PROFILE (4th) */
+/* PROFILE */
 .profile{
   text-align:center;
 }
@@ -47,7 +47,7 @@ body{
   text-shadow:0 0 10px #00f5ff;
 }
 
-/* SONG ITEM */
+/* SONG */
 .song{
   display:flex;
   justify-content:space-between;
@@ -77,6 +77,7 @@ body{
   border:none;
   padding:5px 8px;
   font-size:11px;
+  cursor:pointer;
 }
 
 /* LINKS */
@@ -99,6 +100,36 @@ body{
   transition:0.2s;
 }
 
+/* MINI PLAYER (RESTORED) */
+.player-mini{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  padding:5px;
+}
+
+.player-mini button{
+  background:#00f5ff;
+  border:none;
+  padding:5px 10px;
+  cursor:pointer;
+  border-radius:5px;
+}
+
+/* VOLUME BOX */
+.volume-box{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+}
+
+.volume-box input{
+  width:120px;
+}
+
 /* AUDIO */
 audio{display:none;}
 
@@ -118,12 +149,13 @@ audio{display:none;}
 <!-- 3 -->
 <div class="panel">LOGIN</div>
 
-<!-- 4 -->
+<!-- 4 PROFILE + RADIO -->
 <div class="panel profile">
 
 <img class="avatar" src="https://xatimg.com/image/PtMzAMEPdOYG.png">
 <div class="name">RAMY</div>
 
+<!-- RADIO -->
 <div class="radio">
 <button onclick="playRadio(0)">🎧 قرآن</button>
 <button onclick="playRadio(1)">🎶 ميلودي</button>
@@ -131,6 +163,12 @@ audio{display:none;}
 <button onclick="playRadio(3)">🔥 منوعات</button>
 </div>
 
+<!-- RADIO ON/OFF -->
+<button onclick="toggleRadio()" style="margin-top:5px;background:#00ffcc;border:none;padding:5px;cursor:pointer;">
+▶ / ⏸ راديو
+</button>
+
+<!-- LINKS -->
 <div class="links">
 <a href="https://xat.com/2ra">2ra Chat</a>
 <a href="https://xat.com/7reqa">7reqa Chat</a>
@@ -140,14 +178,18 @@ audio{display:none;}
 
 </div>
 
-<!-- 5 SONGS LEFT -->
+<!-- 5 SONGS -->
 <div class="panel" id="left"></div>
 
-<!-- 6 SONGS RIGHT -->
-<div class="panel" id="right"></div>
+<!-- 6 VOLUME -->
+<div class="panel volume-box">
+🔊 الصوت
+<input type="range" min="0" max="1" step="0.1" onchange="volume(this.value)">
+</div>
 
 </div>
 
+<!-- AUDIO -->
 <audio id="audio"></audio>
 <audio id="radio"></audio>
 
@@ -162,10 +204,18 @@ let radios=[
 ];
 
 let radio=document.getElementById("radio");
+let rstate=false;
 
 function playRadio(i){
 radio.src=radios[i];
 radio.play();
+rstate=true;
+}
+
+function toggleRadio(){
+if(!radio.src) radio.src=radios[0];
+rstate?radio.pause():radio.play();
+rstate=!rstate;
 }
 
 /* SONGS */
@@ -196,30 +246,26 @@ let songs=[
 
 let audio=document.getElementById("audio");
 
-/* LEFT 11 */
+/* LEFT LIST ONLY */
 let left=document.getElementById("left");
-for(let i=0;i<11;i++){
+
+songs.forEach((s,i)=>{
 left.innerHTML+=`
 <div class="song">
-${songs[i][0]}
+${s[0]}
 <button onclick="playSong(${i})">▶</button>
 </div>`;
-}
-
-/* RIGHT 11 */
-let right=document.getElementById("right");
-for(let i=11;i<songs.length;i++){
-right.innerHTML+=`
-<div class="song">
-${songs[i][0]}
-<button onclick="playSong(${i})">▶</button>
-</div>`;
-}
+});
 
 /* PLAY */
 function playSong(i){
 audio.src=songs[i][1];
 audio.play();
+}
+
+/* VOLUME */
+function volume(v){
+audio.volume=v;
 }
 
 </script>
