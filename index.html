@@ -32,7 +32,6 @@ canvas{position:fixed;inset:0;z-index:-2}
   padding:18px;
   border-radius:15px;
   background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.1);
 }
 .login-box input{
   width:100%;
@@ -49,7 +48,6 @@ canvas{position:fixed;inset:0;z-index:-2}
   background:linear-gradient(45deg,#0ea5e9,#1e3a8a);
   border:none;
   color:#fff;
-  cursor:pointer;
   border-radius:8px;
 }
 
@@ -62,25 +60,35 @@ canvas{position:fixed;inset:0;z-index:-2}
   padding:8px 15px;
   display:flex;
   justify-content:space-between;
-  align-items:center;
   background:rgba(0,0,0,0.4);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid rgba(255,255,255,0.08);
   z-index:10;
-  font-size:13px;
 }
 
+/* ONLINE */
 .status{
   color:#00f5ff;
   font-weight:700;
   text-shadow:0 0 10px #00f5ff;
+  animation:glow 2s infinite alternate;
 }
 
+@keyframes glow{
+  from{opacity:.6}
+  to{opacity:1}
+}
+
+/* BY RAMY */
 .brand{
   font-weight:700;
   background:linear-gradient(90deg,#00f5ff,#a855f7,#00c3ff);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
+  animation:move 3s linear infinite;
+}
+
+@keyframes move{
+  0%{background-position:0%}
+  100%{background-position:200%}
 }
 
 /* MAIN */
@@ -106,8 +114,13 @@ canvas{position:fixed;inset:0;z-index:-2}
 
 /* RADIO */
 .radio-box{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
-.radio-btn{padding:6px 12px;background:linear-gradient(45deg,#00c3ff,#1e3a8a);border:none;border-radius:20px;color:#fff;cursor:pointer}
-.play-toggle{padding:6px 12px;background:#00ffb3;border:none;border-radius:20px;color:#000;font-weight:bold;cursor:pointer}
+.radio-btn{
+  padding:6px 12px;
+  background:linear-gradient(45deg,#00c3ff,#1e3a8a);
+  border:none;border-radius:20px;
+  color:#fff;
+  cursor:pointer;
+}
 
 /* LINKS */
 .world{
@@ -120,7 +133,6 @@ canvas{position:fixed;inset:0;z-index:-2}
   color:#fff;
   transition:.3s;
 }
-.world:hover{background:rgba(0,195,255,0.25);transform:scale(1.02)}
 
 /* PLAYER */
 #winamp{
@@ -136,7 +148,7 @@ canvas{position:fixed;inset:0;z-index:-2}
   font-weight:700;
 }
 
-/* SONGS */
+/* 🎵 ONLY SONGS HOVER */
 .song{
   display:flex;
   justify-content:space-between;
@@ -145,13 +157,16 @@ canvas{position:fixed;inset:0;z-index:-2}
   padding:6px;
   border-radius:8px;
   font-size:12px;
-  transition:.25s;
-}
-.song:hover{
-  background:rgba(0,195,255,0.25);
-  transform:scale(1.02);
+  transition:.2s;
 }
 
+/* 👇 التكبير للأغاني فقط */
+.song:hover{
+  transform:scale(1.06);
+  background:rgba(0,195,255,0.25);
+}
+
+/* BUTTONS */
 .song button{
   border:none;
   padding:4px 8px;
@@ -161,16 +176,7 @@ canvas{position:fixed;inset:0;z-index:-2}
 .play{background:#00c3ff;color:#000}
 .stop{background:#ff4d4d;color:#fff}
 
-/* 🔥 HOVER ZOOM */
-.hover-zoom{
-  transition:0.25s ease;
-}
-.hover-zoom:hover{
-  transform:scale(1.08);
-  text-shadow:0 0 10px #00c3ff;
-}
-
-/* 🔥 TOOLTIP */
+/* TOOLTIP */
 .tooltip{
   position:fixed;
   background:rgba(0,0,0,0.8);
@@ -179,8 +185,6 @@ canvas{position:fixed;inset:0;z-index:-2}
   font-size:12px;
   border-radius:8px;
   pointer-events:none;
-  transform:translate(-50%,-150%);
-  box-shadow:0 0 15px rgba(0,195,255,0.5);
   display:none;
   z-index:9999;
 }
@@ -191,13 +195,22 @@ canvas{position:fixed;inset:0;z-index:-2}
 
 <div class="tooltip" id="tooltip"></div>
 
-<audio id="radio1"></audio>
-<audio id="radio2"></audio>
-<audio id="radio3"></audio>
-<audio id="radio4"></audio>
+<!-- RADIO (FIXED WORKING) -->
+<audio id="radio1" src="https://stream.radiojar.com/8s5u5tpdtwzuv"></audio>
+<audio id="radio2" src="https://audio.nrpstream.com/listen/nogoumfm/radio.mp3"></audio>
+<audio id="radio3" src="https://stream.zeno.fm/w7atxdpk1pdvv"></audio>
+<audio id="radio4" src="https://stream.zeno.fm/hswv0qwu7vgtv"></audio>
+
+<!-- LOGIN -->
+<div class="login" id="login">
+  <div class="login-box">
+    <input id="password" type="password" placeholder="Enter password">
+    <button onclick="enter()">Enter</button>
+  </div>
+</div>
 
 <div class="topbar">
-  <div class="status" id="status">⚡ ONLINE</div>
+  <div class="status" id="status">⚡ OFFLINE</div>
   <div class="brand">BY RAMY</div>
 </div>
 
@@ -211,21 +224,22 @@ canvas{position:fixed;inset:0;z-index:-2}
 <div class="name">Ramy</div>
 
 <div class="radio-box">
-<button class="radio-btn">🎧 قرآن</button>
-<button class="radio-btn">🎶 ميلودي</button>
-<button class="radio-btn">🎤 حماقي</button>
-<button class="radio-btn">🔥 منوعات</button>
-<button class="play-toggle">▶ تشغيل</button>
+<button class="radio-btn" onclick="playRadio(1)">🎧 قرآن</button>
+<button class="radio-btn" onclick="playRadio(2)">🎶 ميلودي</button>
+<button class="radio-btn" onclick="playRadio(3)">🎤 حماقي</button>
+<button class="radio-btn" onclick="playRadio(4)">🔥 منوعات</button>
 </div>
 
 </div>
 </div>
 
-<a class="world hover-zoom" href="https://xat.com/2ra" target="_blank">🔥 2ra Chat</a>
-<a class="world hover-zoom" href="https://xat.com/7reqa" target="_blank">⚡ 7reqa Chat</a>
+<a class="world" href="https://xat.com/2ra" target="_blank">🔥 2ra Chat</a>
+<a class="world" href="https://xat.com/7reqa" target="_blank">⚡ 7reqa Chat</a>
+<a class="world" href="https://xat.com/trade" target="_blank">💰 Trade Hub</a>
+<a class="world" href="https://xat.com/cambio" target="_blank">🌐 Cambio Zone</a>
 
 <div id="winamp">
-<div class="artist hover-zoom">🎤 ليل المحمدي</div>
+<div class="artist">🎤 ليل المحمدي</div>
 <div id="list"></div>
 </div>
 
@@ -234,25 +248,37 @@ canvas{position:fixed;inset:0;z-index:-2}
 
 <script>
 
-const tooltip=document.getElementById("tooltip");
-
-/* TOOLTIP SYSTEM */
-document.querySelectorAll("a,button,.name,.artist,.brand").forEach(el=>{
-  el.classList.add("hover-zoom");
-
-  el.addEventListener("mousemove",(e)=>{
-    tooltip.style.display="block";
-    tooltip.innerText=el.innerText;
-    tooltip.style.left=e.clientX+"px";
-    tooltip.style.top=e.clientY+"px";
-  });
-
-  el.addEventListener("mouseleave",()=>{
-    tooltip.style.display="none";
-  });
+/* LOGIN FIX + ONLINE */
+function enter(){
+  if(password.value==="106080"){
+    login.style.display="none";
+    status.innerText="⚡ ONLINE";
+  }
+}
+password.addEventListener("keydown",e=>{
+  if(e.key==="Enter") enter();
 });
 
-/* SONGS (22 SONGS) */
+/* RADIO FIX (WORKING) */
+let radios=[
+document.getElementById("radio1"),
+document.getElementById("radio2"),
+document.getElementById("radio3"),
+document.getElementById("radio4")
+];
+
+let current=null;
+
+function playRadio(i){
+  radios.forEach(r=>r.pause());
+  current=radios[i-1];
+  current.play();
+}
+
+/* TOOLTIP ONLY FOR SONGS */
+const tooltip=document.getElementById("tooltip");
+
+/* SONGS */
 let songs=[
 ["نفسي أطمن بيك","https://j.top4top.io/m_3769le8x51.mp3"],
 ["الشعر الأسود","https://k.top4top.io/m_3769enq6z2.mp3"],
@@ -275,7 +301,7 @@ let songs=[
 ["قصة حب","https://c.top4top.io/m_3769ou0bt4.mp3"],
 ["ذكريات","https://d.top4top.io/m_37697zirj5.mp3"],
 ["حبيتك ليه","https://e.top4top.io/m_3769rnmrk6.mp3"],
-["أغنية جديدة","https://d.top4top.io/m_3769a1jgw1.mp3"]
+["توأمي","https://d.top4top.io/m_3769a1jgw1.mp3"]
 ];
 
 let list=document.getElementById("list");
@@ -283,13 +309,27 @@ let player=new Audio();
 
 songs.forEach(s=>{
   let div=document.createElement("div");
-  div.className="song hover-zoom";
+  div.className="song";
+
   div.innerHTML=`
   ${s[0]}
   <div>
     <button class="play" onclick="player.src='${s[1]}';player.play()">▶</button>
     <button class="stop" onclick="player.pause()">⏹</button>
   </div>`;
+
+  /* TOOLTIP ONLY SONGS */
+  div.addEventListener("mousemove",(e)=>{
+    tooltip.style.display="block";
+    tooltip.innerText=s[0];
+    tooltip.style.left=e.clientX+"px";
+    tooltip.style.top=e.clientY+"px";
+  });
+
+  div.addEventListener("mouseleave",()=>{
+    tooltip.style.display="none";
+  });
+
   list.appendChild(div);
 });
 
