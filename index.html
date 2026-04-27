@@ -13,7 +13,7 @@ body{
   color:#fff;
 }
 
-/* LOGIN */
+/* LOGIN GLASS */
 .login{
   position:fixed;
   inset:0;
@@ -27,9 +27,16 @@ body{
 .login-box{
   width:300px;
   padding:20px;
-  border-radius:16px;
-  background:linear-gradient(145deg,#0f172a,#020617);
-  box-shadow:0 0 30px #00c3ff55;
+  border-radius:18px;
+
+  /* ✨ Glass effect */
+  background:rgba(15, 23, 42, 0.35);
+  backdrop-filter:blur(15px);
+  -webkit-backdrop-filter:blur(15px);
+
+  border:1px solid rgba(0,195,255,0.25);
+  box-shadow:0 0 25px rgba(0,195,255,0.3);
+
   text-align:center;
 }
 
@@ -83,6 +90,7 @@ body{
   animation:blink 1.5s infinite;
   text-shadow:0 0 10px #00f5ff;
 }
+
 @keyframes blink{
   0%,100%{opacity:1}
   50%{opacity:0.3}
@@ -118,12 +126,27 @@ body{
   align-items:center;
 }
 
+/* ✨ AVATAR GLOW IMPROVED */
 .avatar{
   width:110px;
   height:110px;
   border-radius:50%;
   border:2px solid #00c3ff;
-  box-shadow:0 0 25px #00c3ff;
+
+  box-shadow:
+    0 0 10px #00c3ff,
+    0 0 25px #00f5ff,
+    0 0 45px #00c3ff;
+
+  transition:.3s;
+}
+
+.avatar:hover{
+  transform:scale(1.08);
+  box-shadow:
+    0 0 15px #00f5ff,
+    0 0 35px #00c3ff,
+    0 0 60px #00f5ff;
 }
 
 /* NAME */
@@ -285,7 +308,7 @@ body{
 
 <script>
 
-/* LOGIN */
+/* PASSWORD */
 function check(){
 if(pass.value==="106080"){
 login.style.display="none";
@@ -334,21 +357,6 @@ let songs=[
 ["كوابيس","https://a.top4top.io/m_3769kdadn4.mp3"],
 ["مش تمام","https://b.top4top.io/m_3769kg8sd5.mp3"],
 ["مشوار الحب","https://c.top4top.io/m_3769ien0c6.mp3"],
-["صاحبة الجلالة","https://d.top4top.io/m_3769yw3257.mp3"],
-["عملالي عمل","https://e.top4top.io/m_3769yb3k29.mp3"],
-["بحبها","https://f.top4top.io/m_37690zriz10.mp3"],
-["فيكي سر","https://b.top4top.io/m_3769lxi681.mp3"],
-["حياتي قصيدة","https://c.top4top.io/m_3769g0kg52.mp3"],
-["لسه","https://d.top4top.io/m_3769xz8mi3.mp3"],
-["مش زي غيرها","https://e.top4top.io/m_3769o93s34.mp3"],
-["نسند بعض","https://f.top4top.io/m_3769c3tql5.mp3"],
-["وش السعد","https://g.top4top.io/m_3769r7bcu6.mp3"],
-["يا حظ بيه","https://l.top4top.io/m_3769p7dkd1.mp3"],
-["ياللي ناسيني","https://a.top4top.io/m_37697muuj2.mp3"],
-["هلوسة","https://b.top4top.io/m_3769i9yd13.mp3"],
-["قصة حب","https://c.top4top.io/m_3769ou0bt4.mp3"],
-["ذكريات","https://d.top4top.io/m_37697zirj5.mp3"],
-["حبيتك ليه","https://e.top4top.io/m_3769rnmrk6.mp3"],
 ["توأمي","https://d.top4top.io/m_3769a1jgw1.mp3"]
 ];
 
