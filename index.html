@@ -2,87 +2,106 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>MATRIX MODE</title>
+<title>OMNIVERSE MODE</title>
 
 <style>
 body{
   margin:0;
-  overflow:hidden;
   background:#000;
+  overflow:hidden;
   font-family:monospace;
-  color:#00ff66;
+  color:#66ffcc;
 }
 
-/* ===== MATRIX BACKGROUND ===== */
+/* ===== BACKGROUND LAYERS ===== */
 canvas{
   position:fixed;
   top:0;
   left:0;
-  z-index:0;
 }
 
-/* ===== TERMINAL ===== */
-.terminal{
-  position:relative;
+/* glow fog */
+.fog{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:radial-gradient(circle at 50% 50%,rgba(0,255,200,0.08),transparent 60%);
+  z-index:1;
+}
+
+/* SCANLINES */
+body::before{
+  content:"";
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:repeating-linear-gradient(
+    0deg,
+    rgba(0,255,200,0.04),
+    rgba(0,255,200,0.04) 1px,
+    transparent 1px,
+    transparent 3px
+  );
   z-index:2;
-  width:750px;
-  height:420px;
+  pointer-events:none;
+}
+
+/* MAIN CORE */
+.core{
+  position:relative;
+  z-index:3;
+  width:850px;
+  height:470px;
   margin:auto;
   top:50%;
   transform:translateY(-50%);
-  border:1px solid #00ff66;
-  box-shadow:0 0 30px #00ff6633;
-  padding:15px;
+  border:1px solid #66ffcc;
+  box-shadow:0 0 60px rgba(0,255,200,0.25);
   background:rgba(0,0,0,0.85);
+  padding:15px;
 }
 
-/* header */
+/* HEADER */
 .header{
   font-size:12px;
   margin-bottom:10px;
 }
 
-/* logs */
-.logs{
+/* AI PANEL */
+.ai{
+  position:absolute;
+  top:10px;
+  right:10px;
   font-size:11px;
-  height:120px;
+  color:#66ffcc;
+}
+
+/* LOG */
+#log{
+  font-size:11px;
+  height:140px;
   overflow:hidden;
 }
 
-/* cursor */
-.cursor{
-  display:inline-block;
-  width:8px;
-  height:12px;
-  background:#00ff66;
-  animation:blink .7s infinite;
-}
-
-@keyframes blink{
-  0%,100%{opacity:1}
-  50%{opacity:0}
-}
-
-/* buttons */
+/* BUTTONS */
 button{
   background:transparent;
-  border:1px solid #00ff66;
-  color:#00ff66;
+  border:1px solid #66ffcc;
+  color:#66ffcc;
   padding:5px 10px;
   cursor:pointer;
   font-family:monospace;
 }
-
 button:hover{
-  background:#00ff6620;
+  background:#66ffcc22;
 }
 
-/* songs */
+/* SONGS */
 .songs{
   margin-top:10px;
   height:180px;
   overflow:auto;
-  border-top:1px solid #00ff66;
+  border-top:1px solid #66ffcc;
   padding-top:10px;
 }
 
@@ -91,7 +110,46 @@ button:hover{
   justify-content:space-between;
   font-size:10px;
   padding:3px;
-  border-bottom:1px dashed #00ff6633;
+  border-bottom:1px dashed #66ffcc55;
+}
+
+/* NETWORK MAP */
+.map{
+  position:absolute;
+  left:10px;
+  bottom:10px;
+  width:200px;
+  height:120px;
+  border:1px solid #66ffcc33;
+  overflow:hidden;
+}
+
+.node{
+  position:absolute;
+  width:6px;
+  height:6px;
+  background:#66ffcc;
+  border-radius:50%;
+  animation:move 4s infinite;
+}
+
+@keyframes move{
+  0%{transform:translate(0,0)}
+  50%{transform:translate(80px,40px)}
+  100%{transform:translate(0,0)}
+}
+
+/* CURSOR */
+.cursor{
+  display:inline-block;
+  width:8px;
+  height:12px;
+  background:#66ffcc;
+  animation:blink .7s infinite;
+}
+@keyframes blink{
+  0%,100%{opacity:1}
+  50%{opacity:0}
 }
 
 </style>
@@ -99,28 +157,34 @@ button:hover{
 
 <body>
 
-<canvas id="matrix"></canvas>
+<canvas id="bg"></canvas>
+<div class="fog"></div>
 
-<div class="terminal">
+<div class="core">
 
 <div class="header">
-> MATRIX SYSTEM ACTIVE<br>
-> STATUS: CONNECTED TO CORE<br>
-> SECURITY: BYPASSED
+> OMNIVERSE CORE ONLINE<br>
+> ALL SYSTEMS SYNCHRONIZED<br>
+> DIMENSION LINK ACTIVE
 </div>
 
-<div class="logs" id="logs"></div>
+<div class="ai" id="ai">AI: INITIALIZING OMNIBRAIN...</div>
 
-<div>
-<button onclick="playRadio()">RADIO ON</button>
-<button onclick="stopRadio()">STOP</button>
+<div id="log"></div>
+
+<div style="margin-top:10px;">
+<button onclick="radioOn()">RADIO</button>
+<button onclick="radioStop()">STOP</button>
 </div>
 
 <div class="songs" id="songs"></div>
 
 <div style="margin-top:10px;">
-root@matrix:<span class="cursor"></span>
+omniverse@root:<span class="cursor"></span>
 </div>
+
+<!-- network map -->
+<div class="map" id="map"></div>
 
 </div>
 
@@ -129,83 +193,91 @@ root@matrix:<span class="cursor"></span>
 
 <script>
 
-/* ===== MATRIX RAIN ===== */
-const canvas = document.getElementById("matrix");
-const ctx = canvas.getContext("2d");
+/* ===== MATRIX BACKGROUND ===== */
+const c=document.getElementById("bg");
+const x=c.getContext("2d");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+c.width=window.innerWidth;
+c.height=window.innerHeight;
 
-let letters = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ$#@";
-letters = letters.split("");
+let chars="01OMNIVERSEAI$#@";
+chars=chars.split("");
 
-let fontSize = 14;
-let columns = canvas.width / fontSize;
+let font=14;
+let cols=c.width/font;
+let drops=Array(cols).fill(1);
 
-let drops = [];
+function draw(){
+x.fillStyle="rgba(0,0,0,0.08)";
+x.fillRect(0,0,c.width,c.height);
 
-for(let x=0;x<columns;x++)
-drops[x]=1;
-
-function drawMatrix(){
-ctx.fillStyle="rgba(0,0,0,0.08)";
-ctx.fillRect(0,0,canvas.width,canvas.height);
-
-ctx.fillStyle="#00ff66";
-ctx.font=fontSize+"px monospace";
+x.fillStyle="#66ffcc";
+x.font=font+"px monospace";
 
 for(let i=0;i<drops.length;i++){
-let text = letters[Math.floor(Math.random()*letters.length)];
-ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+let t=chars[Math.floor(Math.random()*chars.length)];
+x.fillText(t,i*font,drops[i]*font);
 
-if(drops[i]*fontSize>canvas.height && Math.random()>0.975)
+if(drops[i]*font>c.height && Math.random()>0.975)
 drops[i]=0;
 
 drops[i]++;
 }
 }
-setInterval(drawMatrix,35);
+setInterval(draw,30);
 
-/* ===== LOGS ===== */
-let logs=[
-"[OK] boot sequence started...",
-"[OK] scanning network...",
-"[OK] firewall disabled...",
-"[OK] system unlocked...",
-"[OK] matrix connected."
+/* ===== LOG SYSTEM ===== */
+let log=document.getElementById("log");
+let lines=[
+"[OK] connecting universe nodes...",
+"[OK] syncing AI layers...",
+"[OK] stabilizing matrix field...",
+"[OK] opening dimension bridge...",
+"[OK] OMNIVERSE ACTIVE"
 ];
 
 let i=0;
-let box=document.getElementById("logs");
-
 setInterval(()=>{
-if(i<logs.length){
-box.innerHTML+=logs[i]+"<br>";
+if(i<lines.length){
+log.innerHTML+=lines[i]+"<br>";
 i++;
 }
-},800);
+},900);
+
+/* ===== AI STATUS ===== */
+let ai=document.getElementById("ai");
+
+let states=[
+"THINKING ACROSS DIMENSIONS",
+"SCANNING ALL REALITIES",
+"NEURAL OVERLOAD STABLE",
+"OMNIVERSE RUNNING"
+];
+
+setInterval(()=>{
+ai.innerText="AI: "+states[Math.floor(Math.random()*states.length)];
+},2000);
 
 /* ===== RADIO ===== */
 let radio=document.getElementById("radio");
 
-function playRadio(){
+function radioOn(){
 radio.src="https://stream.radiojar.com/8s5u5tpdtwzuv";
 radio.play();
 }
 
-function stopRadio(){
+function radioStop(){
 radio.pause();
 }
 
 /* ===== SONGS ===== */
 let songs=[
-["track_01","https://j.top4top.io/m_3769le8x51.mp3"],
-["track_02","https://k.top4top.io/m_3769enq6z2.mp3"],
-["track_03","https://l.top4top.io/m_3769auk3d3.mp3"],
-["track_04","https://a.top4top.io/m_3769kdadn4.mp3"]
+["NODE_01","https://j.top4top.io/m_3769le8x51.mp3"],
+["NODE_02","https://k.top4top.io/m_3769enq6z2.mp3"],
+["NODE_03","https://l.top4top.io/m_3769auk3d3.mp3"]
 ];
 
-let list=document.getElementById("songs");
+let box=document.getElementById("songs");
 let player=document.getElementById("player");
 
 songs.forEach(s=>{
@@ -213,10 +285,22 @@ let d=document.createElement("div");
 d.className="song";
 d.innerHTML=`
 ${s[0]}
-<button onclick="player.src='${s[1]}';player.play()">RUN</button>
+<button onclick="player.src='${s[1]}';player.play()">EXEC</button>
 `;
-list.appendChild(d);
+box.appendChild(d);
 });
+
+/* ===== NETWORK MAP ===== */
+let map=document.getElementById("map");
+
+for(let i=0;i<6;i++){
+let n=document.createElement("div");
+n.className="node";
+n.style.left=Math.random()*180+"px";
+n.style.top=Math.random()*100+"px";
+n.style.animationDelay=(Math.random()*2)+"s";
+map.appendChild(n);
+}
 
 </script>
 
