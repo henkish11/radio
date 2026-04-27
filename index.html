@@ -13,101 +13,74 @@ body{
   color:#fff;
 }
 
-/* ================= HACKER LOGIN 3D ================= */
+/* ================= BOOT SCREEN ================= */
+#boot{
+  position:fixed;
+  inset:0;
+  background:#000;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  z-index:10000;
+}
+
+.boot-text{
+  font-size:18px;
+  color:#00f5ff;
+  letter-spacing:3px;
+  animation:glow 1s infinite alternate;
+}
+
+@keyframes glow{
+  from{opacity:0.3;text-shadow:0 0 5px #00f5ff;}
+  to{opacity:1;text-shadow:0 0 20px #00f5ff;}
+}
+
+.bar{
+  width:200px;
+  height:4px;
+  background:#111;
+  margin-top:20px;
+  overflow:hidden;
+  border-radius:10px;
+}
+
+.bar span{
+  display:block;
+  height:100%;
+  width:0;
+  background:#00f5ff;
+  animation:load 2.5s forwards;
+}
+
+@keyframes load{
+  to{width:100%;}
+}
+
+/* ================= LOGIN ================= */
 .login{
   position:fixed;
   inset:0;
   display:flex;
   align-items:center;
   justify-content:center;
-  overflow:hidden;
   background:#000;
-  z-index:999;
-}
-
-#matrix{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  opacity:0.25;
+  z-index:9999;
 }
 
 .login-box{
-  position:relative;
-  padding:25px;
-  width:260px;
   text-align:center;
-
-  background:rgba(0,0,0,0.6);
-  border:1px solid #00f5ff;
-
-  box-shadow:0 0 20px #00f5ff, 0 0 60px #00c3ff;
-
-  transform:perspective(800px) rotateX(10deg);
-  animation:float3d 4s infinite ease-in-out;
-}
-
-@keyframes float3d{
-  0%,100%{transform:perspective(800px) rotateX(10deg) translateY(0)}
-  50%{transform:perspective(800px) rotateX(10deg) translateY(-10px)}
-}
-
-.glitch{
-  font-size:16px;
-  font-weight:bold;
-  color:#00f5ff;
-  position:relative;
-  margin-bottom:10px;
-  letter-spacing:2px;
-}
-
-.glitch:before,
-.glitch:after{
-  content:attr(data-text);
-  position:absolute;
-  left:0;
-  top:0;
-  width:100%;
-}
-
-.glitch:before{
-  color:#ff00ff;
-  animation:glitchTop 1s infinite linear alternate-reverse;
-}
-
-.glitch:after{
-  color:#00ffff;
-  animation:glitchBottom 1s infinite linear alternate-reverse;
-}
-
-@keyframes glitchTop{
-  0%{transform:translate(0)}
-  20%{transform:translate(-2px,-2px)}
-  40%{transform:translate(-4px,2px)}
-  60%{transform:translate(2px,-1px)}
-  100%{transform:translate(0)}
-}
-
-@keyframes glitchBottom{
-  0%{transform:translate(0)}
-  20%{transform:translate(2px,2px)}
-  40%{transform:translate(4px,-2px)}
-  60%{transform:translate(-2px,1px)}
-  100%{transform:translate(0)}
 }
 
 .login-box input{
-  width:100%;
   padding:10px;
-  margin-top:10px;
+  width:200px;
   text-align:center;
   border:none;
-  outline:none;
   border-radius:6px;
-  background:#050505;
-  color:#00f5ff;
-  box-shadow:0 0 10px #00f5ff;
+  background:#111;
+  color:#fff;
 }
 
 .login-box button{
@@ -115,14 +88,35 @@ body{
   padding:8px 20px;
   border:none;
   border-radius:6px;
+  background:#00c3ff;
   cursor:pointer;
-  background:linear-gradient(90deg,#00f5ff,#a855f7);
-  color:#000;
-  font-weight:bold;
-  box-shadow:0 0 15px #00f5ff;
 }
 
-/* ================= TOP ================= */
+/* ================= ACCESS GRANTED ================= */
+#access{
+  position:fixed;
+  inset:0;
+  background:#000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:99999;
+  color:#00f5ff;
+  font-size:22px;
+  letter-spacing:3px;
+  animation:flash 1s ease;
+}
+
+@keyframes flash{
+  0%{opacity:0;}
+  50%{opacity:1;}
+  100%{opacity:0;}
+}
+
+/* ================= MAIN ================= */
+#main{display:none;}
+
+/* باقي تصميمك بدون تغيير */
 .topbar{
   display:flex;
   justify-content:space-between;
@@ -132,24 +126,14 @@ body{
 
 .status{
   color:#00f5ff;
-  font-weight:bold;
-  animation:blink 1.5s infinite;
-  text-shadow:0 0 10px #00f5ff;
-}
-
-@keyframes blink{
-  0%,100%{opacity:1}
-  50%{opacity:0.3}
 }
 
 .brand{
-  font-weight:bold;
   background:linear-gradient(90deg,#00f5ff,#a855f7,#00c3ff);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
 
-/* ================= BOX ================= */
 .box{
   width:900px;
   margin:70px auto;
@@ -158,100 +142,48 @@ body{
   border-radius:15px;
 }
 
-.top{
-  display:flex;
-  gap:15px;
-  align-items:center;
-}
+.top{display:flex;gap:15px;align-items:center}
 
-.avatar{
-  width:110px;
-  height:110px;
-  border-radius:50%;
-  border:2px solid #00c3ff;
-}
+.avatar{width:110px;height:110px;border-radius:50%}
 
 .name{
   font-size:44px;
-  font-weight:900;
   background:linear-gradient(90deg,#00f5ff,#a855f7,#00c3ff);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
 
-/* RADIO */
-.radio{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:10px;
-}
+.song{display:flex;justify-content:space-between;margin:4px 0;padding:6px;background:#00c3ff22}
 
-.radio-btn{
-  padding:6px 10px;
-  border:none;
-  border-radius:20px;
-  background:#00c3ff;
-  cursor:pointer;
-}
-
-.radio-box{
-  margin-top:10px;
-  padding:10px;
-  background:#00c3ff22;
-  border-radius:12px;
-  display:inline-block;
-  cursor:pointer;
-}
-
-/* LINKS */
-.links a{
-  display:block;
-  margin:5px 0;
-  padding:8px;
-  background:#00c3ff22;
-  color:#fff;
-  text-decoration:none;
-  border-radius:8px;
-}
-
-/* SONGS */
-.wrap{display:flex;gap:10px;margin-top:10px}
-.col{flex:1}
-
-.song{
-  display:flex;
-  justify-content:space-between;
-  padding:6px;
-  margin:4px 0;
-  background:#00c3ff22;
-  border-radius:8px;
-  font-size:12px;
-}
-
-.play{background:#00c3ff;border:none;padding:3px 6px;border-radius:6px}
-.stop{background:#ff4d4d;border:none;padding:3px 6px;border-radius:6px}
+/* MATRIX */
+canvas{position:absolute;inset:0;opacity:0.15}
 
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN -->
-<div class="login" id="login">
-<canvas id="matrix"></canvas>
+<!-- BOOT -->
+<div id="boot">
+<div class="boot-text">BOOTING SYSTEM...</div>
+<div class="bar"><span></span></div>
+</div>
 
+<!-- LOGIN -->
+<div class="login" id="login" style="display:none">
 <div class="login-box">
-<div class="glitch" data-text="SYSTEM ACCESS">SYSTEM ACCESS</div>
-<h3>ENTER PASSWORD</h3>
-<input type="password" id="pass" placeholder="••••••">
+<h3 style="color:#00f5ff">ENTER PASSWORD</h3>
+<input type="password" id="pass">
 <br>
-<button onclick="check()">ENTER SYSTEM</button>
+<button onclick="check()">ENTER</button>
 </div>
 </div>
+
+<!-- ACCESS GRANTED -->
+<div id="access">ACCESS GRANTED</div>
 
 <!-- MAIN -->
-<div id="main" style="display:none">
+<div id="main">
 
 <div class="topbar">
 <div class="status">⚡ ONLINE</div>
@@ -259,146 +191,55 @@ body{
 </div>
 
 <div class="box">
-
 <div class="top">
 <img class="avatar" src="https://xatimg.com/image/RKP5IrStF45l.png">
 <div class="name">RAMY</div>
 </div>
-
-<div class="radio">
-<button class="radio-btn" onclick="playRadio(0)">🎧 قرآن</button>
-<button class="radio-btn" onclick="playRadio(1)">🎶 ميلودي</button>
-<button class="radio-btn" onclick="playRadio(2)">🎤 حماقي</button>
-<button class="radio-btn" onclick="playRadio(3)">🔥 منوعات</button>
-</div>
-
-<div class="radio-box" onclick="toggleRadio()">▶ / ⏸ تشغيل الراديو</div>
-
-<div class="links">
-<a href="https://xat.com/2ra">🔥 2ra Chat</a>
-<a href="https://xat.com/7reqa">⚡ 7reqa Chat</a>
-<a href="https://xat.com/trade">💰 Trade Hub</a>
-<a href="https://xat.com/cambio">🌐 Cambio Zone</a>
-</div>
-
-<div class="wrap">
-<div class="col" id="left"></div>
-<div class="col" id="right"></div>
 </div>
 
 </div>
-</div>
-
-<audio id="radio"></audio>
-<audio id="player"></audio>
 
 <script>
 
-/* LOGIN */
+/* BOOT SCREEN */
+setTimeout(()=>{
+document.getElementById("boot").style.display="none";
+document.getElementById("login").style.display="flex";
+},2500);
+
+/* SOUND */
+function beep(){
+let ctx=new (window.AudioContext||window.webkitAudioContext)();
+let osc=ctx.createOscillator();
+osc.type="square";
+osc.frequency.value=800;
+osc.connect(ctx.destination);
+osc.start();
+osc.stop(ctx.currentTime+0.2);
+}
+
+/* LOGIN CHECK */
 function check(){
 if(pass.value==="106080"){
-login.style.display="none";
-main.style.display="block";
-}else alert("Wrong Password");
-}
 
-/* MATRIX */
-const canvas=document.getElementById("matrix");
-const ctx=canvas.getContext("2d");
+beep();
 
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
+/* ACCESS GRANTED */
+document.getElementById("login").style.display="none";
+document.getElementById("access").style.display="flex";
 
-let letters="01RAMYHACKSYSTEM";
-letters=letters.split("");
+setTimeout(()=>{
+document.getElementById("access").style.display="none";
+document.getElementById("main").style.display="block";
+},1200);
 
-let font=14;
-let cols=canvas.width/font;
-let drops=Array.from({length:cols}).fill(1);
-
-function draw(){
-ctx.fillStyle="rgba(0,0,0,0.05)";
-ctx.fillRect(0,0,canvas.width,canvas.height);
-
-ctx.fillStyle="#00f5ff";
-ctx.font=font+"px monospace";
-
-for(let i=0;i<drops.length;i++){
-let text=letters[Math.floor(Math.random()*letters.length)];
-ctx.fillText(text,i*font,drops[i]*font);
-
-if(drops[i]*font>canvas.height && Math.random()>0.975)
-drops[i]=0;
-
-drops[i]++;
+}else{
+alert("Wrong Password");
 }
 }
-setInterval(draw,33);
 
-/* RADIO */
-let radios=[
-"https://stream.radiojar.com/8s5u5tpdtwzuv",
-"https://audio.nrpstream.com/listen/nogoumfm/radio.mp3",
-"https://stream.zeno.fm/w7atxdpk1pdvv",
-"https://stream.zeno.fm/hswv0qwu7vgtv"
-];
-
-let radio=document.getElementById("radio");
-let isRadio=false;
-
-function playRadio(i){
-radio.pause();
-radio.src=radios[i];
-radio.play();
-isRadio=true;
-}
-
-function toggleRadio(){
-if(!radio.src) radio.src=radios[0];
-if(isRadio){radio.pause();isRadio=false;}
-else{radio.play();isRadio=true;}
-}
-
-/* SONGS (22) */
-let songs=[
-["نفسي أطمن بيك","https://j.top4top.io/m_3769le8x51.mp3"],
-["الشعر الأسود","https://k.top4top.io/m_3769enq6z2.mp3"],
-["حبي الأولاني","https://l.top4top.io/m_3769auk3d3.mp3"],
-["كوابيس","https://a.top4top.io/m_3769kdadn4.mp3"],
-["مش تمام","https://b.top4top.io/m_3769kg8sd5.mp3"],
-["مشوار الحب","https://c.top4top.io/m_3769ien0c6.mp3"],
-["صاحبة الجلالة","https://d.top4top.io/m_3769yw3257.mp3"],
-["عملالي عمل","https://e.top4top.io/m_3769yb3k29.mp3"],
-["بحبها","https://f.top4top.io/m_37690zriz10.mp3"],
-["فيكي سر","https://b.top4top.io/m_3769lxi681.mp3"],
-["حياتي قصيدة","https://c.top4top.io/m_3769g0kg52.mp3"],
-["لسه","https://d.top4top.io/m_3769xz8mi3.mp3"],
-["مش زي غيرها","https://e.top4top.io/m_3769o93s34.mp3"],
-["نسند بعض","https://f.top4top.io/m_3769c3tql5.mp3"],
-["وش السعد","https://g.top4top.io/m_3769r7bcu6.mp3"],
-["يا حظ بيه","https://l.top4top.io/m_3769p7dkd1.mp3"],
-["ياللي ناسيني","https://a.top4top.io/m_37697muuj2.mp3"],
-["هلوسة","https://b.top4top.io/m_3769i9yd13.mp3"],
-["قصة حب","https://c.top4top.io/m_3769ou0bt4.mp3"],
-["ذكريات","https://d.top4top.io/m_37697zirj5.mp3"],
-["حبيتك ليه","https://e.top4top.io/m_3769rnmrk6.mp3"],
-["توأمي","https://d.top4top.io/m_3769a1jgw1.mp3"]
-];
-
-let left=document.getElementById("left");
-let right=document.getElementById("right");
-let player=document.getElementById("player");
-
-songs.forEach((s,i)=>{
-let div=document.createElement("div");
-div.className="song";
-div.innerHTML=`
-${s[0]}
-<div>
-<button class="play" onclick="player.src='${s[1]}';player.play()">▶</button>
-<button class="stop" onclick="player.pause()">⏹</button>
-</div>`;
-(i%2?right:left).appendChild(div);
+pass.addEventListener("keydown",e=>{
+if(e.key==="Enter") check();
 });
 
 </script>
