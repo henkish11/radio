@@ -2,154 +2,161 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>OMNIVERSE MODE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAMY HACK SYSTEM</title>
 
 <style>
 body{
   margin:0;
-  background:#000;
-  overflow:hidden;
-  font-family:monospace;
-  color:#66ffcc;
-}
-
-/* ===== BACKGROUND LAYERS ===== */
-canvas{
-  position:fixed;
-  top:0;
-  left:0;
-}
-
-/* glow fog */
-.fog{
-  position:fixed;
-  width:100%;
-  height:100%;
-  background:radial-gradient(circle at 50% 50%,rgba(0,255,200,0.08),transparent 60%);
-  z-index:1;
-}
-
-/* SCANLINES */
-body::before{
-  content:"";
-  position:fixed;
-  width:100%;
-  height:100%;
-  background:repeating-linear-gradient(
-    0deg,
-    rgba(0,255,200,0.04),
-    rgba(0,255,200,0.04) 1px,
-    transparent 1px,
-    transparent 3px
-  );
-  z-index:2;
-  pointer-events:none;
-}
-
-/* MAIN CORE */
-.core{
-  position:relative;
-  z-index:3;
-  width:850px;
-  height:470px;
-  margin:auto;
-  top:50%;
-  transform:translateY(-50%);
-  border:1px solid #66ffcc;
-  box-shadow:0 0 60px rgba(0,255,200,0.25);
-  background:rgba(0,0,0,0.85);
-  padding:15px;
-}
-
-/* HEADER */
-.header{
-  font-size:12px;
-  margin-bottom:10px;
-}
-
-/* AI PANEL */
-.ai{
-  position:absolute;
-  top:10px;
-  right:10px;
-  font-size:11px;
-  color:#66ffcc;
-}
-
-/* LOG */
-#log{
-  font-size:11px;
-  height:140px;
+  font-family:Arial;
+  background:#05060a;
+  color:#00f5ff;
   overflow:hidden;
 }
 
-/* BUTTONS */
-button{
-  background:transparent;
-  border:1px solid #66ffcc;
-  color:#66ffcc;
-  padding:5px 10px;
-  cursor:pointer;
-  font-family:monospace;
-}
-button:hover{
-  background:#66ffcc22;
+/* ================= GRID LAYOUT ================= */
+.dashboard{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  grid-template-rows:260px 1fr;
+  height:100vh;
+  gap:10px;
+  padding:10px;
 }
 
-/* SONGS */
-.songs{
+/* BOX STYLE */
+.panel{
+  background:rgba(0,0,0,0.6);
+  border:1px solid #00f5ff33;
+  box-shadow:0 0 20px #00f5ff22;
+  border-radius:10px;
+  padding:10px;
+  overflow:hidden;
+}
+
+/* ================= TOP LEFT BOOT ================= */
+.boot{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+
+.boot h1{
+  font-size:22px;
+  letter-spacing:3px;
+}
+
+.bar{
+  width:80%;
+  height:6px;
+  background:#111;
   margin-top:10px;
-  height:180px;
+  border-radius:10px;
+  overflow:hidden;
+}
+
+.bar span{
+  display:block;
+  height:100%;
+  width:0;
+  background:#00f5ff;
+  animation:load 3s forwards;
+}
+
+@keyframes load{to{width:100%}}
+
+/* ================= TOP MIDDLE HACK ================= */
+.terminal{
+  font-size:11px;
+  line-height:18px;
+  color:#00ff99;
+}
+
+/* ================= TOP RIGHT LOGIN ================= */
+.login-box{
+  text-align:center;
+}
+
+.login-box input{
+  width:80%;
+  padding:10px;
+  margin-top:10px;
+  text-align:center;
+  background:#111;
+  border:none;
+  color:#00f5ff;
+  border-radius:6px;
+}
+
+.login-box button{
+  margin-top:10px;
+  padding:8px 15px;
+  background:#00f5ff;
+  border:none;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+/* ================= BOTTOM LEFT PROFILE ================= */
+.profile{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+
+.avatar{
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  border:2px solid #00f5ff;
+}
+
+.name{
+  font-size:40px;
+  margin-top:10px;
+  background:linear-gradient(90deg,#00f5ff,#a855f7);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* ================= BOTTOM CENTER SONGS ================= */
+.songs{
   overflow:auto;
-  border-top:1px solid #66ffcc;
-  padding-top:10px;
+  height:100%;
 }
 
 .song{
   display:flex;
   justify-content:space-between;
-  font-size:10px;
-  padding:3px;
-  border-bottom:1px dashed #66ffcc55;
+  padding:6px;
+  margin:5px 0;
+  background:#00f5ff11;
+  border-radius:6px;
+  font-size:12px;
 }
 
-/* NETWORK MAP */
-.map{
-  position:absolute;
-  left:10px;
-  bottom:10px;
-  width:200px;
-  height:120px;
-  border:1px solid #66ffcc33;
-  overflow:hidden;
+.song button{
+  border:none;
+  cursor:pointer;
 }
 
-.node{
-  position:absolute;
-  width:6px;
-  height:6px;
-  background:#66ffcc;
-  border-radius:50%;
-  animation:move 4s infinite;
+/* ================= BOTTOM RIGHT CONTROL ================= */
+.control{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
 }
 
-@keyframes move{
-  0%{transform:translate(0,0)}
-  50%{transform:translate(80px,40px)}
-  100%{transform:translate(0,0)}
-}
-
-/* CURSOR */
-.cursor{
-  display:inline-block;
-  width:8px;
-  height:12px;
-  background:#66ffcc;
-  animation:blink .7s infinite;
-}
-@keyframes blink{
-  0%,100%{opacity:1}
-  50%{opacity:0}
+.big-btn{
+  padding:10px 20px;
+  background:#00f5ff;
+  border:none;
+  font-weight:bold;
+  cursor:pointer;
+  margin:5px;
 }
 
 </style>
@@ -157,151 +164,64 @@ button:hover{
 
 <body>
 
-<canvas id="bg"></canvas>
-<div class="fog"></div>
+<div class="dashboard">
 
-<div class="core">
-
-<div class="header">
-> OMNIVERSE CORE ONLINE<br>
-> ALL SYSTEMS SYNCHRONIZED<br>
-> DIMENSION LINK ACTIVE
+<!-- TOP LEFT -->
+<div class="panel boot">
+<h1>BOOT SYSTEM</h1>
+<div class="bar"><span></span></div>
 </div>
 
-<div class="ai" id="ai">AI: INITIALIZING OMNIBRAIN...</div>
-
-<div id="log"></div>
-
-<div style="margin-top:10px;">
-<button onclick="radioOn()">RADIO</button>
-<button onclick="radioStop()">STOP</button>
+<!-- TOP MIDDLE -->
+<div class="panel terminal">
+[+] Connecting to system...<br>
+[+] Bypassing firewall...<br>
+[+] Injecting payload...<br>
+[+] Accessing server...<br>
+[+] SYSTEM READY ✔
 </div>
 
-<div class="songs" id="songs"></div>
-
-<div style="margin-top:10px;">
-omniverse@root:<span class="cursor"></span>
+<!-- TOP RIGHT -->
+<div class="panel login-box">
+<h3>ENTER PASSWORD</h3>
+<input type="password" id="pass">
+<br>
+<button onclick="check()">ACCESS</button>
 </div>
 
-<!-- network map -->
-<div class="map" id="map"></div>
+<!-- BOTTOM LEFT -->
+<div class="panel profile">
+<img class="avatar" src="https://xatimg.com/image/RKP5IrStF45l.png">
+<div class="name">RAMY</div>
+</div>
+
+<!-- BOTTOM CENTER SONGS -->
+<div class="panel songs">
+
+<div class="song">Song 1 <button>▶</button></div>
+<div class="song">Song 2 <button>▶</button></div>
+<div class="song">Song 3 <button>▶</button></div>
+<div class="song">Song 4 <button>▶</button></div>
+<div class="song">Song 5 <button>▶</button></div>
 
 </div>
 
-<audio id="radio"></audio>
-<audio id="player"></audio>
+<!-- BOTTOM RIGHT -->
+<div class="panel control">
+<button class="big-btn">PLAY RADIO</button>
+<button class="big-btn">STOP</button>
+</div>
+
+</div>
 
 <script>
-
-/* ===== MATRIX BACKGROUND ===== */
-const c=document.getElementById("bg");
-const x=c.getContext("2d");
-
-c.width=window.innerWidth;
-c.height=window.innerHeight;
-
-let chars="01OMNIVERSEAI$#@";
-chars=chars.split("");
-
-let font=14;
-let cols=c.width/font;
-let drops=Array(cols).fill(1);
-
-function draw(){
-x.fillStyle="rgba(0,0,0,0.08)";
-x.fillRect(0,0,c.width,c.height);
-
-x.fillStyle="#66ffcc";
-x.font=font+"px monospace";
-
-for(let i=0;i<drops.length;i++){
-let t=chars[Math.floor(Math.random()*chars.length)];
-x.fillText(t,i*font,drops[i]*font);
-
-if(drops[i]*font>c.height && Math.random()>0.975)
-drops[i]=0;
-
-drops[i]++;
+function check(){
+if(pass.value==="106080"){
+alert("ACCESS GRANTED");
+}else{
+alert("WRONG PASSWORD");
 }
 }
-setInterval(draw,30);
-
-/* ===== LOG SYSTEM ===== */
-let log=document.getElementById("log");
-let lines=[
-"[OK] connecting universe nodes...",
-"[OK] syncing AI layers...",
-"[OK] stabilizing matrix field...",
-"[OK] opening dimension bridge...",
-"[OK] OMNIVERSE ACTIVE"
-];
-
-let i=0;
-setInterval(()=>{
-if(i<lines.length){
-log.innerHTML+=lines[i]+"<br>";
-i++;
-}
-},900);
-
-/* ===== AI STATUS ===== */
-let ai=document.getElementById("ai");
-
-let states=[
-"THINKING ACROSS DIMENSIONS",
-"SCANNING ALL REALITIES",
-"NEURAL OVERLOAD STABLE",
-"OMNIVERSE RUNNING"
-];
-
-setInterval(()=>{
-ai.innerText="AI: "+states[Math.floor(Math.random()*states.length)];
-},2000);
-
-/* ===== RADIO ===== */
-let radio=document.getElementById("radio");
-
-function radioOn(){
-radio.src="https://stream.radiojar.com/8s5u5tpdtwzuv";
-radio.play();
-}
-
-function radioStop(){
-radio.pause();
-}
-
-/* ===== SONGS ===== */
-let songs=[
-["NODE_01","https://j.top4top.io/m_3769le8x51.mp3"],
-["NODE_02","https://k.top4top.io/m_3769enq6z2.mp3"],
-["NODE_03","https://l.top4top.io/m_3769auk3d3.mp3"]
-];
-
-let box=document.getElementById("songs");
-let player=document.getElementById("player");
-
-songs.forEach(s=>{
-let d=document.createElement("div");
-d.className="song";
-d.innerHTML=`
-${s[0]}
-<button onclick="player.src='${s[1]}';player.play()">EXEC</button>
-`;
-box.appendChild(d);
-});
-
-/* ===== NETWORK MAP ===== */
-let map=document.getElementById("map");
-
-for(let i=0;i<6;i++){
-let n=document.createElement("div");
-n.className="node";
-n.style.left=Math.random()*180+"px";
-n.style.top=Math.random()*100+"px";
-n.style.animationDelay=(Math.random()*2)+"s";
-map.appendChild(n);
-}
-
 </script>
 
 </body>
