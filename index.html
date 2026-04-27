@@ -13,47 +13,113 @@ body{
   color:#fff;
 }
 
-/* ================= LOGIN (معدل فقط - بسيط) ================= */
+/* ================= HACKER LOGIN 3D ================= */
 .login{
   position:fixed;
   inset:0;
   display:flex;
   align-items:center;
   justify-content:center;
-  background:#020617;
+  overflow:hidden;
+  background:#000;
   z-index:999;
 }
 
-.login-box{
-  text-align:center;
+#matrix{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  opacity:0.25;
 }
 
-.login-box h3{
-  font-size:14px;
+.login-box{
+  position:relative;
+  padding:25px;
+  width:260px;
+  text-align:center;
+
+  background:rgba(0,0,0,0.6);
+  border:1px solid #00f5ff;
+
+  box-shadow:0 0 20px #00f5ff, 0 0 60px #00c3ff;
+
+  transform:perspective(800px) rotateX(10deg);
+  animation:float3d 4s infinite ease-in-out;
+}
+
+@keyframes float3d{
+  0%,100%{transform:perspective(800px) rotateX(10deg) translateY(0)}
+  50%{transform:perspective(800px) rotateX(10deg) translateY(-10px)}
+}
+
+.glitch{
+  font-size:16px;
+  font-weight:bold;
   color:#00f5ff;
+  position:relative;
   margin-bottom:10px;
+  letter-spacing:2px;
+}
+
+.glitch:before,
+.glitch:after{
+  content:attr(data-text);
+  position:absolute;
+  left:0;
+  top:0;
+  width:100%;
+}
+
+.glitch:before{
+  color:#ff00ff;
+  animation:glitchTop 1s infinite linear alternate-reverse;
+}
+
+.glitch:after{
+  color:#00ffff;
+  animation:glitchBottom 1s infinite linear alternate-reverse;
+}
+
+@keyframes glitchTop{
+  0%{transform:translate(0)}
+  20%{transform:translate(-2px,-2px)}
+  40%{transform:translate(-4px,2px)}
+  60%{transform:translate(2px,-1px)}
+  100%{transform:translate(0)}
+}
+
+@keyframes glitchBottom{
+  0%{transform:translate(0)}
+  20%{transform:translate(2px,2px)}
+  40%{transform:translate(4px,-2px)}
+  60%{transform:translate(-2px,1px)}
+  100%{transform:translate(0)}
 }
 
 .login-box input{
-  width:200px;
+  width:100%;
   padding:10px;
+  margin-top:10px;
+  text-align:center;
   border:none;
   outline:none;
   border-radius:6px;
-  text-align:center;
-  background:#111827;
-  color:#fff;
+  background:#050505;
+  color:#00f5ff;
+  box-shadow:0 0 10px #00f5ff;
 }
 
 .login-box button{
   margin-top:10px;
-  padding:8px 18px;
+  padding:8px 20px;
   border:none;
   border-radius:6px;
   cursor:pointer;
-  background:#00c3ff;
+  background:linear-gradient(90deg,#00f5ff,#a855f7);
   color:#000;
   font-weight:bold;
+  box-shadow:0 0 15px #00f5ff;
 }
 
 /* ================= TOP ================= */
@@ -129,7 +195,6 @@ body{
   cursor:pointer;
 }
 
-/* RADIO BOX */
 .radio-box{
   margin-top:10px;
   padding:10px;
@@ -172,13 +237,16 @@ body{
 
 <body>
 
-<!-- LOGIN (المعدل فقط) -->
+<!-- LOGIN -->
 <div class="login" id="login">
+<canvas id="matrix"></canvas>
+
 <div class="login-box">
+<div class="glitch" data-text="SYSTEM ACCESS">SYSTEM ACCESS</div>
 <h3>ENTER PASSWORD</h3>
-<input type="password" id="pass" placeholder="Password">
+<input type="password" id="pass" placeholder="••••••">
 <br>
-<button onclick="check()">ENTER</button>
+<button onclick="check()">ENTER SYSTEM</button>
 </div>
 </div>
 
@@ -197,7 +265,6 @@ body{
 <div class="name">RAMY</div>
 </div>
 
-<!-- RADIO -->
 <div class="radio">
 <button class="radio-btn" onclick="playRadio(0)">🎧 قرآن</button>
 <button class="radio-btn" onclick="playRadio(1)">🎶 ميلودي</button>
@@ -207,15 +274,13 @@ body{
 
 <div class="radio-box" onclick="toggleRadio()">▶ / ⏸ تشغيل الراديو</div>
 
-<!-- LINKS -->
 <div class="links">
-<a href="https://xat.com/2ra" target="_blank">🔥 2ra Chat</a>
-<a href="https://xat.com/7reqa" target="_blank">⚡ 7reqa Chat</a>
-<a href="https://xat.com/trade" target="_blank">💰 Trade Hub</a>
-<a href="https://xat.com/cambio" target="_blank">🌐 Cambio Zone</a>
+<a href="https://xat.com/2ra">🔥 2ra Chat</a>
+<a href="https://xat.com/7reqa">⚡ 7reqa Chat</a>
+<a href="https://xat.com/trade">💰 Trade Hub</a>
+<a href="https://xat.com/cambio">🌐 Cambio Zone</a>
 </div>
 
-<!-- SONGS (22 أغنية كما هي) -->
 <div class="wrap">
 <div class="col" id="left"></div>
 <div class="col" id="right"></div>
@@ -236,9 +301,39 @@ login.style.display="none";
 main.style.display="block";
 }else alert("Wrong Password");
 }
-pass.addEventListener("keydown",e=>{
-if(e.key==="Enter") check();
-});
+
+/* MATRIX */
+const canvas=document.getElementById("matrix");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let letters="01RAMYHACKSYSTEM";
+letters=letters.split("");
+
+let font=14;
+let cols=canvas.width/font;
+let drops=Array.from({length:cols}).fill(1);
+
+function draw(){
+ctx.fillStyle="rgba(0,0,0,0.05)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+ctx.fillStyle="#00f5ff";
+ctx.font=font+"px monospace";
+
+for(let i=0;i<drops.length;i++){
+let text=letters[Math.floor(Math.random()*letters.length)];
+ctx.fillText(text,i*font,drops[i]*font);
+
+if(drops[i]*font>canvas.height && Math.random()>0.975)
+drops[i]=0;
+
+drops[i]++;
+}
+}
+setInterval(draw,33);
 
 /* RADIO */
 let radios=[
@@ -260,17 +355,11 @@ isRadio=true;
 
 function toggleRadio(){
 if(!radio.src) radio.src=radios[0];
-
-if(isRadio){
-radio.pause();
-isRadio=false;
-}else{
-radio.play();
-isRadio=true;
-}
+if(isRadio){radio.pause();isRadio=false;}
+else{radio.play();isRadio=true;}
 }
 
-/* SONGS */
+/* SONGS (22) */
 let songs=[
 ["نفسي أطمن بيك","https://j.top4top.io/m_3769le8x51.mp3"],
 ["الشعر الأسود","https://k.top4top.io/m_3769enq6z2.mp3"],
