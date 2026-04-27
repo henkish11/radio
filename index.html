@@ -13,6 +13,94 @@ body{
   color:#fff;
 }
 
+/* ================= OUTER PASSWORD SCREEN (NEW) ================= */
+.login-overlay{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,0.75);
+  z-index:9999;
+}
+
+.login-glow{
+  position:absolute;
+  width:380px;
+  height:260px;
+  background:radial-gradient(circle,#00c3ff55,#a855f700);
+  filter:blur(40px);
+  animation:pulseGlow 3s infinite;
+  z-index:-1;
+}
+
+@keyframes pulseGlow{
+  0%,100%{transform:scale(1);opacity:0.7}
+  50%{transform:scale(1.2);opacity:1}
+}
+
+.login-outer{
+  position:relative;
+  width:320px;
+  padding:25px;
+  border-radius:18px;
+
+  background:rgba(255,255,255,0.06);
+  backdrop-filter:blur(25px);
+
+  border:1px solid rgba(0,195,255,0.3);
+
+  text-align:center;
+
+  box-shadow:
+    0 0 25px #00c3ff44,
+    0 0 60px #00f5ff22;
+}
+
+.login-outer h2{
+  color:#00f5ff;
+  font-size:14px;
+  letter-spacing:2px;
+  margin-bottom:10px;
+  text-shadow:0 0 10px #00c3ff;
+}
+
+.login-outer input{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+
+  background:#020617;
+  color:#fff;
+
+  text-align:center;
+  outline:none;
+
+  box-shadow:0 0 10px #00c3ff33;
+}
+
+.login-outer button{
+  width:100%;
+  margin-top:10px;
+  padding:10px;
+
+  border:none;
+  border-radius:10px;
+
+  background:linear-gradient(45deg,#00c3ff,#1e3a8a,#a855f7);
+  color:#fff;
+
+  cursor:pointer;
+
+  transition:.3s;
+}
+
+.login-outer button:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 25px #00f5ff;
+}
+
 /* ================= LOGIN ================= */
 .login{
   position:fixed;
@@ -30,7 +118,6 @@ body{
   z-index:999;
 }
 
-/* ✨ Glass futuristic box */
 .login-box{
   width:320px;
   padding:25px;
@@ -160,7 +247,6 @@ body{
   align-items:center;
 }
 
-/* ✨ AVATAR PULSE GLOW */
 .avatar{
   width:110px;
   height:110px;
@@ -190,11 +276,6 @@ body{
   }
 }
 
-.avatar:hover{
-  transform:scale(1.1);
-}
-
-/* NAME */
 .name{
   font-size:44px;
   font-weight:900;
@@ -205,14 +286,8 @@ body{
 }
 
 @keyframes ramyGlow{
-  0%,100%{
-    opacity:1;
-    text-shadow:0 0 10px #00c3ff,0 0 20px #00f5ff;
-  }
-  50%{
-    opacity:0.3;
-    text-shadow:0 0 5px #00c3ff;
-  }
+  0%,100%{opacity:1;text-shadow:0 0 10px #00c3ff}
+  50%{opacity:0.3}
 }
 
 /* RADIO */
@@ -229,30 +304,14 @@ body{
   border-radius:20px;
   background:#00c3ff;
   cursor:pointer;
-  transition:.2s;
 }
 
-.radio-btn:hover{transform:scale(1.1)}
-
-/* RADIO BOX */
 .radio-box{
   margin-top:10px;
   padding:10px;
   background:#00c3ff22;
   border-radius:12px;
-  display:inline-block;
   cursor:pointer;
-  transition:.3s;
-}
-
-.radio-box:hover{
-  transform:scale(1.15);
-  box-shadow:0 0 25px #00c3ff;
-}
-
-.radio-box.active{
-  transform:scale(1.2);
-  box-shadow:0 0 35px #00f5ff;
 }
 
 /* LINKS */
@@ -264,11 +323,6 @@ body{
   color:#fff;
   text-decoration:none;
   border-radius:8px;
-  transition:.2s;
-}
-
-.links a:hover{
-  transform:scale(1.08);
 }
 
 /* SONGS */
@@ -283,12 +337,6 @@ body{
   background:#00c3ff22;
   border-radius:8px;
   font-size:12px;
-  transition:.2s;
-}
-
-.song:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 15px #00c3ff;
 }
 
 .song button{
@@ -296,7 +344,6 @@ body{
   padding:3px 6px;
   border-radius:6px;
 }
-
 .play{background:#00c3ff}
 .stop{background:#ff4d4d}
 
@@ -305,11 +352,22 @@ body{
 
 <body>
 
-<!-- LOGIN -->
+<!-- 🔐 OUTER PASSWORD SCREEN -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-glow"></div>
+
+  <div class="login-outer">
+    <h2>🔐 SYSTEM ACCESS</h2>
+    <input type="password" id="pass" placeholder="Enter Password">
+    <button onclick="check()">ENTER</button>
+  </div>
+</div>
+
+<!-- LOGIN (original kept) -->
 <div class="login" id="login">
 <div class="login-box">
 <h3>🔐 PASSWORD</h3>
-<input type="password" id="pass" placeholder="Enter password">
+<input type="password" id="pass2" placeholder="Enter password">
 <button onclick="check()">ENTER</button>
 </div>
 </div>
@@ -329,7 +387,6 @@ body{
 <div class="name">RAMY</div>
 </div>
 
-<!-- RADIO -->
 <div class="radio">
 <button class="radio-btn" onclick="playRadio(0)">🎧 قرآن</button>
 <button class="radio-btn" onclick="playRadio(1)">🎶 ميلودي</button>
@@ -339,15 +396,11 @@ body{
 
 <div class="radio-box" onclick="toggleRadio()">▶ / ⏸ تشغيل الراديو</div>
 
-<!-- LINKS -->
 <div class="links">
 <a href="https://xat.com/2ra" target="_blank">🔥 2ra Chat</a>
 <a href="https://xat.com/7reqa" target="_blank">⚡ 7reqa Chat</a>
-<a href="https://xat.com/trade" target="_blank">💰 Trade Hub</a>
-<a href="https://xat.com/cambio" target="_blank">🌐 Cambio Zone</a>
 </div>
 
-<!-- SONGS -->
 <div class="wrap">
 <div class="col" id="left"></div>
 <div class="col" id="right"></div>
@@ -361,14 +414,20 @@ body{
 
 <script>
 
-/* LOGIN */
+/* FIX: USE OUTER PASSWORD ONLY */
 function check(){
-if(pass.value==="106080"){
-login.style.display="none";
-main.style.display="block";
-}else alert("Wrong Password");
+  let p = document.getElementById("pass").value;
+
+  if(p==="106080"){
+    document.getElementById("loginOverlay").style.display="none";
+    document.getElementById("login").style.display="none";
+    document.getElementById("main").style.display="block";
+  }else{
+    alert("Wrong Password");
+  }
 }
-pass.addEventListener("keydown",e=>{
+
+document.addEventListener("keydown",e=>{
 if(e.key==="Enter") check();
 });
 
