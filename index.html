@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ramy System</title>
+<title>RAMY SYSTEM</title>
 
 <style>
 body{
@@ -13,7 +13,43 @@ body{
   color:#fff;
 }
 
-/* TOPBAR */
+/* LOGIN */
+.login{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#000000cc;
+  z-index:999;
+}
+.login-box{
+  width:300px;
+  padding:20px;
+  background:#111827;
+  border-radius:12px;
+  text-align:center;
+}
+.login-box input{
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  border:none;
+  border-radius:8px;
+  background:#0f172a;
+  color:#fff;
+}
+.login-box button{
+  width:100%;
+  margin-top:10px;
+  padding:10px;
+  border:none;
+  border-radius:8px;
+  background:#00c3ff;
+  cursor:pointer;
+}
+
+/* TOP */
 .topbar{
   display:flex;
   justify-content:space-between;
@@ -21,38 +57,30 @@ body{
   background:#00000066;
 }
 
-/* 🔥 ONLINE GLOW */
+/* ONLINE */
 .status{
   color:#00f5ff;
   font-weight:bold;
   animation:blink 1.5s infinite;
   text-shadow:0 0 10px #00f5ff;
 }
-
 @keyframes blink{
   0%,100%{opacity:1}
   50%{opacity:0.3}
 }
 
-/* 🔥 BY RAMY GLOW */
+/* BY RAMY */
 .brand{
   font-weight:900;
+  font-size:14px;
   background:linear-gradient(90deg,#00f5ff,#a855f7,#00c3ff,#00f5ff);
   background-size:300% 300%;
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-  animation:move 2s linear infinite, fade 2s infinite;
-  text-shadow:0 0 15px #00c3ff;
+  animation:move 2s linear infinite,fade 2s infinite;
 }
-
-@keyframes move{
-  100%{background-position:200%}
-}
-
-@keyframes fade{
-  0%,100%{opacity:1}
-  50%{opacity:0.4}
-}
+@keyframes move{100%{background-position:200%}}
+@keyframes fade{0%,100%{opacity:1}50%{opacity:0.4}}
 
 /* BOX */
 .box{
@@ -63,31 +91,47 @@ body{
   border-radius:15px;
 }
 
-/* INFO */
-.info{
-  font-size:13px;
-  margin-bottom:10px;
-  color:#aaa;
+/* TOP PROFILE */
+.top{
+  display:flex;
+  gap:15px;
+  align-items:center;
+}
+
+.avatar{
+  width:110px;
+  height:110px;
+  border-radius:50%;
+  border:2px solid #00c3ff;
+  box-shadow:0 0 25px #00c3ff;
+  animation:imgGlow 2s infinite alternate;
+}
+@keyframes imgGlow{
+  from{filter:drop-shadow(0 0 5px #00c3ff)}
+  to{filter:drop-shadow(0 0 25px #00f5ff)}
+}
+
+/* NAME */
+.name{
+  font-size:44px;
+  font-weight:900;
+  background:linear-gradient(90deg,#00f5ff,#a855f7,#00c3ff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  text-shadow:0 0 20px #00c3ff;
+  animation:blinkName 2s infinite;
+}
+@keyframes blinkName{
+  0%,100%{opacity:1}
+  50%{opacity:0.3}
 }
 
 /* RADIO */
-.radio{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-}
-
 .radio button{
   padding:6px 10px;
   border:none;
   border-radius:20px;
-  cursor:pointer;
   background:#00c3ff;
-}
-
-.toggle{
-  background:#00ffb3;
-  color:#000;
 }
 
 /* LINKS */
@@ -96,23 +140,14 @@ body{
   margin:5px 0;
   padding:8px;
   background:#00c3ff22;
-  border-radius:8px;
   color:#fff;
   text-decoration:none;
   transition:.2s;
 }
-
-.links a:hover{
-  transform:scale(1.05);
-}
+.links a:hover{transform:scale(1.05)}
 
 /* SONGS */
-.wrap{
-  display:flex;
-  gap:10px;
-  margin-top:10px;
-}
-
+.wrap{display:flex;gap:10px;margin-top:10px}
 .col{flex:1}
 
 .song{
@@ -124,17 +159,12 @@ body{
   border-radius:8px;
   font-size:12px;
 }
-
-.song:hover{
-  transform:scale(1.05);
-}
-
+.song:hover{transform:scale(1.05)}
 .song button{
   border:none;
   padding:3px 6px;
   border-radius:6px;
 }
-
 .play{background:#00c3ff}
 .stop{background:#ff4d4d}
 
@@ -143,6 +173,17 @@ body{
 
 <body>
 
+<!-- LOGIN -->
+<div class="login" id="login">
+<div class="login-box">
+<h3>🔐 PASSWORD</h3>
+<input type="password" id="pass">
+<button onclick="check()">ENTER</button>
+</div>
+</div>
+
+<div id="main" style="display:none">
+
 <div class="topbar">
 <div class="status">⚡ ONLINE</div>
 <div class="brand">BY RAMY</div>
@@ -150,21 +191,18 @@ body{
 
 <div class="box">
 
-<!-- INFO -->
-<div class="info">
-👤 Name: Ramy | 🆔 ID: 106080 | ⚡ System Active
+<div class="top">
+<img class="avatar" src="https://xatimg.com/image/RKP5IrStF45l.png">
+<div class="name">RAMY</div>
 </div>
 
-<!-- RADIO -->
 <div class="radio">
-<button onclick="playRadio(0)">🎧 قرآن</button>
-<button onclick="playRadio(1)">🎶 ميلودي</button>
-<button onclick="playRadio(2)">🎤 حماقي</button>
-<button onclick="playRadio(3)">🔥 منوعات</button>
-<button class="toggle" onclick="toggleRadio()">▶ تشغيل / إيقاف</button>
+<button>🎧 قرآن</button>
+<button>🎶 ميلودي</button>
+<button>🎤 حماقي</button>
+<button>🔥 منوعات</button>
 </div>
 
-<!-- LINKS -->
 <div class="links">
 <a href="https://xat.com/2ra" target="_blank">🔥 2ra Chat</a>
 <a href="https://xat.com/7reqa" target="_blank">⚡ 7reqa Chat</a>
@@ -172,46 +210,30 @@ body{
 <a href="https://xat.com/cambio" target="_blank">🌐 Cambio Zone</a>
 </div>
 
-<!-- SONGS -->
 <div class="wrap">
 <div class="col" id="left"></div>
 <div class="col" id="right"></div>
 </div>
 
 </div>
+</div>
 
-<audio id="radio"></audio>
 <audio id="player"></audio>
 
 <script>
 
-/* RADIO */
-let radios=[
-"https://stream.radiojar.com/8s5u5tpdtwzuv",
-"https://audio.nrpstream.com/listen/nogoumfm/radio.mp3",
-"https://stream.zeno.fm/w7atxdpk1pdvv",
-"https://stream.zeno.fm/hswv0qwu7vgtv"
-];
-
-let radio=document.getElementById("radio");
-let isRadio=false;
-
-function playRadio(i){
-radio.src=radios[i];
-radio.play();
-isRadio=true;
-}
-
-function toggleRadio(){
-if(!radio.src) return;
-if(isRadio){
-radio.pause();
-isRadio=false;
+/* PASSWORD */
+function check(){
+if(pass.value==="106080"){
+login.style.display="none";
+main.style.display="block";
 }else{
-radio.play();
-isRadio=true;
+alert("Wrong Password");
 }
 }
+pass.addEventListener("keydown",e=>{
+if(e.key==="Enter") check();
+});
 
 /* SONGS */
 let songs=[
@@ -246,15 +268,13 @@ let player=document.getElementById("player");
 songs.forEach((s,i)=>{
 let div=document.createElement("div");
 div.className="song";
-
 div.innerHTML=`
 ${s[0]}
 <div>
 <button class="play" onclick="player.src='${s[1]}';player.play()">▶</button>
 <button class="stop" onclick="player.pause()">⏹</button>
 </div>`;
-
-(i%2===0?left:right).appendChild(div);
+(i%2?right:left).appendChild(div);
 });
 
 </script>
