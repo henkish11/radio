@@ -29,9 +29,7 @@ body{
   border-radius:15px;
   background:#0f172a;
   text-align:center;
-  box-shadow:0 0 20px #00c3ff55;
 }
-.login-box h3{color:#00c3ff}
 .login-box input{
   width:100%;
   padding:12px;
@@ -40,7 +38,6 @@ body{
   background:#020617;
   color:#fff;
   text-align:center;
-  margin-top:10px;
 }
 .login-box button{
   width:100%;
@@ -48,9 +45,8 @@ body{
   padding:10px;
   border:none;
   border-radius:10px;
-  background:linear-gradient(45deg,#00c3ff,#1e3a8a);
+  background:#00c3ff;
   cursor:pointer;
-  color:#fff;
 }
 
 /* TOP */
@@ -80,14 +76,11 @@ body{
   background:linear-gradient(90deg,#00f5ff,#a855f7,#00c3ff,#00f5ff);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-  animation:fade 2s infinite, move 2s linear infinite;
+  animation:fade 2s infinite;
 }
 @keyframes fade{
   0%,100%{opacity:1}
-  50%{opacity:0.3}
-}
-@keyframes move{
-  100%{background-position:200%}
+  50%{opacity:0.4}
 }
 
 /* BOX */
@@ -99,7 +92,7 @@ body{
   border-radius:15px;
 }
 
-/* TOP PROFILE */
+/* PROFILE */
 .top{
   display:flex;
   gap:15px;
@@ -133,12 +126,44 @@ body{
   50%{opacity:0.3}
 }
 
-/* RADIO */
-.radio button{
+/* RADIO BOX */
+.radio{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+
+.radio-btn{
   padding:6px 10px;
   border:none;
   border-radius:20px;
   background:#00c3ff;
+}
+
+/* 🎧 RADIO PLAYER BOX */
+.radio-box{
+  margin:10px 0;
+  padding:10px;
+  border-radius:12px;
+  background:#00c3ff22;
+  transition:.3s;
+  display:inline-block;
+}
+
+.radio-box:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 25px #00c3ff;
+}
+
+/* RADIO BUTTON */
+.radio-control button{
+  padding:8px 12px;
+  border:none;
+  border-radius:10px;
+  background:#00ffb3;
+  cursor:pointer;
+  margin-top:10px;
 }
 
 /* LINKS */
@@ -150,9 +175,7 @@ body{
   color:#fff;
   text-decoration:none;
   border-radius:8px;
-  transition:.2s;
 }
-.links a:hover{transform:scale(1.05)}
 
 /* SONGS */
 .wrap{display:flex;gap:10px;margin-top:10px}
@@ -166,7 +189,6 @@ body{
   background:#00c3ff22;
   border-radius:8px;
   font-size:12px;
-  transition:.2s;
 }
 .song:hover{transform:scale(1.05)}
 
@@ -188,8 +210,8 @@ body{
 <div class="login" id="login">
 <div class="login-box">
 <h3>🔐 PASSWORD</h3>
-<input type="password" id="pass" placeholder="Enter password">
-<button onclick="check()">Enter</button>
+<input type="password" id="pass">
+<button onclick="check()">ENTER</button>
 </div>
 </div>
 
@@ -209,12 +231,18 @@ body{
 </div>
 
 <div class="radio">
-<button>🎧 قرآن</button>
-<button>🎶 ميلودي</button>
-<button>🎤 حماقي</button>
-<button>🔥 منوعات</button>
+<button class="radio-btn">🎧 قرآن</button>
+<button class="radio-btn">🎶 ميلودي</button>
+<button class="radio-btn">🎤 حماقي</button>
+<button class="radio-btn">🔥 منوعات</button>
 </div>
 
+<!-- RADIO CONTROL -->
+<div class="radio-box">
+<button onclick="toggleRadio()">▶ ⏸ تشغيل / إيقاف الراديو</button>
+</div>
+
+<!-- LINKS -->
 <div class="links">
 <a href="https://xat.com/2ra" target="_blank">🔥 2ra Chat</a>
 <a href="https://xat.com/7reqa" target="_blank">⚡ 7reqa Chat</a>
@@ -222,6 +250,7 @@ body{
 <a href="https://xat.com/cambio" target="_blank">🌐 Cambio Zone</a>
 </div>
 
+<!-- SONGS -->
 <div class="wrap">
 <div class="col" id="left"></div>
 <div class="col" id="right"></div>
@@ -230,22 +259,44 @@ body{
 </div>
 </div>
 
+<audio id="radio"></audio>
 <audio id="player"></audio>
 
 <script>
 
-/* LOGIN */
+/* PASSWORD */
 function check(){
 if(pass.value==="106080"){
 login.style.display="none";
 main.style.display="block";
-}else{
-alert("Wrong Password");
-}
+}else alert("Wrong Password");
 }
 pass.addEventListener("keydown",e=>{
 if(e.key==="Enter") check();
 });
+
+/* RADIO */
+let radios=[
+"https://stream.radiojar.com/8s5u5tpdtwzuv",
+"https://audio.nrpstream.com/listen/nogoumfm/radio.mp3",
+"https://stream.zeno.fm/w7atxdpk1pdvv",
+"https://stream.zeno.fm/hswv0qwu7vgtv"
+];
+
+let radio=document.getElementById("radio");
+let isRadio=false;
+
+function toggleRadio(){
+if(!radio.src) radio.src=radios[0];
+
+if(isRadio){
+radio.pause();
+isRadio=false;
+}else{
+radio.play();
+isRadio=true;
+}
+}
 
 /* SONGS */
 let songs=[
@@ -280,14 +331,12 @@ let player=document.getElementById("player");
 songs.forEach((s,i)=>{
 let div=document.createElement("div");
 div.className="song";
-
 div.innerHTML=`
 ${s[0]}
 <div>
 <button class="play" onclick="player.src='${s[1]}';player.play()">▶</button>
 <button class="stop" onclick="player.pause()">⏹</button>
 </div>`;
-
 (i%2?right:left).appendChild(div);
 });
 
