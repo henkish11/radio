@@ -32,7 +32,7 @@ body{
   overflow:hidden;
 }
 
-/* ===== HACKER BOX ===== */
+/* HACKER BOX */
 .hacker-box{
   position:relative;
   display:flex;
@@ -74,9 +74,7 @@ body{
 }
 
 /* PROFILE */
-.profile{
-  text-align:center;
-}
+.profile{text-align:center;}
 
 .avatar{
   width:110px;
@@ -205,7 +203,7 @@ audio{display:none;}
 
 <div class="dashboard">
 
-<!-- 1 HACKER BOOT -->
+<!-- 1 -->
 <div class="panel hacker-box">
   <img src="https://mf.b37mrtl.ru/media/pics/2023.04/article/643e76264c59b716106a1276.PNG">
   <div class="hack-overlay">
@@ -217,14 +215,14 @@ audio{display:none;}
   </div>
 </div>
 
-<!-- 2 SKELETON HACKER -->
+<!-- 2 -->
 <div class="panel hacker-box">
   <img src="https://img.pikbest.com/wp/202345/hacker-skeleton-working-on-laptop-dark-background_9581815.jpg!w700wp">
   <div class="hack-overlay">
     <div class="hack-text">
       HACK MODE ACTIVE<br>
-      BREACHING SYSTEM...<br>
-      FIREWALL DOWN ✔
+      FIREWALL BYPASSED<br>
+      SYSTEM CONTROL ✔
     </div>
   </div>
 </div>
@@ -232,7 +230,7 @@ audio{display:none;}
 <!-- 3 -->
 <div class="panel">LOGIN SYSTEM</div>
 
-<!-- 4 PROFILE + RADIO -->
+<!-- 4 PROFILE + RADIO + VOLUME -->
 <div class="panel profile">
 
 <img class="avatar" src="https://xatimg.com/image/PtMzAMEPdOYG.png">
@@ -249,6 +247,15 @@ audio{display:none;}
 ▶ / ⏸ راديو
 </button>
 
+<!-- 🔊 VOLUME CONTROL ADDED -->
+<div style="margin-top:10px;text-align:center;">
+<div style="font-size:12px;margin-bottom:5px;">🔊 التحكم في الصوت</div>
+
+<button onclick="radio.volume=Math.min(radio.volume+0.1,1)" style="padding:5px;margin:2px;background:#00f5ff;border:none;cursor:pointer;">➕ رفع</button>
+
+<button onclick="radio.volume=Math.max(radio.volume-0.1,0)" style="padding:5px;margin:2px;background:#00f5ff;border:none;cursor:pointer;">➖ خفض</button>
+</div>
+
 <div class="links">
 <a href="https://xat.com/2ra" target="_blank">🔥 2ra Chat</a>
 <a href="https://xat.com/7reqa" target="_blank">⚡ 7reqa Chat</a>
@@ -258,10 +265,10 @@ audio{display:none;}
 
 </div>
 
-<!-- 5 LEFT SONGS -->
+<!-- 5 -->
 <div class="panel" id="left"></div>
 
-<!-- 6 RIGHT SONGS + VOLUME -->
+<!-- 6 -->
 <div class="panel" id="right"></div>
 
 </div>
@@ -294,7 +301,7 @@ rstate?radio.pause():radio.play();
 rstate=!rstate;
 }
 
-/* SONGS (22) */
+/* SONGS */
 let songs=[
 ["نفسي أطمن بيك","https://j.top4top.io/m_3769le8x51.mp3"],
 ["الشعر الأسود","https://k.top4top.io/m_3769enq6z2.mp3"],
