@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RAMY SYSTEM ULTIMATE</title>
+<title>RAMY SYSTEM FIXED</title>
 
 <style>
 body{
@@ -36,35 +36,6 @@ body{
 /* BOOT */
 .boot{
   display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-}
-
-.bar{
-  width:80%;
-  height:5px;
-  background:#111;
-}
-.bar span{
-  display:block;
-  height:100%;
-  width:0;
-  background:#00f5ff;
-  animation:load 3s forwards;
-}
-@keyframes load{to{width:100%}}
-
-/* TERMINAL */
-.terminal{
-  font-family:monospace;
-  color:#00ff00;
-}
-
-/* LOGIN */
-.login{
-  display:flex;
-  flex-direction:column;
   align-items:center;
   justify-content:center;
 }
@@ -91,69 +62,70 @@ body{
   justify-content:space-between;
   padding:5px;
   margin:3px 0;
-  font-size:11px;
   background:#00f5ff11;
+  font-size:11px;
 }
 
 .song button{
   background:#00f5ff;
   border:none;
   cursor:pointer;
+  padding:3px 6px;
 }
 
-/* ===== BIG PLAYER ===== */
-.player{
-  position:fixed;
-  bottom:10px;
-  left:50%;
-  transform:translateX(-50%);
-  width:850px;
-  height:110px;
-  background:rgba(0,0,0,0.85);
-  border:1px solid #00f5ff55;
-  border-radius:12px;
+/* ================= PLAYER INSIDE BOX 5 ================= */
+.player-box{
   display:flex;
-  overflow:hidden;
+  flex-direction:column;
+  height:100%;
+  justify-content:space-between;
 }
 
-/* BOX 4 */
-.p4{
-  flex:1;
-  padding:10px;
-  border-right:1px solid #00f5ff33;
-}
-
-#title{
+.now{
   font-size:12px;
+  text-align:center;
+  padding:5px;
+  color:#00f5ff;
 }
 
+.controls{
+  display:flex;
+  justify-content:center;
+  gap:5px;
+  margin:5px 0;
+}
+
+.controls button{
+  background:#00f5ff;
+  border:none;
+  padding:5px 8px;
+  cursor:pointer;
+}
+
+/* progress */
 .seek{
   width:100%;
   height:6px;
   background:#111;
-  margin-top:10px;
   cursor:pointer;
+  position:relative;
 }
 
-#fill{
+.fill{
   height:100%;
   width:0%;
   background:#00ffcc;
 }
 
-/* BOX 5 */
-.p5{
-  flex:1;
-  border-right:1px solid #00f5ff33;
-  padding:5px;
-  overflow:auto;
+/* VOLUME */
+.volume{
+  display:flex;
+  justify-content:center;
+  margin-top:5px;
 }
 
-/* BOX 6 */
-.p6{
-  flex:1;
-  padding:5px;
-  overflow:auto;
+.volume input{
+  width:80%;
 }
 
 /* AUDIO */
@@ -168,19 +140,17 @@ audio{display:none;}
 
 <!-- 1 -->
 <div class="panel boot">
-<h3>BOOT RAMY SYSTEM</h3>
-<div class="bar"><span></span></div>
+BOOT SYSTEM
 </div>
 
 <!-- 2 -->
-<div class="panel terminal">
+<div class="panel">
 SYSTEM ONLINE ✔
 </div>
 
 <!-- 3 -->
-<div class="panel login">
-<input type="password" id="pass">
-<button onclick="check()">ENTER</button>
+<div class="panel">
+LOGIN
 </div>
 
 <!-- 4 -->
@@ -189,23 +159,31 @@ SYSTEM ONLINE ✔
 <div class="name">RAMY</div>
 </div>
 
-<!-- 5 SONG LIST -->
-<div class="panel p5" id="left"></div>
+<!-- 5 (PLAYER + SONGS CONTROL) -->
+<div class="panel">
+<div class="player-box">
+
+<div class="now" id="title">No Song Playing</div>
+
+<div class="controls">
+<button onclick="prev()">⏮</button>
+<button onclick="toggle()">▶ / ⏸</button>
+<button onclick="next()">⏭</button>
+</div>
+
+<div class="seek" onclick="seek(event)">
+<div class="fill" id="bar"></div>
+</div>
+
+<div class="volume">
+<input type="range" min="0" max="1" step="0.1" onchange="volume(this.value)">
+</div>
+
+</div>
+</div>
 
 <!-- 6 SONG LIST -->
-<div class="panel p6" id="right"></div>
-
-</div>
-
-<!-- PLAYER -->
-<div class="player">
-
-<div class="p4">
-<div id="title">No Song</div>
-<div class="seek" onclick="seek(event)">
-<div id="fill"></div>
-</div>
-</div>
+<div class="panel" id="list"></div>
 
 </div>
 
@@ -213,13 +191,6 @@ SYSTEM ONLINE ✔
 
 <script>
 
-/* LOGIN */
-function check(){
-if(pass.value==="106080") alert("ACCESS GRANTED");
-else alert("WRONG");
-}
-
-/* SONGS */
 let songs=[
 ["نفسي أطمن بيك","https://j.top4top.io/m_3769le8x51.mp3"],
 ["الشعر الأسود","https://k.top4top.io/m_3769enq6z2.mp3"],
@@ -230,57 +201,79 @@ let songs=[
 ["صاحبة الجلالة","https://d.top4top.io/m_3769yw3257.mp3"],
 ["عملالي عمل","https://e.top4top.io/m_3769yb3k29.mp3"],
 ["بحبها","https://f.top4top.io/m_37690zriz10.mp3"],
-["فيكي سر","https://b.top4top.io/m_3769lxi681.mp3"],
-["حياتي قصيدة","https://c.top4top.io/m_3769g0kg52.mp3"],
-["لسه","https://d.top4top.io/m_3769xz8mi3.mp3"],
-["مش زي غيرها","https://e.top4top.io/m_3769o93s34.mp3"],
-["نسند بعض","https://f.top4top.io/m_3769c3tql5.mp3"],
-["وش السعد","https://g.top4top.io/m_3769r7bcu6.mp3"],
-["يا حظ بيه","https://l.top4top.io/m_3769p7dkd1.mp3"],
-["ياللي ناسيني","https://a.top4top.io/m_37697muuj2.mp3"],
-["هلوسة","https://b.top4top.io/m_3769i9yd13.mp3"],
-["قصة حب","https://c.top4top.io/m_3769ou0bt4.mp3"],
-["ذكريات","https://d.top4top.io/m_37697zirj5.mp3"],
-["حبيتك ليه","https://e.top4top.io/m_3769rnmrk6.mp3"],
-["توأمي","https://d.top4top.io/m_3769a1jgw1.mp3"]
+["فيكي سر","https://b.top4top.io/m_3769lxi681.mp3"]
 ];
 
 let audio=document.getElementById("audio");
 let index=0;
 
-/* RENDER SONGS IN BOX 5 & 6 */
-let left=document.getElementById("left");
-let right=document.getElementById("right");
+/* render songs */
+let list=document.getElementById("list");
 
 songs.forEach((s,i)=>{
 let div=document.createElement("div");
 div.className="song";
 div.innerHTML=`
 ${s[0]}
-<button onclick="playSong(${i})">▶</button>
+<button onclick="playSong(${i})" id="btn${i}">▶</button>
 `;
-
-(i<11?left:right).appendChild(div);
+list.appendChild(div);
 });
 
-/* PLAY */
+/* play */
 function playSong(i){
+if(index===i && !audio.paused){
+audio.pause();
+document.getElementById("btn"+i).innerText="▶";
+return;
+}
+
 audio.src=songs[i][1];
 audio.play();
 index=i;
+
+updateButtons();
 document.getElementById("title").innerText=songs[i][0];
 }
 
-/* SEEK */
+/* update buttons */
+function updateButtons(){
+songs.forEach((_,i)=>{
+let b=document.getElementById("btn"+i);
+if(b) b.innerText="▶";
+});
+document.getElementById("btn"+index).innerText="⏸";
+}
+
+/* next prev */
+function next(){
+playSong((index+1)%songs.length);
+}
+
+function prev(){
+playSong((index-1+songs.length)%songs.length);
+}
+
+/* toggle */
+function toggle(){
+audio.paused?audio.play():audio.pause();
+updateButtons();
+}
+
+/* volume */
+function volume(v){
+audio.volume=v;
+}
+
+/* seek */
 function seek(e){
-let bar=e.currentTarget;
-let pos=e.offsetX/bar.offsetWidth;
+let pos=e.offsetX/e.currentTarget.offsetWidth;
 audio.currentTime=pos*audio.duration;
 }
 
-/* UPDATE BAR */
+/* progress */
 audio.ontimeupdate=function(){
-document.getElementById("fill").style.width=
+document.getElementById("bar").style.width=
 (audio.currentTime/audio.duration)*100+"%";
 };
 
