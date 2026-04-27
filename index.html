@@ -2,142 +2,117 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Ramy Radio Pro</title>
+<title>Radio by ramy</title>
 
 <style>
-body {
-    background: radial-gradient(circle, #111, #000);
-    font-family: Arial;
-    text-align: center;
-    color: #fff;
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#0a0a0a;
+    font-family:Arial;
 }
 
-/* الصندوق */
-.radio-box {
-    margin-top: 80px;
+.box{
+    text-align:center;
+    padding:25px;
+    border-radius:18px;
+    background:rgba(255,255,255,0.05);
+    box-shadow:0 0 20px #00ffcc55;
+    width:300px;
 }
 
-/* العنوان */
-.radio-title {
-    font-size: 26px;
-    margin-bottom: 10px;
-    letter-spacing: 3px;
+h2{
+    color:#00ffcc;
+    text-shadow:0 0 10px #00ffcc;
 }
 
-/* الحالة */
-.status {
-    font-size: 14px;
-    color: #888;
-    margin-bottom: 20px;
+button{
+    padding:10px 18px;
+    margin:5px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
 }
 
-/* الأزرار */
-.btn {
-    background: #111;
-    border: 1px solid #444;
-    padding: 12px 30px;
-    margin: 10px;
-    color: #fff;
-    font-size: 15px;
-    border-radius: 15px;
-    cursor: pointer;
-    transition: 0.3s;
-}
+.play{background:#00ffcc;}
+.stop{background:#ff4444;color:white;}
 
-/* Glow */
-.btn:hover {
-    background: #fff;
-    color: #000;
-    box-shadow: 0 0 20px #fff, 0 0 40px #fff;
-}
-
-/* موجات صوت */
-.wave {
-    margin-top: 20px;
-}
-
-.wave span {
-    display: inline-block;
-    width: 5px;
-    height: 20px;
-    margin: 2px;
-    background: #fff;
-    animation: wave 1s infinite ease-in-out;
-}
-
-.wave span:nth-child(2) { animation-delay: 0.1s; }
-.wave span:nth-child(3) { animation-delay: 0.2s; }
-.wave span:nth-child(4) { animation-delay: 0.3s; }
-.wave span:nth-child(5) { animation-delay: 0.4s; }
-
-@keyframes wave {
-    0%, 100% { height: 10px; opacity: 0.3; }
-    50% { height: 30px; opacity: 1; }
+p{
+    margin-top:10px;
+    font-size:12px;
+    color:#aaa;
 }
 </style>
-
 </head>
 
 <body>
 
-<div class="radio-box">
+<div class="box">
 
-    <div class="radio-title">🎧 RAMY RADIO</div>
-    <div class="status" id="status">🔴 متوقف</div>
+    <h2>🎧 Radio by ramy</h2>
 
-    <button class="btn" onclick="playRadio()">▶ تشغيل</button>
-    <button class="btn" onclick="pauseRadio()">⏸ إيقاف</button>
+    <audio id="radio"></audio>
 
-    <div class="wave" id="wave" style="display:none;">
-        <span></span><span></span><span></span><span></span><span></span>
-    </div>
+    <button class="play" onclick="playRadio()">▶ تشغيل</button>
+    <button class="stop" onclick="stopRadio()">⏸ إيقاف</button>
 
-    <audio id="radio">
-        <source src="https://stream.radiojar.com/8s5u5tpdtwzuv" type="audio/mpeg">
-    </audio>
+    <p>Powered by ramy 💎</p>
 
 </div>
 
 <script>
 let radio = document.getElementById("radio");
-let statusText = document.getElementById("status");
-let wave = document.getElementById("wave");
 
-function playRadio() {
-    radio.volume = 0;
+// 🎵 Playlist بتاعتك
+let songs = [
+"https://files.catbox.moe/l3v5de.mp3",
+"https://files.catbox.moe/3dgk4m.mp3",
+"https://files.catbox.moe/dhklgh.mp3",
+"https://files.catbox.moe/0mn7qi.mp3",
+"https://files.catbox.moe/d1ppiw.mp3",
+"https://files.catbox.moe/wl7kuy.mp3",
+"https://files.catbox.moe/4topxh.mp3",
+"https://files.catbox.moe/z7d6tg.mp3",
+"https://files.catbox.moe/7lua61.mp3",
+"https://files.catbox.moe/17u38n.mp3",
+"https://files.catbox.moe/3vsv5k.mp3",
+"https://files.catbox.moe/0dhvei.mp3",
+"https://files.catbox.moe/h7fa10.mp3",
+"https://files.catbox.moe/yl4ngh.mp3",
+"https://files.catbox.moe/mfr80z.mp3",
+"https://files.catbox.moe/6zoirr.mp3",
+"https://files.catbox.moe/nqcdgi.mp3",
+"https://files.catbox.moe/w6mbo9.mp3",
+"https://files.catbox.moe/fvabge.mp3",
+"https://files.catbox.moe/l8gmod.mp3",
+"https://files.catbox.moe/lmqvi3.mp3"
+];
+
+let index = 0;
+radio.src = songs[index];
+radio.volume = 0.7;
+
+function playRadio(){
     radio.play();
-
-    // Fade in
-    let vol = 0;
-    let fade = setInterval(() => {
-        if (vol < 1) {
-            vol += 0.1;
-            radio.volume = vol;
-        } else {
-            clearInterval(fade);
-        }
-    }, 200);
-
-    statusText.innerHTML = "🟢 شغال الآن";
-    wave.style.display = "block";
 }
 
-function pauseRadio() {
-    // Fade out
-    let vol = radio.volume;
-    let fade = setInterval(() => {
-        if (vol > 0) {
-            vol -= 0.1;
-            radio.volume = vol;
-        } else {
-            clearInterval(fade);
-            radio.pause();
-        }
-    }, 200);
-
-    statusText.innerHTML = "🔴 متوقف";
-    wave.style.display = "none";
+function stopRadio(){
+    radio.pause();
 }
+
+// لما الأغنية تخلص يروح للي بعدها
+radio.onended = function(){
+    index++;
+    if(index >= songs.length){
+        index = 0;
+    }
+    radio.src = songs[index];
+    radio.play();
+};
 </script>
 
 </body>
