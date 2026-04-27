@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>XAT STYLE</title>
+<title>XAT TEMPLATE</title>
 
 <style>
 body {
@@ -12,7 +12,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  font-family: Tahoma, Arial;
+  font-family: Tahoma;
 }
 
 /* القالب */
@@ -22,56 +22,50 @@ body {
   position: relative;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 0 25px rgba(255,255,255,0.15);
+  background: #111;
 }
 
-/* الصورة */
+/* الصورة (اختياري تغيرها) */
 .box img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.55) blur(0.5px);
+  filter: brightness(0.5);
 }
 
-/* طبقة الإضاءة */
+/* طبقة التأثير */
 .overlay {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    to right,
-    rgba(0,0,0,0.8) 10%,
-    rgba(0,0,0,0.3) 50%,
-    rgba(0,0,0,0.8) 90%
-  );
+  background:
+    linear-gradient(to right, rgba(0,0,0,0.9), transparent 50%),
+    linear-gradient(to left, rgba(0,0,0,0.9), transparent 50%);
 }
 
 /* النص */
-.text {
+.content {
   position: absolute;
-  top: 50%;
   left: 40px;
+  top: 50%;
   transform: translateY(-50%);
 }
 
 /* الاسم */
 .name {
   color: #fff;
-  font-size: 48px;
+  font-size: 50px;
   font-weight: bold;
-  letter-spacing: 2px;
   text-shadow:
     0 0 10px #fff,
-    0 0 20px #aaa,
-    0 0 40px rgba(255,255,255,0.5);
+    0 0 25px rgba(255,255,255,0.7);
 }
 
 /* التوقيع */
 .sign {
-  color: #bbb;
+  color: #aaa;
   font-size: 14px;
   margin-top: 5px;
-  opacity: 0.8;
   letter-spacing: 3px;
 }
 </style>
@@ -80,13 +74,14 @@ body {
 <body>
 
 <div class="box">
-  <img src="https://xatimg.com/image/Yr3SZROWxdL1.png">
-  
+  <!-- غير الصورة هنا -->
+  <img src="https://via.placeholder.com/728x200">
+
   <div class="overlay"></div>
 
-  <div class="text">
-    <div class="name">MOON</div>
-    <div class="sign">нєηкιѕн</div>
+  <div class="content">
+    <div class="name">YOUR NAME</div>
+    <div class="sign">your sign</div>
   </div>
 </div>
 
