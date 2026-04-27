@@ -32,6 +32,54 @@ body{
   overflow:auto;
 }
 
+/* ===== HACKER BOX (NEW 1 & 2) ===== */
+.hacker-box{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position:relative;
+}
+
+.hack-img{
+  width:70px;
+  filter:drop-shadow(0 0 10px #00f5ff);
+  animation:flicker 1.5s infinite;
+}
+
+.hack-text{
+  margin-top:8px;
+  font-size:12px;
+  color:#00ff66;
+  text-shadow:0 0 8px #00ff66;
+  animation:floatText 4s infinite;
+}
+
+.glitch{
+  animation:glitch 0.7s infinite;
+}
+
+@keyframes flicker{
+  0%,100%{opacity:1}
+  50%{opacity:0.3}
+}
+
+@keyframes floatText{
+  0%{transform:translateY(10px)}
+  50%{transform:translateY(-10px)}
+  100%{transform:translateY(10px)}
+}
+
+@keyframes glitch{
+  0%{transform:translate(0)}
+  20%{transform:translate(-2px,2px)}
+  40%{transform:translate(2px,-2px)}
+  60%{transform:translate(-1px,1px)}
+  80%{transform:translate(1px,-1px)}
+  100%{transform:translate(0)}
+}
+
 /* PROFILE */
 .profile{
   text-align:center;
@@ -164,16 +212,30 @@ audio{display:none;}
 
 <div class="dashboard">
 
-<!-- 1 -->
-<div class="panel">BOOT SYSTEM</div>
+<!-- 1 HACKER BOOT -->
+<div class="panel hacker-box">
+  <img src="https://i.imgur.com/3ZQ3ZQb.png" class="hack-img">
+  <div class="hack-text">
+    BOOTING RAMY SYSTEM...<br>
+    ACCESSING MAINFRAME...<br>
+    SYSTEM READY ✔
+  </div>
+</div>
 
-<!-- 2 -->
-<div class="panel">HACK TERMINAL</div>
+<!-- 2 HACK TERMINAL -->
+<div class="panel hacker-box">
+  <img src="https://i.imgur.com/8QfQZ1a.png" class="hack-img">
+  <div class="hack-text glitch">
+    INJECTING PAYLOAD...<br>
+    FIREWALL BYPASSED...<br>
+    SYSTEM UNDER CONTROL
+  </div>
+</div>
 
 <!-- 3 -->
-<div class="panel">LOGIN</div>
+<div class="panel">LOGIN SYSTEM</div>
 
-<!-- 4 ===== PROFILE + RADIO + VOLUME ===== -->
+<!-- 4 PROFILE -->
 <div class="panel profile">
 
 <img class="avatar" src="https://xatimg.com/image/PtMzAMEPdOYG.png">
@@ -189,12 +251,6 @@ audio{display:none;}
 <button onclick="toggleRadio()" style="margin-top:5px;background:#00ffcc;border:none;padding:5px;cursor:pointer;">
 ▶ / ⏸ راديو
 </button>
-
-<!-- RADIO VOLUME -->
-<div style="margin-top:8px;">
-<div style="font-size:11px;">🔊 Radio Volume</div>
-<input type="range" min="0" max="1" step="0.1" value="1" onchange="setRadioVolume(this.value)">
-</div>
 
 <div class="links">
 <a href="https://xat.com/2ra" target="_blank">🔥 2ra Chat</a>
@@ -213,7 +269,6 @@ audio{display:none;}
 
 </div>
 
-<!-- AUDIO -->
 <audio id="audio"></audio>
 <audio id="radio"></audio>
 
@@ -240,11 +295,6 @@ function toggleRadio(){
 if(!radio.src) radio.src=radios[0];
 rstate?radio.pause():radio.play();
 rstate=!rstate;
-}
-
-/* RADIO VOLUME */
-function setRadioVolume(v){
-radio.volume = v;
 }
 
 /* SONGS */
@@ -276,8 +326,10 @@ let songs=[
 let audio=document.getElementById("audio");
 let index=0;
 
-/* LEFT */
 let left=document.getElementById("left");
+let right=document.getElementById("right");
+
+/* LEFT */
 left.innerHTML=`
 <div class="player-mini">
 <div id="title">No Song</div>
@@ -298,8 +350,6 @@ ${songs[i][0]}
 }
 
 /* RIGHT */
-let right=document.getElementById("right");
-
 right.innerHTML=`
 <div class="volume-box">
 🔊 الصوت
@@ -323,23 +373,19 @@ index=i;
 document.getElementById("title").innerText=songs[i][0];
 }
 
-/* TOGGLE */
 function toggle(){
 audio.paused?audio.play():audio.pause();
 }
 
-/* VOLUME */
 function volume(v){
 audio.volume=v;
 }
 
-/* SEEK */
 function seek(e){
 let pos=e.offsetX/e.currentTarget.offsetWidth;
 audio.currentTime=pos*audio.duration;
 }
 
-/* PROGRESS */
 audio.ontimeupdate=function(){
 document.getElementById("fill").style.width=
 (audio.currentTime/audio.duration)*100+"%";
