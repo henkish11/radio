@@ -13,118 +13,50 @@ body{
   color:#fff;
 }
 
-/* ================= LOGIN ================= */
+/* LOGIN بسيط */
 .login{
   position:fixed;
   inset:0;
   display:flex;
   align-items:center;
   justify-content:center;
-
-  /* شفافية أقوى */
-  background:rgba(2,6,23,0.55);
-  backdrop-filter:blur(18px);
+  background:#020617;
   z-index:999;
 }
 
-/* BOX أصغر + أفخم */
 .login-box{
-  width:240px;
-  padding:18px;
-
-  border-radius:18px;
-
-  background:rgba(255,255,255,0.06);
-  backdrop-filter:blur(25px);
-
-  border:1px solid rgba(0,195,255,0.35);
-
-  box-shadow:
-    0 0 20px #00c3ff33,
-    0 0 50px #00f5ff22;
-
   text-align:center;
-
-  animation:boxFloat 4s infinite ease-in-out;
-  position:relative;
-}
-
-/* أيقونة القفل */
-.login-box::before{
-  content:"🔒";
-  position:absolute;
-  top:-18px;
-  left:50%;
-  transform:translateX(-50%);
-  font-size:22px;
-  background:#020617;
-  padding:5px 8px;
-  border-radius:50%;
-  box-shadow:0 0 15px #00f5ff;
-}
-
-@keyframes boxFloat{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-6px)}
 }
 
 .login-box h3{
-  font-size:12px;
-  letter-spacing:2px;
   color:#00f5ff;
-  text-shadow:0 0 10px #00c3ff;
-  margin-top:10px;
+  font-size:14px;
+  margin-bottom:10px;
 }
 
-/* input أصغر */
 .login-box input{
-  width:100%;
   padding:10px;
-  margin-top:10px;
-
-  border:none;
-  border-radius:10px;
-
-  background:rgba(2,6,23,0.9);
-  color:#fff;
-
+  width:200px;
   text-align:center;
-  font-size:11px;
-
+  border:none;
   outline:none;
-
-  box-shadow:0 0 10px #00c3ff33;
-  transition:.3s;
-}
-
-.login-box input:focus{
-  transform:scale(1.03);
-  box-shadow:0 0 18px #00f5ff;
+  border-radius:6px;
+  background:#111827;
+  color:#fff;
 }
 
 .login-box button{
-  width:100%;
   margin-top:10px;
-  padding:9px;
-
+  padding:8px 20px;
   border:none;
-  border-radius:10px;
-
-  background:linear-gradient(45deg,#00c3ff,#1e3a8a,#a855f7);
-  color:#fff;
-
+  border-radius:6px;
   cursor:pointer;
-
-  box-shadow:0 0 20px #00c3ff33;
-  transition:.3s;
+  background:#00c3ff;
+  color:#000;
+  font-weight:bold;
 }
 
-.login-box button:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 30px #00f5ff;
-}
-
-/* ================= باقي الكود زي ما هو ================= */
+/* TOP */
 .topbar{
   display:flex;
   justify-content:space-between;
@@ -149,14 +81,9 @@ body{
   background:linear-gradient(90deg,#00f5ff,#a855f7,#00c3ff);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-  animation:fadeGlow 2s infinite;
 }
 
-@keyframes fadeGlow{
-  0%,100%{opacity:1}
-  50%{opacity:0.3}
-}
-
+/* BOX */
 .box{
   width:900px;
   margin:70px auto;
@@ -186,11 +113,49 @@ body{
   -webkit-text-fill-color:transparent;
 }
 
-/* باقي التصميم بدون تغيير */
-.radio-btn{padding:6px 10px;border:none;border-radius:20px;background:#00c3ff;cursor:pointer}
-.radio-box{margin-top:10px;padding:10px;background:#00c3ff22;border-radius:12px;display:inline-block;cursor:pointer}
-.links a{display:block;margin:5px 0;padding:8px;background:#00c3ff22;color:#fff;text-decoration:none;border-radius:8px}
-.song{display:flex;justify-content:space-between;padding:6px;margin:4px 0;background:#00c3ff22;border-radius:8px;font-size:12px}
+/* RADIO */
+.radio{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:10px;
+}
+
+.radio-btn{
+  padding:6px 10px;
+  border:none;
+  border-radius:20px;
+  background:#00c3ff;
+  cursor:pointer;
+}
+
+/* LINKS */
+.links a{
+  display:block;
+  margin:5px 0;
+  padding:8px;
+  background:#00c3ff22;
+  color:#fff;
+  text-decoration:none;
+  border-radius:8px;
+}
+
+/* SONGS */
+.wrap{display:flex;gap:10px;margin-top:10px}
+.col{flex:1}
+
+.song{
+  display:flex;
+  justify-content:space-between;
+  padding:6px;
+  margin:4px 0;
+  background:#00c3ff22;
+  border-radius:8px;
+  font-size:12px;
+}
+
+.play{background:#00c3ff;border:none;padding:3px 6px;border-radius:6px}
+.stop{background:#ff4d4d;border:none;padding:3px 6px;border-radius:6px}
 
 </style>
 </head>
@@ -201,7 +166,8 @@ body{
 <div class="login" id="login">
 <div class="login-box">
 <h3>ENTER PASSWORD</h3>
-<input type="password" id="pass" placeholder="••••••••">
+<input type="password" id="pass" placeholder="Password">
+<br>
 <button onclick="check()">ENTER</button>
 </div>
 </div>
@@ -221,10 +187,26 @@ body{
 <div class="name">RAMY</div>
 </div>
 
+<div class="links">
+<a href="https://xat.com/2ra" target="_blank">🔥 2ra Chat</a>
+<a href="https://xat.com/7reqa" target="_blank">⚡ 7reqa Chat</a>
+<a href="https://xat.com/trade" target="_blank">💰 Trade Hub</a>
+<a href="https://xat.com/cambio" target="_blank">🌐 Cambio Zone</a>
+</div>
+
+<div class="wrap">
+<div class="col" id="left"></div>
+<div class="col" id="right"></div>
+</div>
+
 </div>
 </div>
 
+<audio id="player"></audio>
+
 <script>
+
+/* LOGIN */
 function check(){
 if(pass.value==="106080"){
 login.style.display="none";
@@ -234,6 +216,49 @@ main.style.display="block";
 pass.addEventListener("keydown",e=>{
 if(e.key==="Enter") check();
 });
+
+/* SONGS (22 SONGS رجعوا كاملين) */
+let songs=[
+["نفسي أطمن بيك","https://j.top4top.io/m_3769le8x51.mp3"],
+["الشعر الأسود","https://k.top4top.io/m_3769enq6z2.mp3"],
+["حبي الأولاني","https://l.top4top.io/m_3769auk3d3.mp3"],
+["كوابيس","https://a.top4top.io/m_3769kdadn4.mp3"],
+["مش تمام","https://b.top4top.io/m_3769kg8sd5.mp3"],
+["مشوار الحب","https://c.top4top.io/m_3769ien0c6.mp3"],
+["صاحبة الجلالة","https://d.top4top.io/m_3769yw3257.mp3"],
+["عملالي عمل","https://e.top4top.io/m_3769yb3k29.mp3"],
+["بحبها","https://f.top4top.io/m_37690zriz10.mp3"],
+["فيكي سر","https://b.top4top.io/m_3769lxi681.mp3"],
+["حياتي قصيدة","https://c.top4top.io/m_3769g0kg52.mp3"],
+["لسه","https://d.top4top.io/m_3769xz8mi3.mp3"],
+["مش زي غيرها","https://e.top4top.io/m_3769o93s34.mp3"],
+["نسند بعض","https://f.top4top.io/m_3769c3tql5.mp3"],
+["وش السعد","https://g.top4top.io/m_3769r7bcu6.mp3"],
+["يا حظ بيه","https://l.top4top.io/m_3769p7dkd1.mp3"],
+["ياللي ناسيني","https://a.top4top.io/m_37697muuj2.mp3"],
+["هلوسة","https://b.top4top.io/m_3769i9yd13.mp3"],
+["قصة حب","https://c.top4top.io/m_3769ou0bt4.mp3"],
+["ذكريات","https://d.top4top.io/m_37697zirj5.mp3"],
+["حبيتك ليه","https://e.top4top.io/m_3769rnmrk6.mp3"],
+["توأمي","https://d.top4top.io/m_3769a1jgw1.mp3"]
+];
+
+let left=document.getElementById("left");
+let right=document.getElementById("right");
+let player=document.getElementById("player");
+
+songs.forEach((s,i)=>{
+let div=document.createElement("div");
+div.className="song";
+div.innerHTML=`
+${s[0]}
+<div>
+<button class="play" onclick="player.src='${s[1]}';player.play()">▶</button>
+<button class="stop" onclick="player.pause()">⏹</button>
+</div>`;
+(i%2?right:left).appendChild(div);
+});
+
 </script>
 
 </body>
