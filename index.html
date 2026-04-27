@@ -13,7 +13,7 @@ body{
   color:#fff;
 }
 
-/* LOGIN بسيط */
+/* ================= LOGIN (معدل فقط - بسيط) ================= */
 .login{
   position:fixed;
   inset:0;
@@ -29,25 +29,25 @@ body{
 }
 
 .login-box h3{
-  color:#00f5ff;
   font-size:14px;
+  color:#00f5ff;
   margin-bottom:10px;
 }
 
 .login-box input{
-  padding:10px;
   width:200px;
-  text-align:center;
+  padding:10px;
   border:none;
   outline:none;
   border-radius:6px;
+  text-align:center;
   background:#111827;
   color:#fff;
 }
 
 .login-box button{
   margin-top:10px;
-  padding:8px 20px;
+  padding:8px 18px;
   border:none;
   border-radius:6px;
   cursor:pointer;
@@ -56,7 +56,7 @@ body{
   font-weight:bold;
 }
 
-/* TOP */
+/* ================= TOP ================= */
 .topbar{
   display:flex;
   justify-content:space-between;
@@ -83,7 +83,7 @@ body{
   -webkit-text-fill-color:transparent;
 }
 
-/* BOX */
+/* ================= BOX ================= */
 .box{
   width:900px;
   margin:70px auto;
@@ -129,6 +129,16 @@ body{
   cursor:pointer;
 }
 
+/* RADIO BOX */
+.radio-box{
+  margin-top:10px;
+  padding:10px;
+  background:#00c3ff22;
+  border-radius:12px;
+  display:inline-block;
+  cursor:pointer;
+}
+
 /* LINKS */
 .links a{
   display:block;
@@ -162,7 +172,7 @@ body{
 
 <body>
 
-<!-- LOGIN -->
+<!-- LOGIN (المعدل فقط) -->
 <div class="login" id="login">
 <div class="login-box">
 <h3>ENTER PASSWORD</h3>
@@ -187,6 +197,17 @@ body{
 <div class="name">RAMY</div>
 </div>
 
+<!-- RADIO -->
+<div class="radio">
+<button class="radio-btn" onclick="playRadio(0)">🎧 قرآن</button>
+<button class="radio-btn" onclick="playRadio(1)">🎶 ميلودي</button>
+<button class="radio-btn" onclick="playRadio(2)">🎤 حماقي</button>
+<button class="radio-btn" onclick="playRadio(3)">🔥 منوعات</button>
+</div>
+
+<div class="radio-box" onclick="toggleRadio()">▶ / ⏸ تشغيل الراديو</div>
+
+<!-- LINKS -->
 <div class="links">
 <a href="https://xat.com/2ra" target="_blank">🔥 2ra Chat</a>
 <a href="https://xat.com/7reqa" target="_blank">⚡ 7reqa Chat</a>
@@ -194,6 +215,7 @@ body{
 <a href="https://xat.com/cambio" target="_blank">🌐 Cambio Zone</a>
 </div>
 
+<!-- SONGS (22 أغنية كما هي) -->
 <div class="wrap">
 <div class="col" id="left"></div>
 <div class="col" id="right"></div>
@@ -202,6 +224,7 @@ body{
 </div>
 </div>
 
+<audio id="radio"></audio>
 <audio id="player"></audio>
 
 <script>
@@ -217,7 +240,37 @@ pass.addEventListener("keydown",e=>{
 if(e.key==="Enter") check();
 });
 
-/* SONGS (22 SONGS رجعوا كاملين) */
+/* RADIO */
+let radios=[
+"https://stream.radiojar.com/8s5u5tpdtwzuv",
+"https://audio.nrpstream.com/listen/nogoumfm/radio.mp3",
+"https://stream.zeno.fm/w7atxdpk1pdvv",
+"https://stream.zeno.fm/hswv0qwu7vgtv"
+];
+
+let radio=document.getElementById("radio");
+let isRadio=false;
+
+function playRadio(i){
+radio.pause();
+radio.src=radios[i];
+radio.play();
+isRadio=true;
+}
+
+function toggleRadio(){
+if(!radio.src) radio.src=radios[0];
+
+if(isRadio){
+radio.pause();
+isRadio=false;
+}else{
+radio.play();
+isRadio=true;
+}
+}
+
+/* SONGS */
 let songs=[
 ["نفسي أطمن بيك","https://j.top4top.io/m_3769le8x51.mp3"],
 ["الشعر الأسود","https://k.top4top.io/m_3769enq6z2.mp3"],
