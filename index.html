@@ -1,53 +1,308 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Radio Fix</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ramy Profile - BY RAMY</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+
+body{
+  background: radial-gradient(circle at top,#010514,#020617);
+  color:#fff;
+}
+
+canvas{
+  position:fixed;
+  inset:0;
+  z-index:-2;
+}
+
+/* LOGIN */
+.login{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,0.7);
+  backdrop-filter:blur(12px);
+  z-index:50;
+}
+.login-box{
+  width:300px;
+  padding:18px;
+  border-radius:15px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+}
+.login-box input{
+  width:100%;
+  margin:8px 0;
+  padding:9px;
+  background:#0f172a;
+  border:none;
+  color:#fff;
+  border-radius:8px;
+}
+.login-box button{
+  width:100%;
+  padding:9px;
+  background:linear-gradient(45deg,#0ea5e9,#1e3a8a);
+  border:none;
+  color:#fff;
+  cursor:pointer;
+  border-radius:8px;
+}
+
+/* TOPBAR */
+.topbar{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  padding:8px 15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(0,0,0,0.4);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  z-index:10;
+  font-size:13px;
+}
+
+.status{color:#38bdf8}
+
+/* PROFILE */
+.container{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px;
+}
+
+.profile{
+  width:900px;
+  max-width:95%;
+  background:linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03));
+  border-radius:20px;
+  border:1px solid rgba(255,255,255,0.1);
+  padding:20px;
+  backdrop-filter:blur(18px);
+  box-shadow:0 0 50px rgba(0,140,255,0.25);
+}
+
+/* TOP */
+.top{
+  display:flex;
+  gap:15px;
+  align-items:center;
+}
+
+.top img{
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  border:2px solid #00c3ff;
+}
+
+.name{
+  font-size:32px;
+  font-weight:700;
+  color:#4fc3ff;
+}
+
+/* RADIO */
+.radio-box{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:6px;
+}
+
+.radio-btn{
+  padding:6px 12px;
+  background:linear-gradient(45deg,#00c3ff,#1e3a8a);
+  border:none;
+  border-radius:20px;
+  cursor:pointer;
+  color:#fff;
+  font-size:11px;
+}
+
+/* WINAMP */
+#winamp{
+  width:92%;
+  max-width:850px;
+  margin:25px auto;
+  background:#000;
+  border:2px solid #00ffcc;
+  border-radius:18px;
+  padding:15px;
+  box-shadow:0 0 25px #00ffcc;
+}
+
+#playlist{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:center;
+  padding:10px;
+}
+
+.song{
+  width:140px;
+  height:70px;
+  background:#001;
+  border:1px solid #00ffcc;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:10px;
+  text-align:center;
+  cursor:pointer;
+}
+</style>
 </head>
-<body style="background:#000; color:white; text-align:center; font-family:Arial;">
 
-<h2>🎧 Radio Test</h2>
+<body>
 
-<audio id="radio"></audio>
+<canvas></canvas>
 
-<button onclick="playRadio()">▶ تشغيل</button>
-<button onclick="stopRadio()">⏸ إيقاف</button>
+<!-- LOGIN -->
+<div class="login" id="login">
+  <div class="login-box">
+    <input id="password" type="password" placeholder="Enter password">
+    <button onclick="enter()">Enter</button>
+  </div>
+</div>
 
-<p id="status">جاهز</p>
+<!-- TOP -->
+<div class="topbar">
+  <div class="status" id="status">⚡ OFFLINE</div>
+  <div>by iegypt (106080) ramy</div>
+</div>
+
+<!-- PROFILE -->
+<div class="container">
+<div class="profile">
+
+<div class="top">
+<img src="https://xatimg.com/image/RKP5IrStF45l.png">
+
+<div>
+<div class="name">Ramy</div>
+
+<div class="radio-box">
+<button class="radio-btn" onclick="playRadio(1)">🎧 قرآن</button>
+<button class="radio-btn" onclick="playRadio(2)">🎶 ميلودي</button>
+<button class="radio-btn" onclick="playRadio(3)">🎤 حماقي</button>
+<button class="radio-btn" onclick="playRadio(4)">🔥 منوعات</button>
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- WINAMP -->
+<div id="winamp">
+<h3 style="text-align:center;color:#00ffcc;">🎧 WINAMP PLAYER</h3>
+<audio id="player"></audio>
+<div id="playlist"></div>
+</div>
 
 <script>
-let radio = document.getElementById("radio");
 
-let songs = [
-"https://files.catbox.moe/l3v5de.mp3"
+window.onload = function(){
+
+/* LOGIN */
+window.enter = function(){
+  if(document.getElementById("password").value==="106080"){
+    document.getElementById("login").style.display="none";
+    document.getElementById("status").innerText="⚡ ONLINE";
+  }
+}
+
+document.getElementById("password").addEventListener("keydown",e=>{
+  if(e.key==="Enter") enter();
+});
+
+/* RADIO */
+let radios=[
+new Audio("https://stream.radiojar.com/8s5u5tpdtwzuv"),
+new Audio("https://audio.nrpstream.com/listen/nogoumfm/radio.mp3"),
+new Audio("https://stream.zeno.fm/w7atxdpk1pdvv"),
+new Audio("https://stream.zeno.fm/hswv0qwu7vgtv")
 ];
 
-let index = 0;
-
-radio.src = songs[index];
-radio.volume = 1;
-
-function playRadio(){
-    let playPromise = radio.play();
-
-    if(playPromise !== undefined){
-        playPromise.then(()=>{
-            document.getElementById("status").innerText = "🔊 شغال";
-        }).catch(err=>{
-            document.getElementById("status").innerText = "❌ مش شغال: " + err;
-            console.log(err);
-        });
-    }
+window.playRadio = function(i){
+  radios.forEach(r=>{r.pause();r.currentTime=0});
+  radios[i-1].play();
 }
 
-function stopRadio(){
-    radio.pause();
-    document.getElementById("status").innerText = "⏸ متوقف";
+/* WINAMP SAFE PLAYER */
+const player=document.getElementById("player");
+
+window.playSong = function(url){
+
+  if(!url || url==="#"){
+    alert("❌ غير متاحة");
+    return;
+  }
+
+  try{
+    player.src=url;
+    player.play().catch(()=>console.log("blocked"));
+  }catch(e){
+    console.log(e);
+  }
 }
 
-radio.onerror = function(){
-    document.getElementById("status").innerText = "❌ مشكلة في الصوت (اللينك)";
-};
+/* SONG LIST */
+let songs=[
+{n:"Song 1",u:"https://j.top4top.io/m_3769le8x51.mp3"},
+{n:"Song 2",u:"https://k.top4top.io/m_3769enq6z2.mp3"},
+{n:"Song 3",u:"https://l.top4top.io/m_3769auk3d3.mp3"},
+{n:"Song 4",u:"https://a.top4top.io/m_3769kdadn4.mp3"},
+{n:"Song 5",u:"https://b.top4top.io/m_3769kg8sd5.mp3"},
+{n:"Song 6",u:"https://c.top4top.io/m_3769ien0c6.mp3"},
+{n:"Song 7",u:"https://d.top4top.io/m_3769yw3257.mp3"},
+{n:"Song 8",u:"https://e.top4top.io/m_3769yb3k29.mp3"},
+{n:"Song 9",u:"https://f.top4top.io/m_37690zriz10.mp3"},
+{n:"Song 10",u:"https://b.top4top.io/m_3769lxi681.mp3"},
+{n:"Song 11",u:"https://c.top4top.io/m_3769g0kg52.mp3"},
+{n:"Song 12",u:"https://d.top4top.io/m_3769xz8mi3.mp3"},
+{n:"Song 13",u:"https://e.top4top.io/m_3769o93s34.mp3"},
+{n:"Song 14",u:"https://f.top4top.io/m_3769c3tql5.mp3"},
+{n:"Song 15",u:"https://g.top4top.io/m_3769r7bcu6.mp3"},
+{n:"Song 16",u:"https://l.top4top.io/m_3769p7dkd1.mp3"},
+{n:"Song 17",u:"https://a.top4top.io/m_37697muuj2.mp3"},
+{n:"Song 18",u:"https://b.top4top.io/m_3769i9yd13.mp3"},
+{n:"Song 19",u:"https://c.top4top.io/m_3769ou0bt4.mp3"},
+{n:"Song 20",u:"https://d.top4top.io/m_37697zirj5.mp3"},
+{n:"Song 21",u:"https://e.top4top.io/m_3769rnmrk6.mp3"}
+];
+
+let box=document.getElementById("playlist");
+
+songs.forEach(s=>{
+  let d=document.createElement("div");
+  d.className="song";
+  d.innerText=s.n;
+  d.onclick=()=>playSong(s.u);
+  box.appendChild(d);
+});
+
+}
+
 </script>
 
 </body>
