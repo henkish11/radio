@@ -32,7 +32,7 @@ body{
   overflow:hidden;
 }
 
-/* HACKER */
+/* HACKER BOX */
 .hacker-box img{
   width:100%;
   height:100%;
@@ -41,8 +41,74 @@ body{
 
 /* PROFILE */
 .profile{text-align:center;}
-.avatar{width:110px;border-radius:50%;border:2px solid #00f5ff;}
-.name{font-size:26px;text-shadow:0 0 10px #00f5ff;}
+
+.avatar{
+  width:110px;
+  border-radius:50%;
+  border:2px solid #00f5ff;
+}
+
+.glow-name{
+  font-size:32px;
+  font-weight:bold;
+  color:#00f5ff;
+  animation:pulse 1.5s infinite;
+  text-shadow:0 0 10px #00f5ff,0 0 20px #00f5ff;
+}
+
+@keyframes pulse{
+  0%{opacity:1;transform:scale(1);}
+  50%{opacity:0.4;transform:scale(1.1);}
+  100%{opacity:1;transform:scale(1);}
+}
+
+/* RADIO */
+.radio{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:5px;
+}
+
+.radio button{
+  background:#00f5ff;
+  border:none;
+  padding:5px 8px;
+  font-size:11px;
+  cursor:pointer;
+}
+
+/* LINKS */
+.links{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  margin-top:8px;
+}
+
+.links a{
+  color:#00ffcc;
+  text-decoration:none;
+  padding:6px;
+  background:#00f5ff11;
+  border-radius:6px;
+}
+
+/* SONG */
+.song{
+  display:flex;
+  justify-content:space-between;
+  padding:5px;
+  margin:3px 0;
+  background:#00f5ff11;
+  font-size:11px;
+}
+
+.song button{
+  background:#00f5ff;
+  border:none;
+  cursor:pointer;
+}
 
 /* LOCK */
 .lock{
@@ -67,22 +133,6 @@ body{
 
 .lock button{
   padding:6px 10px;
-  background:#00f5ff;
-  border:none;
-  cursor:pointer;
-}
-
-/* SONG */
-.song{
-  display:flex;
-  justify-content:space-between;
-  padding:5px;
-  margin:3px 0;
-  background:#00f5ff11;
-  font-size:11px;
-}
-
-.song button{
   background:#00f5ff;
   border:none;
   cursor:pointer;
@@ -147,18 +197,37 @@ audio{display:none;}
 
 </div>
 
-<!-- 4 PROFILE -->
+<!-- 4 PROFILE + RADIO + LINKS -->
 <div class="panel profile hidden" id="box4">
+
 <img class="avatar" src="https://xatimg.com/image/PtMzAMEPdOYG.png">
-<div class="name">RAMY</div>
+<div class="glow-name">RAMY</div>
+
+<div class="radio">
+<button onclick="playRadio(0)">🎧 قرآن</button>
+<button onclick="playRadio(1)">🎶 ميلودي</button>
+<button onclick="playRadio(2)">🎤 حماقي</button>
+<button onclick="playRadio(3)">🔥 منوعات</button>
 </div>
 
-<!-- 5 PLAYER + SONGS -->
+<button onclick="toggleRadio()" style="margin-top:5px;background:#00ffcc;border:none;padding:5px;cursor:pointer;">
+▶ / ⏸
+</button>
+
+<div class="links">
+<a href="https://xat.com/2ra" target="_blank">🔥 2ra Chat</a>
+<a href="https://xat.com/7reqa" target="_blank">⚡ 7reqa Chat</a>
+<a href="https://xat.com/trade" target="_blank">💰 Trade Hub</a>
+<a href="https://xat.com/cambio" target="_blank">🌐 Cambio Zone</a>
+</div>
+
+</div>
+
+<!-- 5 -->
 <div class="panel hidden" id="box5">
 
 <div class="player">
 <div id="title">NO SONG</div>
-
 <button onclick="toggle()">▶ / ⏸</button>
 
 <div class="seek" onclick="seek(event)">
@@ -173,7 +242,7 @@ audio{display:none;}
 
 </div>
 
-<!-- 6 SONGS -->
+<!-- 6 -->
 <div class="panel hidden" id="box6">
 <div id="list2"></div>
 </div>
@@ -181,10 +250,28 @@ audio{display:none;}
 </div>
 
 <audio id="audio"></audio>
+<audio id="radio"></audio>
 
 <script>
 
-let audio=document.getElementById("audio");
+/* RADIO */
+let radio=document.getElementById("radio");
+
+let radios=[
+"https://stream.radiojar.com/8s5u5tpdtwzuv",
+"https://audio.nrpstream.com/listen/nogoumfm/radio.mp3",
+"https://stream.zeno.fm/w7atxdpk1pdvv",
+"https://stream.zeno.fm/hswv0qwu7vgtv"
+];
+
+function playRadio(i){
+radio.src=radios[i];
+radio.play();
+}
+
+function toggleRadio(){
+radio.paused?radio.play():radio.pause();
+}
 
 /* SONGS */
 let songs=[
@@ -212,12 +299,13 @@ let songs=[
 ["توأمي","https://d.top4top.io/m_3769a1jgw1.mp3"]
 ];
 
+let audio=document.getElementById("audio");
 let index=0;
 
-/* BUILD LIST */
 let list1=document.getElementById("list1");
 let list2=document.getElementById("list2");
 
+/* BUILD LIST */
 for(let i=0;i<11;i++){
 list1.innerHTML+=`<div class="song">${songs[i][0]} <button onclick="play(${i})">▶</button></div>`;
 }
