@@ -14,7 +14,6 @@ body{
   overflow:hidden;
 }
 
-/* GRID */
 .dashboard{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
@@ -32,23 +31,78 @@ body{
   overflow:auto;
 }
 
-/* PROFILE */
+/* PROFILE (FOURTH BOX) */
 .profile{
-  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
 }
 
 .avatar{
   width:110px;
+  height:110px;
   border-radius:50%;
   border:2px solid #00f5ff;
+  box-shadow:0 0 15px #00f5ff;
 }
 
 .name{
-  font-size:26px;
+  font-size:28px;
+  font-weight:bold;
   text-shadow:0 0 10px #00f5ff;
+  animation:glow 1.5s infinite alternate;
 }
 
-/* SONG ITEM */
+@keyframes glow{
+  from{opacity:0.5}
+  to{opacity:1}
+}
+
+/* RADIO */
+.radio{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:5px;
+}
+
+.radio button{
+  background:#00f5ff;
+  border:none;
+  padding:5px 8px;
+  font-size:11px;
+  cursor:pointer;
+  border-radius:5px;
+}
+
+/* LINKS */
+.links{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  width:100%;
+  align-items:center;
+}
+
+.links a{
+  font-size:15px;
+  color:#00ffcc;
+  text-decoration:none;
+  padding:6px 10px;
+  background:#00f5ff11;
+  border-radius:6px;
+  transition:0.2s;
+}
+
+/* HOVER EFFECT */
+.links a:hover{
+  transform:scale(1.15);
+  background:#00f5ff33;
+  box-shadow:0 0 10px #00f5ff;
+}
+
+/* SONG ITEMS */
 .song{
   display:flex;
   justify-content:space-between;
@@ -65,55 +119,25 @@ body{
   padding:3px 6px;
 }
 
-/* ===== MINI PLAYER (BOX 5) ===== */
+/* PLAYER MINI */
 .player-mini{
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:center;
   gap:6px;
 }
 
-.player-mini button{
-  background:#00f5ff;
-  border:none;
-  padding:5px 10px;
-  cursor:pointer;
-  border-radius:5px;
-}
-
-#title{
-  font-size:12px;
-  text-align:center;
-}
-
-/* SEEK BAR SMALL */
 .seek{
   width:90%;
   height:5px;
   background:#111;
   cursor:pointer;
-  border-radius:5px;
-  overflow:hidden;
 }
 
 #fill{
   height:100%;
   width:0%;
   background:#00ffcc;
-}
-
-/* VOLUME (BOX 6) */
-.volume-box{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-}
-
-.volume-box input{
-  width:120px;
 }
 
 audio{display:none;}
@@ -126,33 +150,69 @@ audio{display:none;}
 <div class="dashboard">
 
 <!-- 1 -->
-<div class="panel">BOOT SYSTEM</div>
+<div class="panel">BOOT</div>
 
 <!-- 2 -->
-<div class="panel">HACK TERMINAL</div>
+<div class="panel">SYSTEM</div>
 
 <!-- 3 -->
 <div class="panel">LOGIN</div>
 
-<!-- 4 -->
+<!-- 4 ===== UPDATED ===== -->
 <div class="panel profile">
+
 <img class="avatar" src="https://xatimg.com/image/PtMzAMEPdOYG.png">
+
 <div class="name">RAMY</div>
+
+<!-- RADIO (RESTORED) -->
+<div class="radio">
+<button onclick="playRadio(0)">🎧 قرآن</button>
+<button onclick="playRadio(1)">🎶 ميلودي</button>
+<button onclick="playRadio(2)">🎤 حماقي</button>
+<button onclick="playRadio(3)">🔥 منوعات</button>
 </div>
 
-<!-- 5 (PLAYER + SONGS LEFT) -->
+<!-- LINKS (BIG + CLEAN) -->
+<div class="links">
+<a href="https://xat.com/2ra" target="_blank">🔥 2ra Chat</a>
+<a href="https://xat.com/7reqa" target="_blank">⚡ 7reqa Chat</a>
+<a href="https://xat.com/trade" target="_blank">💰 Trade Hub</a>
+<a href="https://xat.com/cambio" target="_blank">🌐 Cambio Zone</a>
+</div>
+
+</div>
+
+<!-- 5 -->
 <div class="panel" id="left"></div>
 
-<!-- 6 (VOLUME + SONGS RIGHT) -->
+<!-- 6 -->
 <div class="panel" id="right"></div>
 
 </div>
 
 <!-- AUDIO -->
 <audio id="audio"></audio>
+<audio id="radio"></audio>
 
 <script>
 
+/* RADIO */
+let radios=[
+"https://stream.radiojar.com/8s5u5tpdtwzuv",
+"https://audio.nrpstream.com/listen/nogoumfm/radio.mp3",
+"https://stream.zeno.fm/w7atxdpk1pdvv",
+"https://stream.zeno.fm/hswv0qwu7vgtv"
+];
+
+let radio=document.getElementById("radio");
+
+function playRadio(i){
+radio.src=radios[i];
+radio.play();
+}
+
+/* SONGS (UNCHANGED FROM PREVIOUS) */
 let songs=[
 ["نفسي أطمن بيك","https://j.top4top.io/m_3769le8x51.mp3"],
 ["الشعر الأسود","https://k.top4top.io/m_3769enq6z2.mp3"],
@@ -181,99 +241,26 @@ let songs=[
 let audio=document.getElementById("audio");
 let index=0;
 
-/* split */
+/* RENDER */
 let left=document.getElementById("left");
 let right=document.getElementById("right");
 
-/* BOX 5 PLAYER UI */
-left.innerHTML=`
-<div class="player-mini">
-<div id="title">No Song</div>
-
-<button onclick="toggle()">▶ / ⏸</button>
-
-<div class="seek" onclick="seek(event)">
-<div id="fill"></div>
-</div>
-</div>
-`;
-
-/* SONGS LIST LEFT (11) */
-for(let i=0;i<11;i++){
+songs.forEach((s,i)=>{
 let div=document.createElement("div");
 div.className="song";
 div.innerHTML=`
-${songs[i][0]}
-<button id="b${i}" onclick="playSong(${i})">▶</button>
+${s[0]}
+<button onclick="playSong(${i})">▶</button>
 `;
-left.appendChild(div);
-}
-
-/* RIGHT (11 + VOLUME CONTROL) */
-right.innerHTML=`
-<div class="volume-box">
-🔊 الصوت
-<input type="range" min="0" max="1" step="0.1" onchange="volume(this.value)">
-</div>
-`;
-
-for(let i=11;i<songs.length;i++){
-let div=document.createElement("div");
-div.className="song";
-div.innerHTML=`
-${songs[i][0]}
-<button id="b${i}" onclick="playSong(${i})">▶</button>
-`;
-right.appendChild(div);
-}
+(i<11?left:right).appendChild(div);
+});
 
 /* PLAY */
 function playSong(i){
-
-if(index===i && !audio.paused){
-audio.pause();
-document.getElementById("b"+i).innerText="▶";
-return;
-}
-
 audio.src=songs[i][1];
 audio.play();
 index=i;
-
-updateButtons();
-document.getElementById("title").innerText=songs[i][0];
 }
-
-/* UPDATE BUTTONS */
-function updateButtons(){
-songs.forEach((_,i)=>{
-let b=document.getElementById("b"+i);
-if(b) b.innerText="▶";
-});
-document.getElementById("b"+index).innerText="⏸";
-}
-
-/* TOGGLE */
-function toggle(){
-audio.paused?audio.play():audio.pause();
-}
-
-/* VOLUME */
-function volume(v){
-audio.volume=v;
-}
-
-/* SEEK */
-function seek(e){
-let pos=e.offsetX/e.currentTarget.offsetWidth;
-audio.currentTime=pos*audio.duration;
-}
-
-/* PROGRESS */
-audio.ontimeupdate=function(){
-document.getElementById("fill").style.width=
-(audio.currentTime/audio.duration)*100+"%";
-};
 
 </script>
 
