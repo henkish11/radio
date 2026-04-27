@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ramy Player</title>
+<title>Ramy System</title>
 
 <style>
 body{
@@ -13,7 +13,7 @@ body{
   color:#fff;
 }
 
-/* TOP */
+/* TOPBAR */
 .topbar{
   display:flex;
   justify-content:space-between;
@@ -21,18 +21,53 @@ body{
   background:#00000066;
 }
 
+/* 🔥 ONLINE GLOW */
 .status{
   color:#00f5ff;
   font-weight:bold;
+  animation:blink 1.5s infinite;
+  text-shadow:0 0 10px #00f5ff;
 }
 
-/* CONTAINER */
+@keyframes blink{
+  0%,100%{opacity:1}
+  50%{opacity:0.3}
+}
+
+/* 🔥 BY RAMY GLOW */
+.brand{
+  font-weight:900;
+  background:linear-gradient(90deg,#00f5ff,#a855f7,#00c3ff,#00f5ff);
+  background-size:300% 300%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:move 2s linear infinite, fade 2s infinite;
+  text-shadow:0 0 15px #00c3ff;
+}
+
+@keyframes move{
+  100%{background-position:200%}
+}
+
+@keyframes fade{
+  0%,100%{opacity:1}
+  50%{opacity:0.4}
+}
+
+/* BOX */
 .box{
   width:900px;
-  margin:80px auto;
+  margin:70px auto;
   background:#ffffff0a;
   padding:15px;
   border-radius:15px;
+}
+
+/* INFO */
+.info{
+  font-size:13px;
+  margin-bottom:10px;
+  color:#aaa;
 }
 
 /* RADIO */
@@ -40,7 +75,6 @@ body{
   display:flex;
   gap:8px;
   flex-wrap:wrap;
-  margin-bottom:10px;
 }
 
 .radio button{
@@ -51,20 +85,35 @@ body{
   background:#00c3ff;
 }
 
-.radio .toggle{
+.toggle{
   background:#00ffb3;
   color:#000;
+}
+
+/* LINKS */
+.links a{
+  display:block;
+  margin:5px 0;
+  padding:8px;
+  background:#00c3ff22;
+  border-radius:8px;
+  color:#fff;
+  text-decoration:none;
+  transition:.2s;
+}
+
+.links a:hover{
+  transform:scale(1.05);
 }
 
 /* SONGS */
 .wrap{
   display:flex;
   gap:10px;
+  margin-top:10px;
 }
 
-.col{
-  flex:1;
-}
+.col{flex:1}
 
 .song{
   display:flex;
@@ -78,10 +127,8 @@ body{
 
 .song:hover{
   transform:scale(1.05);
-  transition:.2s;
 }
 
-/* BUTTONS */
 .song button{
   border:none;
   padding:3px 6px;
@@ -90,28 +137,42 @@ body{
 
 .play{background:#00c3ff}
 .stop{background:#ff4d4d}
+
 </style>
 </head>
 
 <body>
 
 <div class="topbar">
-<div class="status" id="status">OFFLINE</div>
-<div>BY RAMY</div>
+<div class="status">⚡ ONLINE</div>
+<div class="brand">BY RAMY</div>
 </div>
 
 <div class="box">
 
-<!-- RADIO FIXED -->
+<!-- INFO -->
+<div class="info">
+👤 Name: Ramy | 🆔 ID: 106080 | ⚡ System Active
+</div>
+
+<!-- RADIO -->
 <div class="radio">
-<button onclick="playRadio(0)">قرآن</button>
-<button onclick="playRadio(1)">ميلودي</button>
-<button onclick="playRadio(2)">حماقي</button>
-<button onclick="playRadio(3)">منوعات</button>
+<button onclick="playRadio(0)">🎧 قرآن</button>
+<button onclick="playRadio(1)">🎶 ميلودي</button>
+<button onclick="playRadio(2)">🎤 حماقي</button>
+<button onclick="playRadio(3)">🔥 منوعات</button>
 <button class="toggle" onclick="toggleRadio()">▶ تشغيل / إيقاف</button>
 </div>
 
-<!-- SONG LIST -->
+<!-- LINKS -->
+<div class="links">
+<a href="https://xat.com/2ra" target="_blank">🔥 2ra Chat</a>
+<a href="https://xat.com/7reqa" target="_blank">⚡ 7reqa Chat</a>
+<a href="https://xat.com/trade" target="_blank">💰 Trade Hub</a>
+<a href="https://xat.com/cambio" target="_blank">🌐 Cambio Zone</a>
+</div>
+
+<!-- SONGS -->
 <div class="wrap">
 <div class="col" id="left"></div>
 <div class="col" id="right"></div>
@@ -124,7 +185,7 @@ body{
 
 <script>
 
-/* RADIO WORKING */
+/* RADIO */
 let radios=[
 "https://stream.radiojar.com/8s5u5tpdtwzuv",
 "https://audio.nrpstream.com/listen/nogoumfm/radio.mp3",
@@ -152,7 +213,7 @@ isRadio=true;
 }
 }
 
-/* 22 SONGS FIXED */
+/* SONGS */
 let songs=[
 ["نفسي أطمن بيك","https://j.top4top.io/m_3769le8x51.mp3"],
 ["الشعر الأسود","https://k.top4top.io/m_3769enq6z2.mp3"],
@@ -193,8 +254,7 @@ ${s[0]}
 <button class="stop" onclick="player.pause()">⏹</button>
 </div>`;
 
-/* LEFT / RIGHT */
-(i%2===0 ? left : right).appendChild(div);
+(i%2===0?left:right).appendChild(div);
 });
 
 </script>
