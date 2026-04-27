@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ramy System</title>
+<title>RAMY SYSTEM</title>
 
 <style>
 body{
@@ -23,21 +23,15 @@ body{
   background:#000000dd;
   z-index:999;
 }
-
 .login-box{
   width:320px;
   padding:25px;
   border-radius:15px;
   background:#0f172a;
-  box-shadow:0 0 25px #00c3ff55;
   text-align:center;
+  box-shadow:0 0 20px #00c3ff55;
 }
-
-.login-box h3{
-  color:#00c3ff;
-  margin-bottom:10px;
-}
-
+.login-box h3{color:#00c3ff}
 .login-box input{
   width:100%;
   padding:12px;
@@ -45,20 +39,18 @@ body{
   border-radius:10px;
   background:#020617;
   color:#fff;
-  outline:none;
   text-align:center;
-  font-size:14px;
+  margin-top:10px;
 }
-
 .login-box button{
   width:100%;
-  margin-top:12px;
+  margin-top:10px;
   padding:10px;
   border:none;
   border-radius:10px;
   background:linear-gradient(45deg,#00c3ff,#1e3a8a);
-  color:#fff;
   cursor:pointer;
+  color:#fff;
 }
 
 /* TOP */
@@ -69,9 +61,33 @@ body{
   background:#00000066;
 }
 
+/* ONLINE */
 .status{
   color:#00f5ff;
   font-weight:bold;
+  animation:blink 1.5s infinite;
+  text-shadow:0 0 10px #00f5ff;
+}
+@keyframes blink{
+  0%,100%{opacity:1}
+  50%{opacity:0.3}
+}
+
+/* BY RAMY */
+.brand{
+  font-weight:900;
+  font-size:13px;
+  background:linear-gradient(90deg,#00f5ff,#a855f7,#00c3ff,#00f5ff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:fade 2s infinite, move 2s linear infinite;
+}
+@keyframes fade{
+  0%,100%{opacity:1}
+  50%{opacity:0.3}
+}
+@keyframes move{
+  100%{background-position:200%}
 }
 
 /* BOX */
@@ -83,46 +99,46 @@ body{
   border-radius:15px;
 }
 
-/* RADIO */
-.radio{
+/* TOP PROFILE */
+.top{
   display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-bottom:10px;
+  gap:15px;
+  align-items:center;
 }
 
-.radio-item{
-  padding:8px 12px;
-  border-radius:25px;
-  background:#00c3ff22;
-  cursor:pointer;
-  transition:.2s;
-  font-size:13px;
+.avatar{
+  width:110px;
+  height:110px;
+  border-radius:50%;
+  border:2px solid #00c3ff;
+  box-shadow:0 0 25px #00c3ff;
+  animation:imgGlow 2s infinite alternate;
+}
+@keyframes imgGlow{
+  from{filter:drop-shadow(0 0 5px #00c3ff)}
+  to{filter:drop-shadow(0 0 25px #00f5ff)}
 }
 
-.radio-item:hover{
-  transform:scale(1.15);
-  background:#00c3ff55;
+/* NAME */
+.name{
+  font-size:44px;
+  font-weight:900;
+  background:linear-gradient(90deg,#00f5ff,#a855f7,#00c3ff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:blinkName 2s infinite;
+}
+@keyframes blinkName{
+  0%,100%{opacity:1}
+  50%{opacity:0.3}
 }
 
-/* ACTIVE BUTTON */
-.active{
-  background:#00c3ff;
-  color:#000;
-  font-weight:bold;
-}
-
-/* CONTROL */
-.radio-control{
-  margin:10px 0;
-}
-
-.radio-control button{
-  padding:8px 12px;
+/* RADIO */
+.radio button{
+  padding:6px 10px;
   border:none;
-  border-radius:10px;
+  border-radius:20px;
   background:#00c3ff;
-  cursor:pointer;
 }
 
 /* LINKS */
@@ -136,10 +152,7 @@ body{
   border-radius:8px;
   transition:.2s;
 }
-
-.links a:hover{
-  transform:scale(1.05);
-}
+.links a:hover{transform:scale(1.05)}
 
 /* SONGS */
 .wrap{display:flex;gap:10px;margin-top:10px}
@@ -153,7 +166,9 @@ body{
   background:#00c3ff22;
   border-radius:8px;
   font-size:12px;
+  transition:.2s;
 }
+.song:hover{transform:scale(1.05)}
 
 .song button{
   border:none;
@@ -172,8 +187,8 @@ body{
 <!-- LOGIN -->
 <div class="login" id="login">
 <div class="login-box">
-<h3>🔐 ENTER PASSWORD</h3>
-<input type="password" id="pass" placeholder="Enter Password">
+<h3>🔐 PASSWORD</h3>
+<input type="password" id="pass" placeholder="Enter password">
 <button onclick="check()">Enter</button>
 </div>
 </div>
@@ -183,24 +198,23 @@ body{
 
 <div class="topbar">
 <div class="status">⚡ ONLINE</div>
-<div>BY RAMY</div>
+<div class="brand">BY RAMY</div>
 </div>
 
 <div class="box">
 
-<!-- RADIO -->
+<div class="top">
+<img class="avatar" src="https://xatimg.com/image/RKP5IrStF45l.png">
+<div class="name">RAMY</div>
+</div>
+
 <div class="radio">
-<div class="radio-item" onclick="playRadio(0)">🎧 قرآن</div>
-<div class="radio-item" onclick="playRadio(1)">🎶 ميلودي</div>
-<div class="radio-item" onclick="playRadio(2)">🎤 حماقي</div>
-<div class="radio-item" onclick="playRadio(3)">🔥 منوعات</div>
+<button>🎧 قرآن</button>
+<button>🎶 ميلودي</button>
+<button>🎤 حماقي</button>
+<button>🔥 منوعات</button>
 </div>
 
-<div class="radio-control">
-<button onclick="toggleRadio()">▶ / ⏸ تشغيل الراديو</button>
-</div>
-
-<!-- LINKS -->
 <div class="links">
 <a href="https://xat.com/2ra" target="_blank">🔥 2ra Chat</a>
 <a href="https://xat.com/7reqa" target="_blank">⚡ 7reqa Chat</a>
@@ -208,7 +222,6 @@ body{
 <a href="https://xat.com/cambio" target="_blank">🌐 Cambio Zone</a>
 </div>
 
-<!-- SONGS -->
 <div class="wrap">
 <div class="col" id="left"></div>
 <div class="col" id="right"></div>
@@ -217,12 +230,11 @@ body{
 </div>
 </div>
 
-<audio id="radio"></audio>
 <audio id="player"></audio>
 
 <script>
 
-/* PASSWORD */
+/* LOGIN */
 function check(){
 if(pass.value==="106080"){
 login.style.display="none";
@@ -234,34 +246,6 @@ alert("Wrong Password");
 pass.addEventListener("keydown",e=>{
 if(e.key==="Enter") check();
 });
-
-/* RADIO FIX */
-let radios=[
-"https://stream.radiojar.com/8s5u5tpdtwzuv",
-"https://audio.nrpstream.com/listen/nogoumfm/radio.mp3",
-"https://stream.zeno.fm/w7atxdpk1pdvv",
-"https://stream.zeno.fm/hswv0qwu7vgtv"
-];
-
-let radio=document.getElementById("radio");
-let isPlaying=false;
-
-function playRadio(i){
-radio.src=radios[i];
-radio.play();
-isPlaying=true;
-}
-
-function toggleRadio(){
-if(!radio.src) return;
-if(isPlaying){
-radio.pause();
-isPlaying=false;
-}else{
-radio.play();
-isPlaying=true;
-}
-}
 
 /* SONGS */
 let songs=[
@@ -296,12 +280,14 @@ let player=document.getElementById("player");
 songs.forEach((s,i)=>{
 let div=document.createElement("div");
 div.className="song";
+
 div.innerHTML=`
 ${s[0]}
 <div>
 <button class="play" onclick="player.src='${s[1]}';player.play()">▶</button>
 <button class="stop" onclick="player.pause()">⏹</button>
 </div>`;
+
 (i%2?right:left).appendChild(div);
 });
 
