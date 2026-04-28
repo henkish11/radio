@@ -13,7 +13,6 @@ body{
   color:#00f5ff;
 }
 
-/* GRID */
 .dashboard{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
@@ -29,17 +28,16 @@ body{
   border-radius:8px;
   padding:8px;
   overflow:auto;
-  position:relative;
 }
 
 /* IMAGE */
-.panel img{
+.hacker img{
   width:100%;
   height:100%;
   object-fit:cover;
 }
 
-/* PASSWORD + VOLUME */
+/* LOCK */
 .lock{
   position:absolute;
   top:0;left:0;
@@ -48,108 +46,21 @@ body{
   flex-direction:column;
   justify-content:center;
   align-items:center;
-  gap:12px;
-  background:rgba(0,0,0,0.75);
+  gap:10px;
+  background:rgba(0,0,0,0.6);
 }
 
-/* BIG INPUT */
 .lock input{
   padding:10px;
   width:70%;
   text-align:center;
-  background:#111;
-  border:none;
-  color:#00f5ff;
-  font-size:16px;
 }
 
-/* BUTTON */
 .lock button{
-  padding:10px 20px;
-  background:#00f5ff;
-  border:none;
-  font-size:16px;
-  cursor:pointer;
-  border-radius:6px;
-}
-
-/* VOLUME BIG */
-.volume-box{
-  margin-top:10px;
-  text-align:center;
-}
-
-.volume-box h3{
-  margin:5px 0;
-}
-
-.volume-box input{
-  width:80%;
-  height:8px;
-}
-
-.volume-box button{
-  margin:5px;
-  padding:8px 12px;
-  font-size:16px;
+  padding:8px 15px;
   background:#00f5ff;
   border:none;
   cursor:pointer;
-}
-
-/* PROFILE */
-.profile{text-align:center;}
-
-.avatar{
-  width:130px;
-  border-radius:50%;
-  border:3px solid #00f5ff;
-  box-shadow:0 0 20px #00f5ff;
-}
-
-.glow-name{
-  font-size:34px;
-  font-weight:bold;
-  background:linear-gradient(45deg,#00f5ff,#00ffcc);
-  -webkit-background-clip:text;
-  color:transparent;
-  animation:pulse 1.5s infinite;
-}
-
-@keyframes pulse{
-0%{opacity:1}
-50%{opacity:0.4}
-100%{opacity:1}
-}
-
-/* RADIO */
-.radio button{
-  width:100%;
-  padding:10px;
-  margin:4px 0;
-  background:#00f5ff11;
-  border:none;
-  font-size:14px;
-  cursor:pointer;
-}
-
-.radio-toggle{
-  width:100%;
-  padding:10px;
-  background:#00ffcc;
-  border:none;
-  margin-top:5px;
-}
-
-/* LINKS */
-.links a{
-  display:flex;
-  justify-content:space-between;
-  padding:10px;
-  margin:5px 0;
-  background:#00f5ff11;
-  text-decoration:none;
-  color:#00ffcc;
 }
 
 /* SONG */
@@ -182,6 +93,44 @@ body{
   background:#00ffcc;
 }
 
+/* RADIO BOX */
+.radio-box{
+  text-align:center;
+}
+
+.radio-box button{
+  width:100%;
+  padding:8px;
+  margin:4px 0;
+  background:#00f5ff11;
+  border:none;
+  cursor:pointer;
+}
+
+.radio-toggle{
+  width:100%;
+  padding:10px;
+  background:#00ffcc;
+  border:none;
+  margin:5px 0;
+}
+
+.links a{
+  display:flex;
+  justify-content:space-between;
+  padding:8px;
+  margin:4px 0;
+  background:#00f5ff11;
+  text-decoration:none;
+  color:#00ffcc;
+}
+
+/* VOLUME */
+.volume{
+  width:100%;
+  margin-top:5px;
+}
+
 .hidden{display:none;}
 audio{display:none;}
 
@@ -193,64 +142,34 @@ audio{display:none;}
 <div class="dashboard">
 
 <!-- 1 -->
-<div class="panel">
+<div class="panel hacker">
 <img src="https://mf.b37mrtl.ru/media/pics/2023.04/article/643e76264c59b716106a1276.PNG">
 </div>
 
 <!-- 2 -->
-<div class="panel">
+<div class="panel hacker">
 <img src="https://img.pikbest.com/wp/202345/hacker-skeleton-working-on-laptop-dark-background_9581815.jpg!w700wp">
 </div>
 
-<!-- 3 (LOCK + VOLUME) -->
-<div class="panel" id="lockBox">
+<!-- 3 PASSWORD -->
+<div class="panel hacker" id="lockBox">
 
 <img src="https://img.pikbest.com/backgrounds/20250126/guarding-your-digital-life-power-of-passwords-smarter-password-practices_11452980.jpg!f305cw">
 
 <div class="lock">
-
 <div>🔐 ENTER PASSWORD</div>
 <input type="password" id="pass">
 <button onclick="check()">UNLOCK</button>
-
-<div class="volume-box">
-<h3>🔊 الصوت</h3>
-
-<button onclick="audio.volume=Math.min(audio.volume+0.1,1)">➕</button>
-<button onclick="audio.volume=Math.max(audio.volume-0.1,0)">➖</button>
-
-<input type="range" min="0" max="1" step="0.1"
-oninput="audio.volume=this.value">
-</div>
-
-</div>
-</div>
-
-<!-- 4 -->
-<div class="panel profile hidden" id="box4">
-
-<img class="avatar" src="https://xatimg.com/image/PtMzAMEPdOYG.png">
-<div class="glow-name">RAMY</div>
-
-<div class="radio">
-<button onclick="playRadio(0)">🎧 قرآن</button>
-<button onclick="playRadio(1)">🎶 ميلودي</button>
-<button onclick="playRadio(2)">🎤 حماقي</button>
-<button onclick="playRadio(3)">🔥 منوعات</button>
-</div>
-
-<button class="radio-toggle" onclick="toggleRadio()">▶ / ⏸</button>
-
-<div class="links">
-<a href="https://xat.com/2ra" target="_blank">2ra Chat ></a>
-<a href="https://xat.com/7reqa" target="_blank">7reqa Chat ></a>
-<a href="https://xat.com/trade" target="_blank">Trade ></a>
-<a href="https://xat.com/cambio" target="_blank">Cambio ></a>
 </div>
 
 </div>
 
-<!-- 5 -->
+<!-- 4 SONGS -->
+<div class="panel hidden" id="box4">
+<div id="list1"></div>
+</div>
+
+<!-- 5 PLAYER + SONGS -->
 <div class="panel hidden" id="box5">
 
 <div class="player">
@@ -262,7 +181,33 @@ oninput="audio.volume=this.value">
 </div>
 </div>
 
-<div id="list1"></div>
+<div id="list2"></div>
+
+</div>
+
+<!-- 6 RADIO + LINKS + VOLUME -->
+<div class="panel hidden" id="box6">
+
+<div class="radio-box">
+
+<button onclick="playRadio(0)">🎧 قرآن</button>
+<button onclick="playRadio(1)">🎶 ميلودي</button>
+<button onclick="playRadio(2)">🎤 حماقي</button>
+<button onclick="playRadio(3)">🔥 منوعات</button>
+
+<button class="radio-toggle" onclick="toggleRadio()">▶ / ⏸ تشغيل</button>
+
+<input class="volume" type="range" min="0" max="1" step="0.1"
+oninput="radio.volume=this.value">
+
+</div>
+
+<div class="links">
+<a href="https://xat.com/2ra" target="_blank">2ra Chat ></a>
+<a href="https://xat.com/7reqa" target="_blank">7reqa Chat ></a>
+<a href="https://xat.com/trade" target="_blank">Trade ></a>
+<a href="https://xat.com/cambio" target="_blank">Cambio ></a>
+</div>
 
 </div>
 
@@ -312,8 +257,11 @@ let songs=[
 ["توأمي","https://d.top4top.io/m_3769a1jgw1.mp3"]
 ];
 
+/* تقسيم */
 songs.forEach((s,i)=>{
-list1.innerHTML+=`<div class="song">${s[0]} <button onclick="play(${i})">▶</button></div>`;
+let div=`<div class="song">${s[0]} <button onclick="play(${i})">▶</button></div>`;
+if(i<11) list1.innerHTML+=div;
+else list2.innerHTML+=div;
 });
 
 /* PLAYER */
@@ -340,9 +288,11 @@ if(pass.value==="106080"){
 lockBox.style.display="none";
 box4.classList.remove("hidden");
 box5.classList.remove("hidden");
+box6.classList.remove("hidden");
 }else alert("WRONG PASSWORD");
 }
 
+/* ENTER */
 pass.addEventListener("keydown",e=>{
 if(e.key==="Enter") check();
 });
