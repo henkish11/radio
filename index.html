@@ -29,32 +29,24 @@ body{
   border:1px solid #00f5ff22;
   border-radius:8px;
   padding:8px;
-  overflow:hidden;
-  transition:0.3s;
-  box-shadow:0 0 15px rgba(0,255,255,0.08);
+  overflow:auto;
+  transition:.3s;
+  box-shadow:0 0 10px rgba(0,255,255,0.1);
 }
 
-/* HOVER ZOOM */
-.panel:hover,
-.song:hover,
-.radio button:hover,
-.links a:hover,
-.player button:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 20px rgba(0,255,255,0.4);
+.panel:hover{
+  transform:scale(1.03);
+  box-shadow:0 0 25px #00f5ff;
 }
 
-/* IMAGE BOX */
-.hacker-box img{
+/* IMAGE */
+.panel img{
   width:100%;
   height:100%;
   object-fit:cover;
 }
 
-/* =========================
-   ⭐ PROFILE (فخم)
-========================= */
-
+/* PROFILE (BOX 1) */
 .profile{
   text-align:center;
   display:flex;
@@ -69,108 +61,29 @@ body{
   border-radius:50%;
   border:3px solid #00f5ff;
   box-shadow:0 0 25px #00f5ff,0 0 60px #00ffcc;
-  animation:avatarGlow 2s infinite alternate;
+  animation:glow 2s infinite alternate;
 }
 
-@keyframes avatarGlow{
-  from{transform:scale(1); box-shadow:0 0 20px #00f5ff;}
-  to{transform:scale(1.05); box-shadow:0 0 45px #00ffcc;}
+@keyframes glow{
+  from{transform:scale(1);box-shadow:0 0 20px #00f5ff;}
+  to{transform:scale(1.05);box-shadow:0 0 40px #00ffcc;}
 }
 
-.glow-name{
+.name{
   margin-top:10px;
   font-size:34px;
   font-weight:bold;
   color:#00f5ff;
-  text-shadow:0 0 10px #00f5ff,0 0 25px #00ffcc,0 0 40px #00f5ff;
-  animation:blink 1.5s infinite;
+  text-shadow:0 0 10px #00f5ff,0 0 30px #00ffcc;
 }
 
-@keyframes blink{
-  0%,100%{opacity:1}
-  50%{opacity:0.4}
-}
-
-/* =========================
-   ⭐ RADIO (أفخم)
-========================= */
-
-.radio{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-  margin-top:10px;
-}
-
-.radio button{
-  background:linear-gradient(90deg,#00f5ff,#00ffcc);
-  border:none;
-  padding:10px;
-  border-radius:8px;
-  cursor:pointer;
-  font-weight:bold;
-  transition:0.3s;
-  box-shadow:0 0 10px #00f5ff33;
-}
-
-.radio button:hover{
-  transform:scale(1.08);
-  box-shadow:0 0 25px #00f5ff;
-}
-
-.radio-toggle{
-  width:100%;
-  padding:12px;
-  background:#00ffcc;
-  border:none;
-  border-radius:8px;
-  margin-top:6px;
-  font-weight:bold;
-  cursor:pointer;
-  box-shadow:0 0 15px #00ffcc55;
-}
-
-/* =========================
-   ⭐ LINKS (أفخم)
-========================= */
-
-.links{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  margin-top:10px;
-}
-
-.links a{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:10px;
-  margin:5px 0;
-  border-radius:8px;
-  background:rgba(0,255,255,0.08);
-  border:1px solid #00f5ff33;
-  text-decoration:none;
-  color:#00ffcc;
-  font-weight:bold;
-  transition:0.3s;
-  box-shadow:0 0 10px rgba(0,255,255,0.1);
-}
-
-.links a:hover{
-  transform:scale(1.07);
-  background:rgba(0,255,255,0.2);
-  box-shadow:0 0 25px #00f5ff;
-}
-
-/* SONGS */
+/* SONG */
 .song{
   display:flex;
   justify-content:space-between;
-  padding:5px;
-  margin:3px 0;
+  padding:6px;
+  margin:4px 0;
   background:#00f5ff11;
-  font-size:11px;
 }
 
 .song button{
@@ -179,44 +92,13 @@ body{
   cursor:pointer;
 }
 
-/* LOCK */
-.lock{
-  position:absolute;
-  top:0;left:0;
-  width:100%;height:100%;
-  background:rgba(0,0,0,0.75);
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  gap:10px;
-}
-
-.lock input{
-  padding:8px;
-  text-align:center;
-  background:#111;
-  border:none;
-  color:#00f5ff;
-}
-
-.lock button{
-  padding:6px 10px;
-  background:#00f5ff;
-  border:none;
-  cursor:pointer;
-}
-
 /* PLAYER */
 .player{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:6px;
+  text-align:center;
 }
 
 .seek{
-  width:90%;
+  width:100%;
   height:6px;
   background:#111;
   cursor:pointer;
@@ -229,7 +111,42 @@ body{
 }
 
 .volume{
-  width:90%;
+  width:100%;
+}
+
+/* RADIO */
+.radio button{
+  width:100%;
+  padding:8px;
+  margin:4px 0;
+  background:#00f5ff11;
+  border:none;
+  color:#00ffcc;
+  font-weight:bold;
+}
+
+.radio-toggle{
+  width:100%;
+  padding:10px;
+  background:#00ffcc;
+  border:none;
+  margin:6px 0;
+  cursor:pointer;
+}
+
+.links a{
+  display:flex;
+  justify-content:space-between;
+  padding:8px;
+  margin:4px 0;
+  text-decoration:none;
+  color:#00ffcc;
+  background:#00f5ff11;
+}
+
+/* GLOW TEXT */
+.glow{
+  text-shadow:0 0 10px #00f5ff,0 0 25px #00ffcc;
 }
 
 audio{display:none;}
@@ -242,58 +159,71 @@ audio{display:none;}
 
 <div class="dashboard">
 
-<!-- 1 -->
-<div class="panel hacker-box">
+<!-- 1 PROFILE (UPDATED) -->
+<div class="panel profile">
+<img class="avatar" src="https://xatimg.com/image/PtMzAMEPdOYG.png">
+<div class="name">RAMY</div>
+</div>
+
+<!-- 2 IMAGE -->
+<div class="panel">
 <img src="https://mf.b37mrtl.ru/media/pics/2023.04/article/643e76264c59b716106a1276.PNG">
 </div>
 
-<!-- 2 -->
-<div class="panel hacker-box">
+<!-- 3 IMAGE -->
+<div class="panel">
 <img src="https://img.pikbest.com/wp/202345/hacker-skeleton-working-on-laptop-dark-background_9581815.jpg!w700wp">
 </div>
 
-<!-- 3 LOCK -->
-<div class="panel hacker-box">
+<!-- 4 RADIO + LINKS -->
+<div class="panel">
 
-<img src="https://img.pikbest.com/backgrounds/20250126/guarding-your-digital-life-power-of-passwords-smarter-password-practices_11452980.jpg!f305cw">
-
-<div class="lock" id="lock">
-<div>🔐 ENTER PASSWORD</div>
-<input type="password" id="pass">
-<button onclick="check()">UNLOCK</button>
-</div>
-
-</div>
-
-<!-- 4 PROFILE -->
-<div class="panel profile hidden" id="box4">
-
-<img class="avatar" src="https://xatimg.com/image/PtMzAMEPdOYG.png">
-<div class="glow-name">RAMY</div>
-
-<div class="radio">
+<div class="radio glow">
 <button onclick="playRadio(0)">🎧 قرآن</button>
 <button onclick="playRadio(1)">🎶 ميلودي</button>
 <button onclick="playRadio(2)">🎤 حماقي</button>
 <button onclick="playRadio(3)">🔥 منوعات</button>
 </div>
 
-<button class="radio-toggle" onclick="toggleRadio()">▶ / ⏸</button>
+<button class="radio-toggle" onclick="toggleRadio()">▶ / ⏸ RADIO</button>
 
-<div class="links">
-<a href="https://xat.com/2ra" target="_blank">🔥 2ra Chat ></a>
-<a href="https://xat.com/7reqa" target="_blank">⚡ 7reqa Chat ></a>
-<a href="https://xat.com/trade" target="_blank">💰 Trade ></a>
-<a href="https://xat.com/cambio" target="_blank">🌐 Cambio ></a>
+<div>
+<input type="range" min="0" max="1" step="0.1" oninput="radio.volume=this.value">
+</div>
+
+<div class="links glow">
+<a href="https://xat.com/2ra" target="_blank">2ra ></a>
+<a href="https://xat.com/7reqa" target="_blank">7reqa ></a>
+<a href="https://xat.com/trade" target="_blank">Trade ></a>
+<a href="https://xat.com/cambio" target="_blank">Cambio ></a>
 </div>
 
 </div>
 
-<!-- 5 -->
-<div class="panel hidden" id="box5"></div>
+<!-- 5 PLAYER + 11 SONGS -->
+<div class="panel hidden" id="box5">
 
-<!-- 6 -->
-<div class="panel hidden" id="box6"></div>
+<div class="player">
+<div id="title">NO SONG</div>
+
+<button onclick="toggle()">▶ / ⏸</button>
+
+<div class="seek" onclick="seek(event)">
+<div id="fill"></div>
+</div>
+
+<input class="volume" type="range" min="0" max="1" step="0.1"
+oninput="audio.volume=this.value">
+</div>
+
+<div id="list1"></div>
+
+</div>
+
+<!-- 6 SONGS -->
+<div class="panel hidden" id="box6">
+<div id="list2"></div>
+</div>
 
 </div>
 
@@ -302,7 +232,9 @@ audio{display:none;}
 
 <script>
 
+let audio=document.getElementById("audio");
 let radio=document.getElementById("radio");
+let index=0;
 
 let radios=[
 "https://stream.radiojar.com/8s5u5tpdtwzuv",
@@ -311,6 +243,7 @@ let radios=[
 "https://stream.zeno.fm/hswv0qwu7vgtv"
 ];
 
+/* RADIO */
 function playRadio(i){
 radio.src=radios[i];
 radio.play();
@@ -320,15 +253,63 @@ function toggleRadio(){
 radio.paused?radio.play():radio.pause();
 }
 
-/* PASSWORD */
-function check(){
-if(pass.value==="106080"){
-document.getElementById("lock").style.display="none";
-box4.classList.remove("hidden");
-box5.classList.remove("hidden");
-box6.classList.remove("hidden");
-}else alert("WRONG PASSWORD");
+/* SONGS 22 */
+let songs=[
+["Song1","https://j.top4top.io/m_3769le8x51.mp3"],
+["Song2","https://k.top4top.io/m_3769enq6z2.mp3"],
+["Song3","https://l.top4top.io/m_3769auk3d3.mp3"],
+["Song4","https://a.top4top.io/m_3769kdadn4.mp3"],
+["Song5","https://b.top4top.io/m_3769kg8sd5.mp3"],
+["Song6","https://c.top4top.io/m_3769ien0c6.mp3"],
+["Song7","https://d.top4top.io/m_3769yw3257.mp3"],
+["Song8","https://e.top4top.io/m_3769yb3k29.mp3"],
+["Song9","https://f.top4top.io/m_37690zriz10.mp3"],
+["Song10","https://b.top4top.io/m_3769lxi681.mp3"],
+["Song11","https://c.top4top.io/m_3769g0kg52.mp3"],
+
+["Song12","https://d.top4top.io/m_3769xz8mi3.mp3"],
+["Song13","https://e.top4top.io/m_3769o93s34.mp3"],
+["Song14","https://f.top4top.io/m_3769c3tql5.mp3"],
+["Song15","https://g.top4top.io/m_3769r7bcu6.mp3"],
+["Song16","https://l.top4top.io/m_3769p7dkd1.mp3"],
+["Song17","https://a.top4top.io/m_37697muuj2.mp3"],
+["Song18","https://b.top4top.io/m_3769i9yd13.mp3"],
+["Song19","https://c.top4top.io/m_3769ou0bt4.mp3"],
+["Song20","https://d.top4top.io/m_37697zirj5.mp3"],
+["Song21","https://e.top4top.io/m_3769rnmrk6.mp3"],
+["Song22","https://d.top4top.io/m_3769a1jgw1.mp3"]
+];
+
+/* SPLIT */
+for(let i=0;i<11;i++){
+list1.innerHTML+=`<div class="song">${songs[i][0]} <button onclick="play(${i})">▶</button></div>`;
 }
+
+for(let i=11;i<songs.length;i++){
+list2.innerHTML+=`<div class="song">${songs[i][0]} <button onclick="play(${i})">▶</button></div>`;
+}
+
+/* PLAY */
+function play(i){
+index=i;
+audio.src=songs[i][1];
+audio.play();
+title.innerText=songs[i][0];
+}
+
+function toggle(){
+audio.paused?audio.play():audio.pause();
+}
+
+/* SEEK */
+function seek(e){
+let p=e.offsetX/e.currentTarget.offsetWidth;
+audio.currentTime=p*audio.duration;
+}
+
+audio.ontimeupdate=function(){
+fill.style.width=(audio.currentTime/audio.duration)*100+"%";
+};
 
 </script>
 
