@@ -11,9 +11,9 @@ body{
   font-family:Arial;
   background:radial-gradient(circle at top,#0a0f1f,#05060a);
   color:#00f5ff;
-  overflow:hidden;
 }
 
+/* GRID */
 .dashboard{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
@@ -28,15 +28,10 @@ body{
   border:1px solid #00f5ff22;
   border-radius:8px;
   padding:8px;
-  overflow:hidden;
+  overflow:auto;
 }
 
-.hacker-box img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
+/* PROFILE */
 .profile{display:flex;flex-direction:column;gap:10px;}
 
 .top-profile{
@@ -46,7 +41,8 @@ body{
 }
 
 .avatar{
-  width:90px;height:90px;border-radius:50%;
+  width:90px;height:90px;
+  border-radius:50%;
   border:2px solid #00f5ff;
 }
 
@@ -57,11 +53,40 @@ body{
 }
 
 @keyframes pulse{
-  0%{opacity:1}
-  50%{opacity:0.4}
-  100%{opacity:1}
+0%{opacity:1}
+50%{opacity:0.4}
+100%{opacity:1}
 }
 
+/* RADIO */
+.radio button{
+  margin:2px;
+  padding:6px;
+  background:#00f5ff;
+  border:none;
+  cursor:pointer;
+}
+
+.radio-toggle{
+  margin-top:5px;
+  padding:8px;
+  width:100%;
+  background:#00ffcc;
+  border:none;
+}
+
+/* LINKS */
+.links a{
+  display:flex;
+  justify-content:space-between;
+  padding:6px;
+  margin:3px 0;
+  background:#00f5ff11;
+  color:#00ffcc;
+  text-decoration:none;
+}
+
+/* SONG */
 .song{
   display:flex;
   justify-content:space-between;
@@ -70,14 +95,31 @@ body{
   background:#00f5ff11;
 }
 
-.player{display:flex;flex-direction:column;gap:6px;align-items:center;}
+.song button{
+  background:#00f5ff;
+  border:none;
+}
 
-.seek{width:100%;height:6px;background:#111;cursor:pointer;}
-#fill{height:100%;width:0%;background:#00ffcc;}
+/* PLAYER */
+.player{
+  text-align:center;
+}
+
+.seek{
+  width:100%;
+  height:6px;
+  background:#111;
+  cursor:pointer;
+}
+
+#fill{
+  height:100%;
+  width:0%;
+  background:#00ffcc;
+}
 
 .hidden{display:none;}
 audio{display:none;}
-
 </style>
 </head>
 
@@ -85,40 +127,50 @@ audio{display:none;}
 
 <div class="dashboard">
 
-<div class="panel hacker-box">
-<img src="https://mf.b37mrtl.ru/media/pics/2023.04/article/643e76264c59b716106a1276.PNG">
-</div>
+<!-- 1 -->
+<div class="panel"><img src="https://mf.b37mrtl.ru/media/pics/2023.04/article/643e76264c59b716106a1276.PNG" width="100%"></div>
 
-<div class="panel hacker-box">
-<img src="https://img.pikbest.com/wp/202345/hacker-skeleton-working-on-laptop-dark-background_9581815.jpg!w700wp">
-</div>
+<!-- 2 -->
+<div class="panel"><img src="https://img.pikbest.com/wp/202345/hacker-skeleton-working-on-laptop-dark-background_9581815.jpg!w700wp" width="100%"></div>
 
-<!-- PASSWORD -->
-<div class="panel hacker-box" id="lockBox">
-
-<img src="https://img.pikbest.com/backgrounds/20250126/guarding-your-digital-life-power-of-passwords-smarter-password-practices_11452980.jpg!f305cw">
-
-<div id="lock" style="
-position:absolute;top:0;left:0;width:100%;height:100%;
-display:flex;flex-direction:column;justify-content:center;align-items:center;
-background:rgba(0,0,0,0.7);">
-
-<input type="password" id="pass" placeholder="ENTER PASSWORD">
+<!-- 3 PASSWORD -->
+<div class="panel" id="lockBox">
+<input type="password" id="pass" placeholder="PASSWORD">
 <button onclick="check()">UNLOCK</button>
-
-</div>
 </div>
 
-<!-- 4 -->
+<!-- 4 PROFILE -->
 <div class="panel profile hidden" id="box4">
+
 <div class="top-profile">
 <div class="glow-name">RAMY</div>
 <img class="avatar" src="https://xatimg.com/image/PtMzAMEPdOYG.png">
 </div>
+
+<div class="radio">
+<button onclick="playRadio(0)">قرآن</button>
+<button onclick="playRadio(1)">ميلودي</button>
+<button onclick="playRadio(2)">حماقي</button>
+<button onclick="playRadio(3)">منوعات</button>
 </div>
 
-<!-- 5 -->
+<button class="radio-toggle" onclick="toggleRadio()">▶ / ⏸</button>
+
+<input type="range" min="0" max="1" step="0.1"
+oninput="radio.volume=this.value">
+
+<div class="links">
+<a href="https://xat.com/2ra" target="_blank">2ra Chat <span>></span></a>
+<a href="https://xat.com/7reqa" target="_blank">7reqa Chat <span>></span></a>
+<a href="https://xat.com/trade" target="_blank">Trade Hub <span>></span></a>
+<a href="https://xat.com/cambio" target="_blank">Cambio Zone <span>></span></a>
+</div>
+
+</div>
+
+<!-- 5 PLAYER + 11 SONG -->
 <div class="panel hidden" id="box5">
+
 <div class="player">
 <div id="title">NO SONG</div>
 <button onclick="toggle()">▶ / ⏸</button>
@@ -129,19 +181,40 @@ background:rgba(0,0,0,0.7);">
 </div>
 
 <div id="list1"></div>
+
 </div>
 
-<!-- 6 -->
+<!-- 6 VOLUME + 11 SONG -->
 <div class="panel hidden" id="box6">
+
+<h4>🔊 الصوت</h4>
+<input type="range" min="0" max="1" step="0.1"
+oninput="audio.volume=this.value">
+
 <div id="list2"></div>
+
 </div>
 
 </div>
 
 <audio id="audio"></audio>
+<audio id="radio"></audio>
 
 <script>
 
+/* RADIO */
+let radio=document.getElementById("radio");
+let radios=[
+"https://stream.radiojar.com/8s5u5tpdtwzuv",
+"https://audio.nrpstream.com/listen/nogoumfm/radio.mp3",
+"https://stream.zeno.fm/w7atxdpk1pdvv",
+"https://stream.zeno.fm/hswv0qwu7vgtv"
+];
+
+function playRadio(i){radio.src=radios[i];radio.play();}
+function toggleRadio(){radio.paused?radio.play():radio.pause();}
+
+/* SONGS */
 let songs=[
 ["نفسي أطمن بيك","https://j.top4top.io/m_3769le8x51.mp3"],
 ["الشعر الأسود","https://k.top4top.io/m_3769enq6z2.mp3"],
@@ -169,10 +242,7 @@ let songs=[
 ];
 
 let audio=document.getElementById("audio");
-let list1=document.getElementById("list1");
-let list2=document.getElementById("list2");
 
-/* تقسيم 11 / 11 */
 songs.forEach((s,i)=>{
 let div=`<div class="song">${s[0]} <button onclick="play(${i})">▶</button></div>`;
 if(i<11) list1.innerHTML+=div;
@@ -185,9 +255,7 @@ audio.play();
 document.getElementById("title").innerText=songs[i][0];
 }
 
-function toggle(){
-audio.paused?audio.play():audio.pause();
-}
+function toggle(){audio.paused?audio.play():audio.pause();}
 
 function seek(e){
 let pos=e.offsetX/e.currentTarget.offsetWidth;
@@ -195,23 +263,19 @@ audio.currentTime=pos*audio.duration;
 }
 
 audio.ontimeupdate=function(){
-document.getElementById("fill").style.width=
-(audio.currentTime/audio.duration)*100+"%";
+fill.style.width=(audio.currentTime/audio.duration)*100+"%";
 };
 
-/* PASSWORD FIX */
+/* PASSWORD */
 function check(){
 if(pass.value==="106080"){
-document.getElementById("lockBox").style.display="none"; // 🔥 حل التعليق
-document.getElementById("box4").classList.remove("hidden");
-document.getElementById("box5").classList.remove("hidden");
-document.getElementById("box6").classList.remove("hidden");
-}else{
-alert("WRONG PASSWORD");
-}
+lockBox.style.display="none";
+box4.classList.remove("hidden");
+box5.classList.remove("hidden");
+box6.classList.remove("hidden");
+}else alert("WRONG PASSWORD");
 }
 
-/* ENTER */
 pass.addEventListener("keydown",e=>{
 if(e.key==="Enter") check();
 });
