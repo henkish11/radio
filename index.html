@@ -30,13 +30,12 @@ body{
   border-radius:8px;
   padding:8px;
   overflow:auto;
-  transition:.3s;
-  box-shadow:0 0 10px rgba(0,255,255,0.1);
+  transition:0.3s;
 }
 
 .panel:hover{
   transform:scale(1.03);
-  box-shadow:0 0 25px #00f5ff;
+  box-shadow:0 0 20px #00f5ff;
 }
 
 /* IMAGE */
@@ -46,35 +45,29 @@ body{
   object-fit:cover;
 }
 
-/* PROFILE (BOX 1) */
+/* PROFILE FIXED */
 .profile{
-  text-align:center;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
+  text-align:center;
 }
 
 .avatar{
-  width:120px;
-  height:120px;
+  width:85px;
+  height:85px;
   border-radius:50%;
-  border:3px solid #00f5ff;
-  box-shadow:0 0 25px #00f5ff,0 0 60px #00ffcc;
-  animation:glow 2s infinite alternate;
-}
-
-@keyframes glow{
-  from{transform:scale(1);box-shadow:0 0 20px #00f5ff;}
-  to{transform:scale(1.05);box-shadow:0 0 40px #00ffcc;}
+  border:2px solid #00f5ff;
+  box-shadow:0 0 20px #00f5ff;
 }
 
 .name{
-  margin-top:10px;
-  font-size:34px;
+  font-size:26px;
+  margin-top:8px;
   font-weight:bold;
   color:#00f5ff;
-  text-shadow:0 0 10px #00f5ff,0 0 30px #00ffcc;
+  text-shadow:0 0 10px #00f5ff,0 0 20px #00ffcc;
 }
 
 /* SONG */
@@ -84,6 +77,7 @@ body{
   padding:6px;
   margin:4px 0;
   background:#00f5ff11;
+  font-size:11px;
 }
 
 .song button{
@@ -122,7 +116,6 @@ body{
   background:#00f5ff11;
   border:none;
   color:#00ffcc;
-  font-weight:bold;
 }
 
 .radio-toggle{
@@ -144,12 +137,8 @@ body{
   background:#00f5ff11;
 }
 
-/* GLOW TEXT */
-.glow{
-  text-shadow:0 0 10px #00f5ff,0 0 25px #00ffcc;
-}
-
 audio{display:none;}
+
 .hidden{display:none;}
 
 </style>
@@ -159,7 +148,7 @@ audio{display:none;}
 
 <div class="dashboard">
 
-<!-- 1 PROFILE (UPDATED) -->
+<!-- 1 PROFILE -->
 <div class="panel profile">
 <img class="avatar" src="https://xatimg.com/image/PtMzAMEPdOYG.png">
 <div class="name">RAMY</div>
@@ -178,7 +167,7 @@ audio{display:none;}
 <!-- 4 RADIO + LINKS -->
 <div class="panel">
 
-<div class="radio glow">
+<div class="radio">
 <button onclick="playRadio(0)">🎧 قرآن</button>
 <button onclick="playRadio(1)">🎶 ميلودي</button>
 <button onclick="playRadio(2)">🎤 حماقي</button>
@@ -187,11 +176,9 @@ audio{display:none;}
 
 <button class="radio-toggle" onclick="toggleRadio()">▶ / ⏸ RADIO</button>
 
-<div>
 <input type="range" min="0" max="1" step="0.1" oninput="radio.volume=this.value">
-</div>
 
-<div class="links glow">
+<div class="links">
 <a href="https://xat.com/2ra" target="_blank">2ra ></a>
 <a href="https://xat.com/7reqa" target="_blank">7reqa ></a>
 <a href="https://xat.com/trade" target="_blank">Trade ></a>
@@ -200,7 +187,7 @@ audio{display:none;}
 
 </div>
 
-<!-- 5 PLAYER + 11 SONGS -->
+<!-- 5 SONGS -->
 <div class="panel hidden" id="box5">
 
 <div class="player">
@@ -217,7 +204,6 @@ oninput="audio.volume=this.value">
 </div>
 
 <div id="list1"></div>
-
 </div>
 
 <!-- 6 SONGS -->
@@ -236,6 +222,7 @@ let audio=document.getElementById("audio");
 let radio=document.getElementById("radio");
 let index=0;
 
+/* RADIO */
 let radios=[
 "https://stream.radiojar.com/8s5u5tpdtwzuv",
 "https://audio.nrpstream.com/listen/nogoumfm/radio.mp3",
@@ -243,7 +230,6 @@ let radios=[
 "https://stream.zeno.fm/hswv0qwu7vgtv"
 ];
 
-/* RADIO */
 function playRadio(i){
 radio.src=radios[i];
 radio.play();
@@ -253,41 +239,48 @@ function toggleRadio(){
 radio.paused?radio.play():radio.pause();
 }
 
-/* SONGS 22 */
+/* 22 SONGS */
 let songs=[
-["Song1","https://j.top4top.io/m_3769le8x51.mp3"],
-["Song2","https://k.top4top.io/m_3769enq6z2.mp3"],
-["Song3","https://l.top4top.io/m_3769auk3d3.mp3"],
-["Song4","https://a.top4top.io/m_3769kdadn4.mp3"],
-["Song5","https://b.top4top.io/m_3769kg8sd5.mp3"],
-["Song6","https://c.top4top.io/m_3769ien0c6.mp3"],
-["Song7","https://d.top4top.io/m_3769yw3257.mp3"],
-["Song8","https://e.top4top.io/m_3769yb3k29.mp3"],
-["Song9","https://f.top4top.io/m_37690zriz10.mp3"],
-["Song10","https://b.top4top.io/m_3769lxi681.mp3"],
-["Song11","https://c.top4top.io/m_3769g0kg52.mp3"],
-
-["Song12","https://d.top4top.io/m_3769xz8mi3.mp3"],
-["Song13","https://e.top4top.io/m_3769o93s34.mp3"],
-["Song14","https://f.top4top.io/m_3769c3tql5.mp3"],
-["Song15","https://g.top4top.io/m_3769r7bcu6.mp3"],
-["Song16","https://l.top4top.io/m_3769p7dkd1.mp3"],
-["Song17","https://a.top4top.io/m_37697muuj2.mp3"],
-["Song18","https://b.top4top.io/m_3769i9yd13.mp3"],
-["Song19","https://c.top4top.io/m_3769ou0bt4.mp3"],
-["Song20","https://d.top4top.io/m_37697zirj5.mp3"],
-["Song21","https://e.top4top.io/m_3769rnmrk6.mp3"],
-["Song22","https://d.top4top.io/m_3769a1jgw1.mp3"]
+["1","https://j.top4top.io/m_3769le8x51.mp3"],
+["2","https://k.top4top.io/m_3769enq6z2.mp3"],
+["3","https://l.top4top.io/m_3769auk3d3.mp3"],
+["4","https://a.top4top.io/m_3769kdadn4.mp3"],
+["5","https://b.top4top.io/m_3769kg8sd5.mp3"],
+["6","https://c.top4top.io/m_3769ien0c6.mp3"],
+["7","https://d.top4top.io/m_3769yw3257.mp3"],
+["8","https://e.top4top.io/m_3769yb3k29.mp3"],
+["9","https://f.top4top.io/m_37690zriz10.mp3"],
+["10","https://b.top4top.io/m_3769lxi681.mp3"],
+["11","https://c.top4top.io/m_3769g0kg52.mp3"],
+["12","https://d.top4top.io/m_3769xz8mi3.mp3"],
+["13","https://e.top4top.io/m_3769o93s34.mp3"],
+["14","https://f.top4top.io/m_3769c3tql5.mp3"],
+["15","https://g.top4top.io/m_3769r7bcu6.mp3"],
+["16","https://l.top4top.io/m_3769p7dkd1.mp3"],
+["17","https://a.top4top.io/m_37697muuj2.mp3"],
+["18","https://b.top4top.io/m_3769i9yd13.mp3"],
+["19","https://c.top4top.io/m_3769ou0bt4.mp3"],
+["20","https://d.top4top.io/m_37697zirj5.mp3"],
+["21","https://e.top4top.io/m_3769rnmrk6.mp3"],
+["22","https://d.top4top.io/m_3769a1jgw1.mp3"]
 ];
 
-/* SPLIT */
-for(let i=0;i<11;i++){
-list1.innerHTML+=`<div class="song">${songs[i][0]} <button onclick="play(${i})">▶</button></div>`;
+/* SPLIT FIX */
+let list1=document.getElementById("list1");
+let list2=document.getElementById("list2");
+
+function render(){
+list1.innerHTML="";
+list2.innerHTML="";
+
+songs.forEach((s,i)=>{
+let el=`<div class="song">${s[0]} <button onclick="play(${i})">▶</button></div>`;
+if(i<11) list1.innerHTML+=el;
+else list2.innerHTML+=el;
+});
 }
 
-for(let i=11;i<songs.length;i++){
-list2.innerHTML+=`<div class="song">${songs[i][0]} <button onclick="play(${i})">▶</button></div>`;
-}
+render();
 
 /* PLAY */
 function play(i){
@@ -301,7 +294,6 @@ function toggle(){
 audio.paused?audio.play():audio.pause();
 }
 
-/* SEEK */
 function seek(e){
 let p=e.offsetX/e.currentTarget.offsetWidth;
 audio.currentTime=p*audio.duration;
