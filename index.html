@@ -14,7 +14,6 @@ body{
   overflow:hidden;
 }
 
-/* GRID */
 .dashboard{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
@@ -32,40 +31,29 @@ body{
   overflow:hidden;
 }
 
-/* HACKER */
 .hacker-box img{
   width:100%;
   height:100%;
   object-fit:cover;
 }
 
-/* PROFILE FIX */
-.profile{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
+.profile{display:flex;flex-direction:column;gap:10px;}
 
-/* NAME + IMAGE (IMAGE LEFT) */
 .top-profile{
   display:flex;
-  align-items:center;
   justify-content:space-between;
+  align-items:center;
 }
 
 .avatar{
-  width:90px;
-  height:90px;
-  border-radius:50%;
+  width:90px;height:90px;border-radius:50%;
   border:2px solid #00f5ff;
 }
 
-/* GLOW NAME */
 .glow-name{
   font-size:28px;
-  font-weight:bold;
   animation:pulse 1.5s infinite;
-  text-shadow:0 0 10px #00f5ff,0 0 20px #00f5ff;
+  text-shadow:0 0 10px #00f5ff;
 }
 
 @keyframes pulse{
@@ -74,43 +62,6 @@ body{
   100%{opacity:1}
 }
 
-/* RADIO */
-.radio{
-  display:flex;
-  flex-wrap:wrap;
-  gap:5px;
-}
-
-.radio button{
-  flex:1;
-  padding:8px;
-  background:#00f5ff;
-  border:none;
-  cursor:pointer;
-}
-
-/* BIG RADIO BUTTON */
-.radio-toggle{
-  width:100%;
-  padding:10px;
-  background:#00ffcc;
-  border:none;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-/* LINKS */
-.links a{
-  display:flex;
-  justify-content:space-between;
-  padding:6px;
-  margin:4px 0;
-  background:#00f5ff11;
-  color:#00ffcc;
-  text-decoration:none;
-}
-
-/* SONG */
 .song{
   display:flex;
   justify-content:space-between;
@@ -119,45 +70,12 @@ body{
   background:#00f5ff11;
 }
 
-.song button{
-  background:#00f5ff;
-  border:none;
-}
+.player{display:flex;flex-direction:column;gap:6px;align-items:center;}
 
-/* PLAYER */
-.player{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  align-items:center;
-}
-
-.seek{
-  width:100%;
-  height:6px;
-  background:#111;
-  cursor:pointer;
-}
-
-#fill{
-  height:100%;
-  width:0%;
-  background:#00ffcc;
-}
-
-.volume{
-  width:100%;
-}
-
-/* VOLUME BOX */
-.volume-box{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
+.seek{width:100%;height:6px;background:#111;cursor:pointer;}
+#fill{height:100%;width:0%;background:#00ffcc;}
 
 .hidden{display:none;}
-
 audio{display:none;}
 
 </style>
@@ -167,137 +85,63 @@ audio{display:none;}
 
 <div class="dashboard">
 
-<!-- 1 -->
 <div class="panel hacker-box">
 <img src="https://mf.b37mrtl.ru/media/pics/2023.04/article/643e76264c59b716106a1276.PNG">
 </div>
 
-<!-- 2 -->
 <div class="panel hacker-box">
 <img src="https://img.pikbest.com/wp/202345/hacker-skeleton-working-on-laptop-dark-background_9581815.jpg!w700wp">
 </div>
 
-<!-- 3 PASSWORD -->
-<div class="panel hacker-box">
+<!-- PASSWORD -->
+<div class="panel hacker-box" id="lockBox">
 
 <img src="https://img.pikbest.com/backgrounds/20250126/guarding-your-digital-life-power-of-passwords-smarter-password-practices_11452980.jpg!f305cw">
 
-<div style="position:absolute;top:0;left:0;width:100%;height:100%;
-display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;background:rgba(0,0,0,0.6);">
+<div id="lock" style="
+position:absolute;top:0;left:0;width:100%;height:100%;
+display:flex;flex-direction:column;justify-content:center;align-items:center;
+background:rgba(0,0,0,0.7);">
 
-<div>🔐 ENTER PASSWORD</div>
-<input type="password" id="pass">
+<input type="password" id="pass" placeholder="ENTER PASSWORD">
 <button onclick="check()">UNLOCK</button>
 
 </div>
-
 </div>
 
-<!-- 4 PROFILE -->
+<!-- 4 -->
 <div class="panel profile hidden" id="box4">
-
 <div class="top-profile">
-
 <div class="glow-name">RAMY</div>
-
 <img class="avatar" src="https://xatimg.com/image/PtMzAMEPdOYG.png">
-
+</div>
 </div>
 
-<!-- RADIO FULL -->
-<div class="radio">
-<button onclick="playRadio(0)">قرآن</button>
-<button onclick="playRadio(1)">ميلودي</button>
-<button onclick="playRadio(2)">حماقي</button>
-<button onclick="playRadio(3)">منوعات</button>
-</div>
-
-<button class="radio-toggle" onclick="toggleRadio()">
-▶ / ⏸ تشغيل / إيقاف الراديو
-</button>
-
-<!-- LINKS -->
-<div class="links">
-<a href="https://xat.com/2ra" target="_blank"><span>2ra Chat</span><span>></span></a>
-<a href="https://xat.com/7reqa" target="_blank"><span>7reqa Chat</span><span>></span></a>
-<a href="https://xat.com/trade" target="_blank"><span>Trade Hub</span><span>></span></a>
-<a href="https://xat.com/cambio" target="_blank"><span>Cambio Zone</span><span>></span></a>
-</div>
-
-<!-- RADIO VOLUME -->
-<input type="range" min="0" max="1" step="0.1"
-oninput="radio.volume=this.value">
-
-</div>
-
-<!-- 5 PLAYER -->
+<!-- 5 -->
 <div class="panel hidden" id="box5">
-
 <div class="player">
-
 <div id="title">NO SONG</div>
-
 <button onclick="toggle()">▶ / ⏸</button>
 
 <div class="seek" onclick="seek(event)">
 <div id="fill"></div>
 </div>
-
-<input class="volume" type="range" min="0" max="1" step="0.1"
-oninput="audio.volume=this.value">
-
 </div>
 
 <div id="list1"></div>
-
 </div>
 
-<!-- 6 VOLUME -->
+<!-- 6 -->
 <div class="panel hidden" id="box6">
-
-<div class="volume-box">
-
-<h4>🔊 SOUND</h4>
-
-<button onclick="audio.volume=Math.min(audio.volume+0.1,1)">➕ رفع</button>
-<button onclick="audio.volume=Math.max(audio.volume-0.1,0)">➖ خفض</button>
-
-<input type="range" min="0" max="1" step="0.1"
-oninput="audio.volume=this.value">
-
-</div>
-
 <div id="list2"></div>
-
 </div>
 
 </div>
 
 <audio id="audio"></audio>
-<audio id="radio"></audio>
 
 <script>
 
-/* RADIO */
-let radio=document.getElementById("radio");
-
-let radios=[
-"https://stream.radiojar.com/8s5u5tpdtwzuv",
-"https://audio.nrpstream.com/listen/nogoumfm/radio.mp3",
-"https://stream.zeno.fm/w7atxdpk1pdvv",
-"https://stream.zeno.fm/hswv0qwu7vgtv"
-];
-
-function playRadio(i){
-radio.src=radios[i];
-radio.play();
-}
-
-function toggleRadio(){
-radio.paused?radio.play():radio.pause();
-}
-
-/* SONGS */
 let songs=[
 ["نفسي أطمن بيك","https://j.top4top.io/m_3769le8x51.mp3"],
 ["الشعر الأسود","https://k.top4top.io/m_3769enq6z2.mp3"],
@@ -310,6 +154,7 @@ let songs=[
 ["بحبها","https://f.top4top.io/m_37690zriz10.mp3"],
 ["فيكي سر","https://b.top4top.io/m_3769lxi681.mp3"],
 ["حياتي قصيدة","https://c.top4top.io/m_3769g0kg52.mp3"],
+
 ["لسه","https://d.top4top.io/m_3769xz8mi3.mp3"],
 ["مش زي غيرها","https://e.top4top.io/m_3769o93s34.mp3"],
 ["نسند بعض","https://f.top4top.io/m_3769c3tql5.mp3"],
@@ -324,14 +169,13 @@ let songs=[
 ];
 
 let audio=document.getElementById("audio");
-let index=0;
-
 let list1=document.getElementById("list1");
 let list2=document.getElementById("list2");
 
+/* تقسيم 11 / 11 */
 songs.forEach((s,i)=>{
 let div=`<div class="song">${s[0]} <button onclick="play(${i})">▶</button></div>`;
-if(i<2) list1.innerHTML+=div;
+if(i<11) list1.innerHTML+=div;
 else list2.innerHTML+=div;
 });
 
@@ -341,7 +185,6 @@ audio.play();
 document.getElementById("title").innerText=songs[i][0];
 }
 
-/* PLAYER */
 function toggle(){
 audio.paused?audio.play():audio.pause();
 }
@@ -356,16 +199,20 @@ document.getElementById("fill").style.width=
 (audio.currentTime/audio.duration)*100+"%";
 };
 
-/* PASSWORD + ENTER */
+/* PASSWORD FIX */
 function check(){
 if(pass.value==="106080"){
+document.getElementById("lockBox").style.display="none"; // 🔥 حل التعليق
 document.getElementById("box4").classList.remove("hidden");
 document.getElementById("box5").classList.remove("hidden");
 document.getElementById("box6").classList.remove("hidden");
-}else alert("WRONG PASSWORD");
+}else{
+alert("WRONG PASSWORD");
+}
 }
 
-document.getElementById("pass").addEventListener("keydown",e=>{
+/* ENTER */
+pass.addEventListener("keydown",e=>{
 if(e.key==="Enter") check();
 });
 
