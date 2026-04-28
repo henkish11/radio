@@ -30,22 +30,22 @@ body{
   border-radius:8px;
   padding:8px;
   overflow:auto;
-  transition:0.3s;
 }
 
+/* HOVER */
 .panel:hover{
-  transform:scale(1.03);
+  transform:scale(1.02);
   box-shadow:0 0 20px #00f5ff;
 }
 
-/* IMAGE */
+/* IMAGES */
 .panel img{
   width:100%;
   height:100%;
   object-fit:cover;
 }
 
-/* PROFILE FIXED */
+/* 🔥 المربع الأول (صورة + اسم) */
 .profile{
   display:flex;
   flex-direction:column;
@@ -54,23 +54,25 @@ body{
   text-align:center;
 }
 
+/* ✨ صورة أصغر */
 .avatar{
-  width:85px;
-  height:85px;
+  width:60px;
+  height:60px;
   border-radius:50%;
   border:2px solid #00f5ff;
-  box-shadow:0 0 20px #00f5ff;
+  box-shadow:0 0 15px #00f5ff;
 }
 
+/* ✨ الاسم ظاهر ومتوَهّج */
 .name{
-  font-size:26px;
   margin-top:8px;
+  font-size:28px;
   font-weight:bold;
   color:#00f5ff;
-  text-shadow:0 0 10px #00f5ff,0 0 20px #00ffcc;
+  text-shadow:0 0 10px #00f5ff,0 0 25px #00ffcc;
 }
 
-/* SONG */
+/* SONGS */
 .song{
   display:flex;
   justify-content:space-between;
@@ -139,8 +141,6 @@ body{
 
 audio{display:none;}
 
-.hidden{display:none;}
-
 </style>
 </head>
 
@@ -168,78 +168,43 @@ audio{display:none;}
 <div class="panel">
 
 <div class="radio">
-<button onclick="playRadio(0)">🎧 قرآن</button>
-<button onclick="playRadio(1)">🎶 ميلودي</button>
-<button onclick="playRadio(2)">🎤 حماقي</button>
-<button onclick="playRadio(3)">🔥 منوعات</button>
+<button>🎧 قرآن</button>
+<button>🎶 ميلودي</button>
+<button>🎤 حماقي</button>
+<button>🔥 منوعات</button>
 </div>
 
-<button class="radio-toggle" onclick="toggleRadio()">▶ / ⏸ RADIO</button>
+<button class="radio-toggle">▶ / ⏸ RADIO</button>
 
-<input type="range" min="0" max="1" step="0.1" oninput="radio.volume=this.value">
+<input type="range" min="0" max="1" step="0.1">
 
 <div class="links">
-<a href="https://xat.com/2ra" target="_blank">2ra ></a>
-<a href="https://xat.com/7reqa" target="_blank">7reqa ></a>
-<a href="https://xat.com/trade" target="_blank">Trade ></a>
-<a href="https://xat.com/cambio" target="_blank">Cambio ></a>
+<a href="#">Chat 1 ></a>
+<a href="#">Chat 2 ></a>
+<a href="#">Trade ></a>
+<a href="#">Zone ></a>
 </div>
 
 </div>
 
 <!-- 5 SONGS -->
-<div class="panel hidden" id="box5">
-
-<div class="player">
-<div id="title">NO SONG</div>
-
-<button onclick="toggle()">▶ / ⏸</button>
-
-<div class="seek" onclick="seek(event)">
-<div id="fill"></div>
-</div>
-
-<input class="volume" type="range" min="0" max="1" step="0.1"
-oninput="audio.volume=this.value">
-</div>
-
+<div class="panel" id="box5">
 <div id="list1"></div>
 </div>
 
 <!-- 6 SONGS -->
-<div class="panel hidden" id="box6">
+<div class="panel" id="box6">
 <div id="list2"></div>
 </div>
 
 </div>
 
 <audio id="audio"></audio>
-<audio id="radio"></audio>
 
 <script>
 
 let audio=document.getElementById("audio");
-let radio=document.getElementById("radio");
-let index=0;
 
-/* RADIO */
-let radios=[
-"https://stream.radiojar.com/8s5u5tpdtwzuv",
-"https://audio.nrpstream.com/listen/nogoumfm/radio.mp3",
-"https://stream.zeno.fm/w7atxdpk1pdvv",
-"https://stream.zeno.fm/hswv0qwu7vgtv"
-];
-
-function playRadio(i){
-radio.src=radios[i];
-radio.play();
-}
-
-function toggleRadio(){
-radio.paused?radio.play():radio.pause();
-}
-
-/* 22 SONGS */
 let songs=[
 ["1","https://j.top4top.io/m_3769le8x51.mp3"],
 ["2","https://k.top4top.io/m_3769enq6z2.mp3"],
@@ -265,43 +230,19 @@ let songs=[
 ["22","https://d.top4top.io/m_3769a1jgw1.mp3"]
 ];
 
-/* SPLIT FIX */
 let list1=document.getElementById("list1");
 let list2=document.getElementById("list2");
-
-function render(){
-list1.innerHTML="";
-list2.innerHTML="";
 
 songs.forEach((s,i)=>{
 let el=`<div class="song">${s[0]} <button onclick="play(${i})">▶</button></div>`;
 if(i<11) list1.innerHTML+=el;
 else list2.innerHTML+=el;
 });
-}
 
-render();
-
-/* PLAY */
 function play(i){
-index=i;
 audio.src=songs[i][1];
 audio.play();
-title.innerText=songs[i][0];
 }
-
-function toggle(){
-audio.paused?audio.play():audio.pause();
-}
-
-function seek(e){
-let p=e.offsetX/e.currentTarget.offsetWidth;
-audio.currentTime=p*audio.duration;
-}
-
-audio.ontimeupdate=function(){
-fill.style.width=(audio.currentTime/audio.duration)*100+"%";
-};
 
 </script>
 
