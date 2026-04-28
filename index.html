@@ -31,22 +31,17 @@ body{
   padding:8px;
   overflow:hidden;
   transition:0.3s;
-  box-shadow:0 0 15px rgba(0,255,255,0.08);
 }
 
-/* HOVER ZOOM (except name) */
+/* HOVER ZOOM */
 .panel:hover,
 .song:hover,
 .radio button:hover,
-.links a:hover,
-.player button:hover{
+.links a:hover{
   transform:scale(1.05);
-  box-shadow:0 0 20px rgba(0,255,255,0.4);
 }
 
-.glow-name:hover{transform:none!important;}
-
-/* HACKER IMAGE BOX */
+/* HACKER IMAGE */
 .hacker-box img{
   width:100%;
   height:100%;
@@ -124,34 +119,6 @@ body{
   cursor:pointer;
 }
 
-/* LOCK */
-.lock{
-  position:absolute;
-  top:0;left:0;
-  width:100%;height:100%;
-  background:rgba(0,0,0,0.75);
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  gap:10px;
-}
-
-.lock input{
-  padding:8px;
-  text-align:center;
-  background:#111;
-  border:none;
-  color:#00f5ff;
-}
-
-.lock button{
-  padding:6px 10px;
-  background:#00f5ff;
-  border:none;
-  cursor:pointer;
-}
-
 /* PLAYER */
 .player{
   display:flex;
@@ -181,6 +148,35 @@ audio{display:none;}
 
 .hidden{display:none;}
 
+/* LOCK INSIDE BOX */
+.lock{
+  position:absolute;
+  top:0;left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.75);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+}
+
+.lock input{
+  padding:8px;
+  text-align:center;
+  background:#111;
+  border:none;
+  color:#00f5ff;
+}
+
+.lock button{
+  padding:6px 10px;
+  background:#00f5ff;
+  border:none;
+  cursor:pointer;
+}
+
 </style>
 </head>
 
@@ -198,7 +194,7 @@ audio{display:none;}
 <img src="https://img.pikbest.com/wp/202345/hacker-skeleton-working-on-laptop-dark-background_9581815.jpg!w700wp">
 </div>
 
-<!-- 3 LOCK -->
+<!-- 3 LOCK INSIDE BOX ONLY -->
 <div class="panel hacker-box">
 
 <img src="https://img.pikbest.com/backgrounds/20250126/guarding-your-digital-life-power-of-passwords-smarter-password-practices_11452980.jpg!f305cw">
@@ -211,7 +207,7 @@ audio{display:none;}
 
 </div>
 
-<!-- 4 PROFILE -->
+<!-- 4 -->
 <div class="panel profile hidden" id="box4">
 
 <img class="avatar" src="https://xatimg.com/image/PtMzAMEPdOYG.png">
@@ -224,15 +220,9 @@ audio{display:none;}
 <button onclick="playRadio(3)">🔥 منوعات</button>
 </div>
 
-<button onclick="toggleRadio()" style="margin-top:5px;background:#00ffcc;border:none;padding:5px;cursor:pointer;">
+<button onclick="toggleRadio()" style="margin-top:6px;background:#00ffcc;border:none;padding:6px;cursor:pointer;">
 ▶ / ⏸
 </button>
-
-<div style="margin-top:10px;text-align:center;">
-<div style="font-size:12px;">🔊 RADIO VOLUME</div>
-<input type="range" min="0" max="1" step="0.1"
-oninput="radio.volume=this.value" style="width:80%;">
-</div>
 
 <div class="links">
 <a href="https://xat.com/2ra" target="_blank">🔥 2ra Chat</a>
@@ -245,21 +235,7 @@ oninput="radio.volume=this.value" style="width:80%;">
 
 <!-- 5 -->
 <div class="panel hidden" id="box5">
-
-<div class="player">
-<div id="title">NO SONG</div>
-<button onclick="toggle()">▶ / ⏸</button>
-
-<div class="seek" onclick="seek(event)">
-<div id="fill"></div>
-</div>
-
-<input class="volume" type="range" min="0" max="1" step="0.1" onchange="audio.volume=this.value">
-
-</div>
-
 <div id="list1"></div>
-
 </div>
 
 <!-- 6 -->
@@ -274,6 +250,7 @@ oninput="radio.volume=this.value" style="width:80%;">
 
 <script>
 
+/* RADIO */
 let radio=document.getElementById("radio");
 
 let radios=[
@@ -338,23 +315,9 @@ function play(i){
 audio.src=songs[i][1];
 audio.play();
 index=i;
-document.getElementById("title").innerText=songs[i][0];
 }
 
-function toggle(){
-audio.paused?audio.play():audio.pause();
-}
-
-function seek(e){
-let pos=e.offsetX/e.currentTarget.offsetWidth;
-audio.currentTime=pos*audio.duration;
-}
-
-audio.ontimeupdate=function(){
-document.getElementById("fill").style.width=
-(audio.currentTime/audio.duration)*100+"%";
-};
-
+/* PASSWORD */
 function check(){
 if(pass.value==="106080"){
 document.getElementById("lock").style.display="none";
