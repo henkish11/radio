@@ -14,43 +14,7 @@ body{
   overflow:hidden;
 }
 
-/* 🔐 LOGIN OVERLAY */
-.login{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.75);
-  backdrop-filter: blur(6px);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  z-index:9999;
-}
-
-.login input{
-  padding:12px;
-  font-size:18px;
-  text-align:center;
-  background:transparent;
-  border:1px solid #00f5ff;
-  color:#00f5ff;
-  border-radius:8px;
-  outline:none;
-}
-
-.login button{
-  margin-top:10px;
-  padding:10px 20px;
-  background:#00f5ff;
-  border:none;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-/* GRID (نفسك) */
+/* GRID */
 .dashboard{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
@@ -66,6 +30,17 @@ body{
   border-radius:8px;
   padding:8px;
   overflow:hidden;
+  transition:0.3s;
+}
+
+/* 🔥 GLOW ON HOVER */
+.panel:hover,
+.song:hover,
+a:hover,
+button:hover{
+  box-shadow:0 0 20px #00f5ff;
+  transform:scale(1.03);
+  color:#00ffff;
 }
 
 /* PROFILE */
@@ -79,13 +54,11 @@ body{
   border:2px solid #00f5ff;
 }
 
-.glow-name{
-  font-size:32px;
-  font-weight:bold;
-  text-shadow:0 0 10px #00f5ff,0 0 20px #00ffcc;
+.glow{
+  text-shadow:0 0 10px #00f5ff,0 0 25px #00ffcc;
 }
 
-/* SONGS (زي ما هي) */
+/* SONG */
 .song{
   display:flex;
   justify-content:space-between;
@@ -95,9 +68,26 @@ body{
   font-size:11px;
 }
 
-.song button{
+/* PLAYER */
+.seek{
+  width:100%;
+  height:6px;
+  background:#111;
+  cursor:pointer;
+}
+
+#fill{
+  height:100%;
+  width:0%;
+  background:#00ffcc;
+}
+
+/* BUTTONS */
+.btn{
   background:#00f5ff;
   border:none;
+  padding:6px;
+  margin:3px;
   cursor:pointer;
 }
 
@@ -112,76 +102,105 @@ body{
   background:#00f5ff11;
 }
 
+/* AUDIO */
 audio{display:none;}
-.hidden{display:none;}
 
 </style>
 </head>
 
 <body>
 
-<!-- 🔐 PASSWORD SCREEN -->
-<div class="login" id="login">
-  <h2>ENTER PASSWORD</h2>
-  <input type="password" id="pass">
-  <button onclick="check()">UNLOCK</button>
-</div>
+<div class="dashboard">
 
-<div class="dashboard hidden" id="main">
-
-<!-- 1 -->
-<div class="panel profile">
+<!-- 1 PROFILE -->
+<div class="panel profile glow">
 <img class="avatar" src="https://xatimg.com/image/PtMzAMEPdOYG.png">
-<div class="glow-name">RAMY</div>
+<h2>RAMY</h2>
 </div>
 
-<!-- 2 -->
+<!-- 2 IMAGE -->
 <div class="panel">
-<img style="width:100%;height:100%;object-fit:cover"
-src="https://mf.b37mrtl.ru/media/pics/2023.04/article/643e76264c59b716106a1276.PNG">
+<img src="https://mf.b37mrtl.ru/media/pics/2023.04/article/643e76264c59b716106a1276.PNG"
+style="width:100%;height:100%;object-fit:cover;">
 </div>
 
-<!-- 3 -->
+<!-- 3 IMAGE -->
 <div class="panel">
-<img style="width:100%;height:100%;object-fit:cover"
-src="https://img.pikbest.com/wp/202345/hacker-skeleton-working-on-laptop-dark-background_9581815.jpg!w700wp">
+<img src="https://img.pikbest.com/wp/202345/hacker-skeleton-working-on-laptop-dark-background_9581815.jpg!w700wp"
+style="width:100%;height:100%;object-fit:cover;">
 </div>
 
-<!-- 4 LINKS -->
-<div class="panel">
-<div class="links">
+<!-- 4 RADIO + LINKS -->
+<div class="panel glow">
+
+<h4>📻 RADIO CONTROL</h4>
+
+<button class="btn" onclick="toggleRadio()">▶ / ⏸</button>
+<button class="btn" onclick="radio.volume+=0.1">🔊 +</button>
+<button class="btn" onclick="radio.volume-=0.1">🔉 -</button>
+
+<br>
+
+<div class="links glow">
 <a href="https://xat.com/2ra">2ra Chat ></a>
 <a href="https://xat.com/7reqa">7reqa Chat ></a>
 <a href="https://xat.com/trade">Trade Hub ></a>
-<a href="https://xat.com/cambio">Cambio Zone ></a>
-</div>
+<a href="https://xat.com/cambio">Zone ></a>
 </div>
 
-<!-- 5 -->
-<div class="panel" id="box5">
+</div>
+
+<!-- 5 PLAYER -->
+<div class="panel glow">
+<div id="title">NO SONG</div>
+
+<button class="btn" onclick="toggle()">▶ / ⏸</button>
+
+<div class="seek" onclick="seek(event)">
+<div id="fill"></div>
+</div>
+
 <div id="list1"></div>
 </div>
 
-<!-- 6 -->
-<div class="panel" id="box6">
+<!-- 6 CONTROL -->
+<div class="panel glow">
+
+<h4>🔊 MASTER CONTROL</h4>
+
+<button class="btn" onclick="audio.play()">▶ ALL</button>
+<button class="btn" onclick="audio.pause()">⏸ STOP</button>
+
+<button class="btn" onclick="audio.volume+=0.1">🔊 UP</button>
+<button class="btn" onclick="audio.volume-=0.1">🔉 DOWN</button>
+
 <div id="list2"></div>
+
 </div>
 
 </div>
 
 <audio id="audio"></audio>
+<audio id="radio"></audio>
 
 <script>
 
-/* 🔐 PASSWORD ONLY */
-function check(){
-if(document.getElementById("pass").value==="106080"){
-document.getElementById("login").style.display="none";
-document.getElementById("main").classList.remove("hidden");
-}else alert("WRONG PASSWORD");
+let audio=document.getElementById("audio");
+let radio=document.getElementById("radio");
+
+/* RADIO */
+let radios=[
+"https://stream.radiojar.com/8s5u5tpdtwzuv",
+"https://audio.nrpstream.com/listen/nogoumfm/radio.mp3",
+"https://stream.zeno.fm/w7atxdpk1pdvv",
+"https://stream.zeno.fm/hswv0qwu7vgtv"
+];
+
+function toggleRadio(){
+radio.paused?radio.play():radio.pause();
 }
 
-/* 🎵 SAME EXACT SONGS (NO CHANGE) */
+/* SONGS (UNCHANGED) */
 let songs=[
 ["نفسي أطمن بيك","https://j.top4top.io/m_3769le8x51.mp3"],
 ["الشعر الأسود","https://k.top4top.io/m_3769enq6z2.mp3"],
@@ -207,14 +226,8 @@ let songs=[
 ["توأمي","https://d.top4top.io/m_3769a1jgw1.mp3"]
 ];
 
-let audio=document.getElementById("audio");
-
-let list1=document.getElementById("list1");
-let list2=document.getElementById("list2");
-
-/* split 11 + 11 */
 songs.forEach((s,i)=>{
-let el=`<div class="song">${s[0]} <button onclick="play(${i})">▶</button></div>`;
+let el=`<div class="song glow">${s[0]} <button onclick="play(${i})">▶</button></div>`;
 if(i<11) list1.innerHTML+=el;
 else list2.innerHTML+=el;
 });
@@ -222,6 +235,22 @@ else list2.innerHTML+=el;
 function play(i){
 audio.src=songs[i][1];
 audio.play();
+document.getElementById("title").innerText=songs[i][0];
+}
+
+/* SEEK BAR */
+function seek(e){
+let pos=e.offsetX/e.currentTarget.offsetWidth;
+audio.currentTime=pos*audio.duration;
+}
+
+audio.ontimeupdate=function(){
+document.getElementById("fill").style.width=
+(audio.currentTime/audio.duration)*100+"%";
+};
+
+function toggle(){
+audio.paused?audio.play():audio.pause();
 }
 
 </script>
