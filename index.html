@@ -29,61 +29,88 @@ body{
   border-radius:8px;
   padding:8px;
   overflow:auto;
+  transition:0.3s;
 }
 
-/* PROFILE */
-.profile{display:flex;flex-direction:column;gap:10px;}
-
-.top-profile{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
+/* ===== PROFILE ===== */
+.profile{text-align:center;}
 
 .avatar{
-  width:90px;height:90px;
+  width:130px;
+  height:130px;
   border-radius:50%;
-  border:2px solid #00f5ff;
+  border:3px solid #00f5ff;
+  box-shadow:0 0 20px #00f5ff;
 }
 
+/* NAME */
 .glow-name{
-  font-size:28px;
+  font-size:36px;
+  font-weight:bold;
+  background:linear-gradient(45deg,#00f5ff,#00ffcc,#00f5ff);
+  -webkit-background-clip:text;
+  color:transparent;
   animation:pulse 1.5s infinite;
-  text-shadow:0 0 10px #00f5ff;
 }
 
 @keyframes pulse{
-0%{opacity:1}
-50%{opacity:0.4}
-100%{opacity:1}
+0%{opacity:1;transform:scale(1);}
+50%{opacity:0.4;transform:scale(1.1);}
+100%{opacity:1;transform:scale(1);}
 }
 
 /* RADIO */
+.radio{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  margin-top:10px;
+}
+
 .radio button{
-  margin:2px;
-  padding:6px;
-  background:#00f5ff;
+  display:flex;
+  justify-content:space-between;
+  padding:10px;
+  background:#00f5ff11;
   border:none;
+  border-radius:8px;
   cursor:pointer;
+  transition:0.3s;
+}
+
+.radio button:hover{
+  transform:scale(1.08);
+  background:#00f5ff33;
+  box-shadow:0 0 15px #00f5ff;
 }
 
 .radio-toggle{
-  margin-top:5px;
-  padding:8px;
+  margin-top:8px;
+  padding:10px;
   width:100%;
-  background:#00ffcc;
+  background:linear-gradient(45deg,#00f5ff,#00ffcc);
   border:none;
+  cursor:pointer;
+  border-radius:8px;
 }
 
 /* LINKS */
 .links a{
   display:flex;
   justify-content:space-between;
-  padding:6px;
-  margin:3px 0;
+  padding:10px;
+  margin:5px 0;
   background:#00f5ff11;
+  border-radius:8px;
   color:#00ffcc;
   text-decoration:none;
+  transition:0.3s;
+}
+
+.links a:hover{
+  transform:scale(1.08);
+  background:#00f5ff33;
+  box-shadow:0 0 15px #00ffcc;
 }
 
 /* SONG */
@@ -128,10 +155,14 @@ audio{display:none;}
 <div class="dashboard">
 
 <!-- 1 -->
-<div class="panel"><img src="https://mf.b37mrtl.ru/media/pics/2023.04/article/643e76264c59b716106a1276.PNG" width="100%"></div>
+<div class="panel">
+<img src="https://mf.b37mrtl.ru/media/pics/2023.04/article/643e76264c59b716106a1276.PNG" width="100%">
+</div>
 
 <!-- 2 -->
-<div class="panel"><img src="https://img.pikbest.com/wp/202345/hacker-skeleton-working-on-laptop-dark-background_9581815.jpg!w700wp" width="100%"></div>
+<div class="panel">
+<img src="https://img.pikbest.com/wp/202345/hacker-skeleton-working-on-laptop-dark-background_9581815.jpg!w700wp" width="100%">
+</div>
 
 <!-- 3 PASSWORD -->
 <div class="panel" id="lockBox">
@@ -142,33 +173,31 @@ audio{display:none;}
 <!-- 4 PROFILE -->
 <div class="panel profile hidden" id="box4">
 
-<div class="top-profile">
-<div class="glow-name">RAMY</div>
 <img class="avatar" src="https://xatimg.com/image/PtMzAMEPdOYG.png">
-</div>
+<div class="glow-name">RAMY</div>
 
 <div class="radio">
-<button onclick="playRadio(0)">قرآن</button>
-<button onclick="playRadio(1)">ميلودي</button>
-<button onclick="playRadio(2)">حماقي</button>
-<button onclick="playRadio(3)">منوعات</button>
+<button onclick="playRadio(0)">🎧 قرآن <span>▶</span></button>
+<button onclick="playRadio(1)">🎶 ميلودي <span>▶</span></button>
+<button onclick="playRadio(2)">🎤 حماقي <span>▶</span></button>
+<button onclick="playRadio(3)">🔥 منوعات <span>▶</span></button>
 </div>
 
-<button class="radio-toggle" onclick="toggleRadio()">▶ / ⏸</button>
+<button class="radio-toggle" onclick="toggleRadio()">▶ / ⏸ تشغيل الراديو</button>
 
 <input type="range" min="0" max="1" step="0.1"
-oninput="radio.volume=this.value">
+oninput="radio.volume=this.value" style="width:100%;margin-top:8px;">
 
 <div class="links">
-<a href="https://xat.com/2ra" target="_blank">2ra Chat <span>></span></a>
-<a href="https://xat.com/7reqa" target="_blank">7reqa Chat <span>></span></a>
-<a href="https://xat.com/trade" target="_blank">Trade Hub <span>></span></a>
-<a href="https://xat.com/cambio" target="_blank">Cambio Zone <span>></span></a>
+<a href="https://xat.com/2ra" target="_blank">🔥 2ra Chat <span>></span></a>
+<a href="https://xat.com/7reqa" target="_blank">⚡ 7reqa Chat <span>></span></a>
+<a href="https://xat.com/trade" target="_blank">💰 Trade Hub <span>></span></a>
+<a href="https://xat.com/cambio" target="_blank">🌐 Cambio Zone <span>></span></a>
 </div>
 
 </div>
 
-<!-- 5 PLAYER + 11 SONG -->
+<!-- 5 PLAYER -->
 <div class="panel hidden" id="box5">
 
 <div class="player">
@@ -184,10 +213,10 @@ oninput="radio.volume=this.value">
 
 </div>
 
-<!-- 6 VOLUME + 11 SONG -->
+<!-- 6 VOLUME -->
 <div class="panel hidden" id="box6">
 
-<h4>🔊 الصوت</h4>
+<h3>🔊 التحكم في الصوت</h3>
 <input type="range" min="0" max="1" step="0.1"
 oninput="audio.volume=this.value">
 
@@ -252,7 +281,7 @@ else list2.innerHTML+=div;
 function play(i){
 audio.src=songs[i][1];
 audio.play();
-document.getElementById("title").innerText=songs[i][0];
+title.innerText=songs[i][0];
 }
 
 function toggle(){audio.paused?audio.play():audio.pause();}
