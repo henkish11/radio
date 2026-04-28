@@ -34,7 +34,7 @@ body{
   box-shadow:0 0 15px rgba(0,255,255,0.08);
 }
 
-/* HOVER ZOOM (except name) */
+/* HOVER ZOOM */
 .panel:hover,
 .song:hover,
 .radio button:hover,
@@ -44,68 +44,123 @@ body{
   box-shadow:0 0 20px rgba(0,255,255,0.4);
 }
 
-.glow-name:hover{transform:none!important;}
-
-/* HACKER IMAGE BOX */
+/* IMAGE BOX */
 .hacker-box img{
   width:100%;
   height:100%;
   object-fit:cover;
 }
 
-/* PROFILE */
-.profile{text-align:center;}
+/* =========================
+   ⭐ PROFILE (فخم)
+========================= */
+
+.profile{
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
 
 .avatar{
-  width:110px;
+  width:120px;
+  height:120px;
   border-radius:50%;
-  border:2px solid #00f5ff;
+  border:3px solid #00f5ff;
+  box-shadow:0 0 25px #00f5ff,0 0 60px #00ffcc;
+  animation:avatarGlow 2s infinite alternate;
+}
+
+@keyframes avatarGlow{
+  from{transform:scale(1); box-shadow:0 0 20px #00f5ff;}
+  to{transform:scale(1.05); box-shadow:0 0 45px #00ffcc;}
 }
 
 .glow-name{
-  font-size:32px;
+  margin-top:10px;
+  font-size:34px;
   font-weight:bold;
   color:#00f5ff;
-  animation:pulse 1.5s infinite;
-  text-shadow:0 0 10px #00f5ff,0 0 20px #00f5ff;
+  text-shadow:0 0 10px #00f5ff,0 0 25px #00ffcc,0 0 40px #00f5ff;
+  animation:blink 1.5s infinite;
 }
 
-@keyframes pulse{
-  0%{opacity:1;transform:scale(1);}
-  50%{opacity:0.4;transform:scale(1.1);}
-  100%{opacity:1;transform:scale(1);}
+@keyframes blink{
+  0%,100%{opacity:1}
+  50%{opacity:0.4}
 }
 
-/* RADIO */
+/* =========================
+   ⭐ RADIO (أفخم)
+========================= */
+
 .radio{
   display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:5px;
+  flex-direction:column;
+  gap:8px;
+  margin-top:10px;
 }
 
 .radio button{
-  background:#00f5ff;
+  background:linear-gradient(90deg,#00f5ff,#00ffcc);
   border:none;
-  padding:5px 8px;
-  font-size:11px;
+  padding:10px;
+  border-radius:8px;
   cursor:pointer;
+  font-weight:bold;
+  transition:0.3s;
+  box-shadow:0 0 10px #00f5ff33;
 }
 
-/* LINKS */
+.radio button:hover{
+  transform:scale(1.08);
+  box-shadow:0 0 25px #00f5ff;
+}
+
+.radio-toggle{
+  width:100%;
+  padding:12px;
+  background:#00ffcc;
+  border:none;
+  border-radius:8px;
+  margin-top:6px;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 0 15px #00ffcc55;
+}
+
+/* =========================
+   ⭐ LINKS (أفخم)
+========================= */
+
 .links{
   display:flex;
   flex-direction:column;
   gap:6px;
-  margin-top:8px;
+  margin-top:10px;
 }
 
 .links a{
-  color:#00ffcc;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px;
+  margin:5px 0;
+  border-radius:8px;
+  background:rgba(0,255,255,0.08);
+  border:1px solid #00f5ff33;
   text-decoration:none;
-  padding:6px;
-  background:#00f5ff11;
-  border-radius:6px;
+  color:#00ffcc;
+  font-weight:bold;
+  transition:0.3s;
+  box-shadow:0 0 10px rgba(0,255,255,0.1);
+}
+
+.links a:hover{
+  transform:scale(1.07);
+  background:rgba(0,255,255,0.2);
+  box-shadow:0 0 25px #00f5ff;
 }
 
 /* SONGS */
@@ -178,7 +233,6 @@ body{
 }
 
 audio{display:none;}
-
 .hidden{display:none;}
 
 </style>
@@ -224,48 +278,22 @@ audio{display:none;}
 <button onclick="playRadio(3)">🔥 منوعات</button>
 </div>
 
-<button onclick="toggleRadio()" style="margin-top:5px;background:#00ffcc;border:none;padding:5px;cursor:pointer;">
-▶ / ⏸
-</button>
-
-<div style="margin-top:10px;text-align:center;">
-<div style="font-size:12px;">🔊 RADIO VOLUME</div>
-<input type="range" min="0" max="1" step="0.1"
-oninput="radio.volume=this.value" style="width:80%;">
-</div>
+<button class="radio-toggle" onclick="toggleRadio()">▶ / ⏸</button>
 
 <div class="links">
-<a href="https://xat.com/2ra" target="_blank">🔥 2ra Chat</a>
-<a href="https://xat.com/7reqa" target="_blank">⚡ 7reqa Chat</a>
-<a href="https://xat.com/trade" target="_blank">💰 Trade Hub</a>
-<a href="https://xat.com/cambio" target="_blank">🌐 Cambio Zone</a>
+<a href="https://xat.com/2ra" target="_blank">🔥 2ra Chat ></a>
+<a href="https://xat.com/7reqa" target="_blank">⚡ 7reqa Chat ></a>
+<a href="https://xat.com/trade" target="_blank">💰 Trade ></a>
+<a href="https://xat.com/cambio" target="_blank">🌐 Cambio ></a>
 </div>
 
 </div>
 
 <!-- 5 -->
-<div class="panel hidden" id="box5">
-
-<div class="player">
-<div id="title">NO SONG</div>
-<button onclick="toggle()">▶ / ⏸</button>
-
-<div class="seek" onclick="seek(event)">
-<div id="fill"></div>
-</div>
-
-<input class="volume" type="range" min="0" max="1" step="0.1" onchange="audio.volume=this.value">
-
-</div>
-
-<div id="list1"></div>
-
-</div>
+<div class="panel hidden" id="box5"></div>
 
 <!-- 6 -->
-<div class="panel hidden" id="box6">
-<div id="list2"></div>
-</div>
+<div class="panel hidden" id="box6"></div>
 
 </div>
 
@@ -283,8 +311,6 @@ let radios=[
 "https://stream.zeno.fm/hswv0qwu7vgtv"
 ];
 
-radio.volume=0.6;
-
 function playRadio(i){
 radio.src=radios[i];
 radio.play();
@@ -294,73 +320,13 @@ function toggleRadio(){
 radio.paused?radio.play():radio.pause();
 }
 
-/* SONGS */
-let songs=[
-["نفسي أطمن بيك","https://j.top4top.io/m_3769le8x51.mp3"],
-["الشعر الأسود","https://k.top4top.io/m_3769enq6z2.mp3"],
-["حبي الأولاني","https://l.top4top.io/m_3769auk3d3.mp3"],
-["كوابيس","https://a.top4top.io/m_3769kdadn4.mp3"],
-["مش تمام","https://b.top4top.io/m_3769kg8sd5.mp3"],
-["مشوار الحب","https://c.top4top.io/m_3769ien0c6.mp3"],
-["صاحبة الجلالة","https://d.top4top.io/m_3769yw3257.mp3"],
-["عملالي عمل","https://e.top4top.io/m_3769yb3k29.mp3"],
-["بحبها","https://f.top4top.io/m_37690zriz10.mp3"],
-["فيكي سر","https://b.top4top.io/m_3769lxi681.mp3"],
-["حياتي قصيدة","https://c.top4top.io/m_3769g0kg52.mp3"],
-["لسه","https://d.top4top.io/m_3769xz8mi3.mp3"],
-["مش زي غيرها","https://e.top4top.io/m_3769o93s34.mp3"],
-["نسند بعض","https://f.top4top.io/m_3769c3tql5.mp3"],
-["وش السعد","https://g.top4top.io/m_3769r7bcu6.mp3"],
-["يا حظ بيه","https://l.top4top.io/m_3769p7dkd1.mp3"],
-["ياللي ناسيني","https://a.top4top.io/m_37697muuj2.mp3"],
-["هلوسة","https://b.top4top.io/m_3769i9yd13.mp3"],
-["قصة حب","https://c.top4top.io/m_3769ou0bt4.mp3"],
-["ذكريات","https://d.top4top.io/m_37697zirj5.mp3"],
-["حبيتك ليه","https://e.top4top.io/m_3769rnmrk6.mp3"],
-["توأمي","https://d.top4top.io/m_3769a1jgw1.mp3"]
-];
-
-let audio=document.getElementById("audio");
-let index=0;
-
-let list1=document.getElementById("list1");
-let list2=document.getElementById("list2");
-
-for(let i=0;i<11;i++){
-list1.innerHTML+=`<div class="song">${songs[i][0]} <button onclick="play(${i})">▶</button></div>`;
-}
-
-for(let i=11;i<songs.length;i++){
-list2.innerHTML+=`<div class="song">${songs[i][0]} <button onclick="play(${i})">▶</button></div>`;
-}
-
-function play(i){
-audio.src=songs[i][1];
-audio.play();
-index=i;
-document.getElementById("title").innerText=songs[i][0];
-}
-
-function toggle(){
-audio.paused?audio.play():audio.pause();
-}
-
-function seek(e){
-let pos=e.offsetX/e.currentTarget.offsetWidth;
-audio.currentTime=pos*audio.duration;
-}
-
-audio.ontimeupdate=function(){
-document.getElementById("fill").style.width=
-(audio.currentTime/audio.duration)*100+"%";
-};
-
+/* PASSWORD */
 function check(){
 if(pass.value==="106080"){
 document.getElementById("lock").style.display="none";
-document.getElementById("box4").classList.remove("hidden");
-document.getElementById("box5").classList.remove("hidden");
-document.getElementById("box6").classList.remove("hidden");
+box4.classList.remove("hidden");
+box5.classList.remove("hidden");
+box6.classList.remove("hidden");
 }else alert("WRONG PASSWORD");
 }
 
