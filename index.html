@@ -33,32 +33,52 @@ body{
   transition:0.3s;
 }
 
-/* 🔥 GLOW ON HOVER */
 .panel:hover,
 .song:hover,
-a:hover,
-button:hover{
-  box-shadow:0 0 20px #00f5ff;
+.radio button:hover,
+.links a:hover{
   transform:scale(1.03);
-  color:#00ffff;
 }
 
-/* PROFILE */
+/* BOX 4 */
 .profile{
-  text-align:center;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
 }
 
-.avatar{
-  width:110px;
-  border-radius:50%;
-  border:2px solid #00f5ff;
+.glow-name{
+  font-size:24px;
+  text-shadow:0 0 10px #00f5ff;
+  animation:pulse 1.5s infinite;
 }
 
-.glow{
-  text-shadow:0 0 10px #00f5ff,0 0 25px #00ffcc;
+@keyframes pulse{
+  50%{opacity:0.5}
 }
 
-/* SONG */
+/* RADIO */
+.radio button{
+  background:#00f5ff22;
+  border:1px solid #00f5ff55;
+  color:#00f5ff;
+  padding:8px;
+  margin:3px 0;
+  cursor:pointer;
+}
+
+/* LINKS */
+.links a{
+  display:flex;
+  justify-content:space-between;
+  padding:8px;
+  margin:3px 0;
+  background:#00f5ff11;
+  text-decoration:none;
+  color:#00ffcc;
+}
+
+/* SONGS */
 .song{
   display:flex;
   justify-content:space-between;
@@ -66,6 +86,12 @@ button:hover{
   margin:3px 0;
   background:#00f5ff11;
   font-size:11px;
+}
+
+.song button{
+  background:#00f5ff;
+  border:none;
+  cursor:pointer;
 }
 
 /* PLAYER */
@@ -82,27 +108,10 @@ button:hover{
   background:#00ffcc;
 }
 
-/* BUTTONS */
-.btn{
-  background:#00f5ff;
-  border:none;
-  padding:6px;
-  margin:3px;
-  cursor:pointer;
+.volume{
+  width:100%;
 }
 
-/* LINKS */
-.links a{
-  display:flex;
-  justify-content:space-between;
-  padding:6px;
-  margin:4px 0;
-  text-decoration:none;
-  color:#00ffcc;
-  background:#00f5ff11;
-}
-
-/* AUDIO */
 audio{display:none;}
 
 </style>
@@ -112,70 +121,65 @@ audio{display:none;}
 
 <div class="dashboard">
 
-<!-- 1 PROFILE -->
-<div class="panel profile glow">
-<img class="avatar" src="https://xatimg.com/image/PtMzAMEPdOYG.png">
-<h2>RAMY</h2>
+<!-- 1 -->
+<div class="panel">
+<img src="https://mf.b37mrtl.ru/media/pics/2023.04/article/643e76264c59b716106a1276.PNG" style="width:100%;height:100%;object-fit:cover;">
 </div>
 
-<!-- 2 IMAGE -->
+<!-- 2 -->
 <div class="panel">
-<img src="https://mf.b37mrtl.ru/media/pics/2023.04/article/643e76264c59b716106a1276.PNG"
-style="width:100%;height:100%;object-fit:cover;">
+<img src="https://img.pikbest.com/wp/202345/hacker-skeleton-working-on-laptop-dark-background_9581815.jpg!w700wp" style="width:100%;height:100%;object-fit:cover;">
 </div>
 
-<!-- 3 IMAGE -->
+<!-- 3 -->
 <div class="panel">
-<img src="https://img.pikbest.com/wp/202345/hacker-skeleton-working-on-laptop-dark-background_9581815.jpg!w700wp"
-style="width:100%;height:100%;object-fit:cover;">
+<img src="https://img.pikbest.com/backgrounds/20250126/guarding-your-digital-life-power-of-passwords-smarter-password-practices_11452980.jpg!f305cw" style="width:100%;height:100%;object-fit:cover;">
 </div>
 
 <!-- 4 RADIO + LINKS -->
-<div class="panel glow">
+<div class="panel profile">
 
-<h4>📻 RADIO CONTROL</h4>
+<div class="glow-name">RAMY</div>
 
-<button class="btn" onclick="toggleRadio()">▶ / ⏸</button>
-<button class="btn" onclick="radio.volume+=0.1">🔊 +</button>
-<button class="btn" onclick="radio.volume-=0.1">🔉 -</button>
+<div class="radio">
+<button onclick="playRadio(0)">🎧 قرآن</button>
+<button onclick="playRadio(1)">🎶 ميلودي</button>
+<button onclick="playRadio(2)">🎤 حماقي</button>
+<button onclick="playRadio(3)">🔥 منوعات</button>
+</div>
 
-<br>
+<button onclick="toggleRadio()" style="background:#00f5ff;border:none;padding:6px;">
+▶ / ⏸ RADIO
+</button>
 
-<div class="links glow">
-<a href="https://xat.com/2ra">2ra Chat ></a>
-<a href="https://xat.com/7reqa">7reqa Chat ></a>
-<a href="https://xat.com/trade">Trade Hub ></a>
-<a href="https://xat.com/cambio">Zone ></a>
+<div class="links">
+<a href="#">2RA CHAT <span>></span></a>
+<a href="#">7REQA CHAT <span>></span></a>
+<a href="#">TRADE <span>></span></a>
+<a href="#">CAMBIO <span>></span></a>
 </div>
 
 </div>
 
-<!-- 5 PLAYER -->
-<div class="panel glow">
-<div id="title">NO SONG</div>
-
-<button class="btn" onclick="toggle()">▶ / ⏸</button>
+<!-- 5 SONGS 1 -->
+<div class="panel" id="box5">
+<div id="list1"></div>
 
 <div class="seek" onclick="seek(event)">
 <div id="fill"></div>
 </div>
 
-<div id="list1"></div>
+<input class="volume" type="range" min="0" max="1" step="0.1" oninput="audio.volume=this.value">
+
+<button onclick="toggle()">▶ / ⏸</button>
+<div id="title">NO SONG</div>
 </div>
 
-<!-- 6 CONTROL -->
-<div class="panel glow">
-
-<h4>🔊 MASTER CONTROL</h4>
-
-<button class="btn" onclick="audio.play()">▶ ALL</button>
-<button class="btn" onclick="audio.pause()">⏸ STOP</button>
-
-<button class="btn" onclick="audio.volume+=0.1">🔊 UP</button>
-<button class="btn" onclick="audio.volume-=0.1">🔉 DOWN</button>
-
+<!-- 6 SONGS 2 -->
+<div class="panel" id="box6">
 <div id="list2"></div>
 
+<input class="volume" type="range" min="0" max="1" step="0.1" oninput="audio.volume=this.value">
 </div>
 
 </div>
@@ -185,10 +189,8 @@ style="width:100%;height:100%;object-fit:cover;">
 
 <script>
 
-let audio=document.getElementById("audio");
 let radio=document.getElementById("radio");
 
-/* RADIO */
 let radios=[
 "https://stream.radiojar.com/8s5u5tpdtwzuv",
 "https://audio.nrpstream.com/listen/nogoumfm/radio.mp3",
@@ -196,11 +198,16 @@ let radios=[
 "https://stream.zeno.fm/hswv0qwu7vgtv"
 ];
 
+function playRadio(i){
+radio.src=radios[i];
+radio.play();
+}
+
 function toggleRadio(){
 radio.paused?radio.play():radio.pause();
 }
 
-/* SONGS (UNCHANGED) */
+/* SONGS */
 let songs=[
 ["نفسي أطمن بيك","https://j.top4top.io/m_3769le8x51.mp3"],
 ["الشعر الأسود","https://k.top4top.io/m_3769enq6z2.mp3"],
@@ -226,10 +233,12 @@ let songs=[
 ["توأمي","https://d.top4top.io/m_3769a1jgw1.mp3"]
 ];
 
+let audio=document.getElementById("audio");
+
 songs.forEach((s,i)=>{
-let el=`<div class="song glow">${s[0]} <button onclick="play(${i})">▶</button></div>`;
-if(i<11) list1.innerHTML+=el;
-else list2.innerHTML+=el;
+let div=`<div class="song">${s[0]} <button onclick="play(${i})">▶</button></div>`;
+if(i<11) document.getElementById("list1").innerHTML+=div;
+else document.getElementById("list2").innerHTML+=div;
 });
 
 function play(i){
@@ -238,20 +247,19 @@ audio.play();
 document.getElementById("title").innerText=songs[i][0];
 }
 
-/* SEEK BAR */
+function toggle(){
+audio.paused?audio.play():audio.pause();
+}
+
 function seek(e){
-let pos=e.offsetX/e.currentTarget.offsetWidth;
-audio.currentTime=pos*audio.duration;
+let p=e.offsetX/e.currentTarget.offsetWidth;
+audio.currentTime=p*audio.duration;
 }
 
 audio.ontimeupdate=function(){
 document.getElementById("fill").style.width=
 (audio.currentTime/audio.duration)*100+"%";
 };
-
-function toggle(){
-audio.paused?audio.play():audio.pause();
-}
 
 </script>
 
