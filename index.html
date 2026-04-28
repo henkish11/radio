@@ -32,20 +32,13 @@ body{
   overflow:auto;
 }
 
-/* HOVER */
-.panel:hover{
-  transform:scale(1.02);
-  box-shadow:0 0 20px #00f5ff;
+/* GLOW TEXT */
+.glow{
+  text-shadow:0 0 8px #00f5ff,0 0 20px #00ffcc;
+  color:#00f5ff;
 }
 
-/* IMAGES */
-.panel img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-/* 🔥 المربع الأول (صورة + اسم) */
+/* PROFILE */
 .profile{
   display:flex;
   flex-direction:column;
@@ -54,32 +47,29 @@ body{
   text-align:center;
 }
 
-/* ✨ صورة أصغر */
+/* 🔥 صورة أصغر جدًا */
 .avatar{
-  width:60px;
-  height:60px;
+  width:45px;
+  height:45px;
   border-radius:50%;
   border:2px solid #00f5ff;
   box-shadow:0 0 15px #00f5ff;
 }
 
-/* ✨ الاسم ظاهر ومتوَهّج */
+/* الاسم */
 .name{
   margin-top:8px;
-  font-size:28px;
+  font-size:26px;
   font-weight:bold;
-  color:#00f5ff;
-  text-shadow:0 0 10px #00f5ff,0 0 25px #00ffcc;
 }
 
-/* SONGS */
+/* SONG */
 .song{
   display:flex;
   justify-content:space-between;
   padding:6px;
   margin:4px 0;
   background:#00f5ff11;
-  font-size:11px;
 }
 
 .song button{
@@ -108,27 +98,20 @@ body{
 
 .volume{
   width:100%;
+  margin-top:5px;
 }
 
-/* RADIO */
-.radio button{
-  width:100%;
-  padding:8px;
-  margin:4px 0;
-  background:#00f5ff11;
+/* BUTTONS */
+.btn{
+  background:#00f5ff;
   border:none;
-  color:#00ffcc;
-}
-
-.radio-toggle{
-  width:100%;
-  padding:10px;
-  background:#00ffcc;
-  border:none;
-  margin:6px 0;
+  padding:6px;
+  margin:3px;
   cursor:pointer;
+  font-weight:bold;
 }
 
+/* LINKS */
 .links a{
   display:flex;
   justify-content:space-between;
@@ -149,100 +132,112 @@ audio{display:none;}
 <div class="dashboard">
 
 <!-- 1 PROFILE -->
-<div class="panel profile">
+<div class="panel profile glow">
 <img class="avatar" src="https://xatimg.com/image/PtMzAMEPdOYG.png">
-<div class="name">RAMY</div>
+<div class="name glow">RAMY</div>
 </div>
 
-<!-- 2 IMAGE -->
-<div class="panel">
-<img src="https://mf.b37mrtl.ru/media/pics/2023.04/article/643e76264c59b716106a1276.PNG">
+<!-- 2 -->
+<div class="panel glow">
+HACK SYSTEM ACTIVE
 </div>
 
-<!-- 3 IMAGE -->
-<div class="panel">
-<img src="https://img.pikbest.com/wp/202345/hacker-skeleton-working-on-laptop-dark-background_9581815.jpg!w700wp">
+<!-- 3 -->
+<div class="panel glow">
+SECURE CORE ONLINE
 </div>
 
 <!-- 4 RADIO + LINKS -->
-<div class="panel">
+<div class="panel glow">
 
-<div class="radio">
-<button>🎧 قرآن</button>
-<button>🎶 ميلودي</button>
-<button>🎤 حماقي</button>
-<button>🔥 منوعات</button>
+<div class="links glow">
+<a href="https://xat.com/2ra" target="_blank">🔥 2ra Chat</a>
+<a href="https://xat.com/7reqa" target="_blank">⚡ 7reqa Chat</a>
+<a href="https://xat.com/trade" target="_blank">💰 Trade Hub</a>
+<a href="https://xat.com/cambio" target="_blank">🌐 Cambio Zone</a>
 </div>
 
-<button class="radio-toggle">▶ / ⏸ RADIO</button>
-
-<input type="range" min="0" max="1" step="0.1">
-
-<div class="links">
-<a href="#">Chat 1 ></a>
-<a href="#">Chat 2 ></a>
-<a href="#">Trade ></a>
-<a href="#">Zone ></a>
-</div>
+<!-- RADIO CONTROL -->
+<button class="btn" onclick="toggleRadio()">▶ / ⏸ Radio</button>
+<button class="btn" onclick="radio.volume+=0.1">🔊 +</button>
+<button class="btn" onclick="radio.volume-=0.1">🔉 -</button>
+<button class="btn" onclick="radio.play()">🔁 Auto Play</button>
 
 </div>
 
 <!-- 5 SONGS -->
-<div class="panel" id="box5">
+<div class="panel" id="box5 glow">
 <div id="list1"></div>
 </div>
 
 <!-- 6 SONGS -->
-<div class="panel" id="box6">
+<div class="panel" id="box6 glow">
 <div id="list2"></div>
 </div>
 
 </div>
 
 <audio id="audio"></audio>
+<audio id="radio"></audio>
 
 <script>
 
 let audio=document.getElementById("audio");
+let radio=document.getElementById("radio");
 
+/* RADIO */
+let radios=[
+"https://stream.radiojar.com/8s5u5tpdtwzuv",
+"https://audio.nrpstream.com/listen/nogoumfm/radio.mp3"
+];
+
+function toggleRadio(){
+radio.paused?radio.play():radio.pause();
+}
+
+/* SONGS */
 let songs=[
-["1","https://j.top4top.io/m_3769le8x51.mp3"],
-["2","https://k.top4top.io/m_3769enq6z2.mp3"],
-["3","https://l.top4top.io/m_3769auk3d3.mp3"],
-["4","https://a.top4top.io/m_3769kdadn4.mp3"],
-["5","https://b.top4top.io/m_3769kg8sd5.mp3"],
-["6","https://c.top4top.io/m_3769ien0c6.mp3"],
-["7","https://d.top4top.io/m_3769yw3257.mp3"],
-["8","https://e.top4top.io/m_3769yb3k29.mp3"],
-["9","https://f.top4top.io/m_37690zriz10.mp3"],
-["10","https://b.top4top.io/m_3769lxi681.mp3"],
-["11","https://c.top4top.io/m_3769g0kg52.mp3"],
-["12","https://d.top4top.io/m_3769xz8mi3.mp3"],
-["13","https://e.top4top.io/m_3769o93s34.mp3"],
-["14","https://f.top4top.io/m_3769c3tql5.mp3"],
-["15","https://g.top4top.io/m_3769r7bcu6.mp3"],
-["16","https://l.top4top.io/m_3769p7dkd1.mp3"],
-["17","https://a.top4top.io/m_37697muuj2.mp3"],
-["18","https://b.top4top.io/m_3769i9yd13.mp3"],
-["19","https://c.top4top.io/m_3769ou0bt4.mp3"],
-["20","https://d.top4top.io/m_37697zirj5.mp3"],
-["21","https://e.top4top.io/m_3769rnmrk6.mp3"],
-["22","https://d.top4top.io/m_3769a1jgw1.mp3"]
+["Song 1","https://j.top4top.io/m_3769le8x51.mp3"],
+["Song 2","https://k.top4top.io/m_3769enq6z2.mp3"],
+["Song 3","https://l.top4top.io/m_3769auk3d3.mp3"],
+["Song 4","https://a.top4top.io/m_3769kdadn4.mp3"],
+["Song 5","https://b.top4top.io/m_3769kg8sd5.mp3"],
+["Song 6","https://c.top4top.io/m_3769ien0c6.mp3"],
+["Song 7","https://d.top4top.io/m_3769yw3257.mp3"],
+["Song 8","https://e.top4top.io/m_3769yb3k29.mp3"],
+["Song 9","https://f.top4top.io/m_37690zriz10.mp3"],
+["Song 10","https://b.top4top.io/m_3769lxi681.mp3"],
+["Song 11","https://c.top4top.io/m_3769g0kg52.mp3"],
+["Song 12","https://d.top4top.io/m_3769xz8mi3.mp3"],
+["Song 13","https://e.top4top.io/m_3769o93s34.mp3"],
+["Song 14","https://f.top4top.io/m_3769c3tql5.mp3"],
+["Song 15","https://g.top4top.io/m_3769r7bcu6.mp3"],
+["Song 16","https://l.top4top.io/m_3769p7dkd1.mp3"],
+["Song 17","https://a.top4top.io/m_37697muuj2.mp3"],
+["Song 18","https://b.top4top.io/m_3769i9yd13.mp3"],
+["Song 19","https://c.top4top.io/m_3769ou0bt4.mp3"],
+["Song 20","https://d.top4top.io/m_37697zirj5.mp3"],
+["Song 21","https://e.top4top.io/m_3769rnmrk6.mp3"],
+["Song 22","https://d.top4top.io/m_3769a1jgw1.mp3"]
 ];
 
 let list1=document.getElementById("list1");
 let list2=document.getElementById("list2");
 
 songs.forEach((s,i)=>{
-let el=`<div class="song">${s[0]} <button onclick="play(${i})">▶</button></div>`;
+let el=`<div class="song glow">${s[0]} <button onclick="play(${i})">▶</button></div>`;
 if(i<11) list1.innerHTML+=el;
 else list2.innerHTML+=el;
 });
 
+/* PLAY */
 function play(i){
 audio.src=songs[i][1];
 audio.play();
 }
+
+/* AUTO */
+radio.volume=0.5;
 
 </script>
 
