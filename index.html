@@ -14,7 +14,43 @@ body{
   overflow:hidden;
 }
 
-/* GRID */
+/* 🔐 LOGIN OVERLAY */
+.login{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.75);
+  backdrop-filter: blur(6px);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+
+.login input{
+  padding:12px;
+  font-size:18px;
+  text-align:center;
+  background:transparent;
+  border:1px solid #00f5ff;
+  color:#00f5ff;
+  border-radius:8px;
+  outline:none;
+}
+
+.login button{
+  margin-top:10px;
+  padding:10px 20px;
+  background:#00f5ff;
+  border:none;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+/* GRID (نفسك) */
 .dashboard{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
@@ -30,31 +66,12 @@ body{
   border-radius:8px;
   padding:8px;
   overflow:hidden;
-  transition:0.3s;
-  box-shadow:0 0 15px rgba(0,255,255,0.08);
-}
-
-/* HOVER ZOOM (except name) */
-.panel:hover,
-.song:hover,
-.radio button:hover,
-.links a:hover,
-.player button:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 20px rgba(0,255,255,0.4);
-}
-
-.glow-name:hover{transform:none!important;}
-
-/* HACKER IMAGE BOX */
-.hacker-box img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
 }
 
 /* PROFILE */
-.profile{text-align:center;}
+.profile{
+  text-align:center;
+}
 
 .avatar{
   width:110px;
@@ -65,50 +82,10 @@ body{
 .glow-name{
   font-size:32px;
   font-weight:bold;
-  color:#00f5ff;
-  animation:pulse 1.5s infinite;
-  text-shadow:0 0 10px #00f5ff,0 0 20px #00f5ff;
+  text-shadow:0 0 10px #00f5ff,0 0 20px #00ffcc;
 }
 
-@keyframes pulse{
-  0%{opacity:1;transform:scale(1);}
-  50%{opacity:0.4;transform:scale(1.1);}
-  100%{opacity:1;transform:scale(1);}
-}
-
-/* RADIO */
-.radio{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:5px;
-}
-
-.radio button{
-  background:#00f5ff;
-  border:none;
-  padding:5px 8px;
-  font-size:11px;
-  cursor:pointer;
-}
-
-/* LINKS */
-.links{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  margin-top:8px;
-}
-
-.links a{
-  color:#00ffcc;
-  text-decoration:none;
-  padding:6px;
-  background:#00f5ff11;
-  border-radius:6px;
-}
-
-/* SONGS */
+/* SONGS (زي ما هي) */
 .song{
   display:flex;
   justify-content:space-between;
@@ -124,61 +101,18 @@ body{
   cursor:pointer;
 }
 
-/* LOCK */
-.lock{
-  position:absolute;
-  top:0;left:0;
-  width:100%;height:100%;
-  background:rgba(0,0,0,0.75);
+/* LINKS */
+.links a{
   display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  gap:10px;
-}
-
-.lock input{
-  padding:8px;
-  text-align:center;
-  background:#111;
-  border:none;
-  color:#00f5ff;
-}
-
-.lock button{
-  padding:6px 10px;
-  background:#00f5ff;
-  border:none;
-  cursor:pointer;
-}
-
-/* PLAYER */
-.player{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:6px;
-}
-
-.seek{
-  width:90%;
-  height:6px;
-  background:#111;
-  cursor:pointer;
-}
-
-#fill{
-  height:100%;
-  width:0%;
-  background:#00ffcc;
-}
-
-.volume{
-  width:90%;
+  justify-content:space-between;
+  padding:6px;
+  margin:4px 0;
+  text-decoration:none;
+  color:#00ffcc;
+  background:#00f5ff11;
 }
 
 audio{display:none;}
-
 .hidden{display:none;}
 
 </style>
@@ -186,115 +120,68 @@ audio{display:none;}
 
 <body>
 
-<div class="dashboard">
+<!-- 🔐 PASSWORD SCREEN -->
+<div class="login" id="login">
+  <h2>ENTER PASSWORD</h2>
+  <input type="password" id="pass">
+  <button onclick="check()">UNLOCK</button>
+</div>
+
+<div class="dashboard hidden" id="main">
 
 <!-- 1 -->
-<div class="panel hacker-box">
-<img src="https://mf.b37mrtl.ru/media/pics/2023.04/article/643e76264c59b716106a1276.PNG">
+<div class="panel profile">
+<img class="avatar" src="https://xatimg.com/image/PtMzAMEPdOYG.png">
+<div class="glow-name">RAMY</div>
 </div>
 
 <!-- 2 -->
-<div class="panel hacker-box">
-<img src="https://img.pikbest.com/wp/202345/hacker-skeleton-working-on-laptop-dark-background_9581815.jpg!w700wp">
+<div class="panel">
+<img style="width:100%;height:100%;object-fit:cover"
+src="https://mf.b37mrtl.ru/media/pics/2023.04/article/643e76264c59b716106a1276.PNG">
 </div>
 
-<!-- 3 LOCK -->
-<div class="panel hacker-box">
-
-<img src="https://img.pikbest.com/backgrounds/20250126/guarding-your-digital-life-power-of-passwords-smarter-password-practices_11452980.jpg!f305cw">
-
-<div class="lock" id="lock">
-<div>🔐 ENTER PASSWORD</div>
-<input type="password" id="pass">
-<button onclick="check()">UNLOCK</button>
+<!-- 3 -->
+<div class="panel">
+<img style="width:100%;height:100%;object-fit:cover"
+src="https://img.pikbest.com/wp/202345/hacker-skeleton-working-on-laptop-dark-background_9581815.jpg!w700wp">
 </div>
 
-</div>
-
-<!-- 4 PROFILE -->
-<div class="panel profile hidden" id="box4">
-
-<img class="avatar" src="https://xatimg.com/image/PtMzAMEPdOYG.png">
-<div class="glow-name">RAMY</div>
-
-<div class="radio">
-<button onclick="playRadio(0)">🎧 قرآن</button>
-<button onclick="playRadio(1)">🎶 ميلودي</button>
-<button onclick="playRadio(2)">🎤 حماقي</button>
-<button onclick="playRadio(3)">🔥 منوعات</button>
-</div>
-
-<button onclick="toggleRadio()" style="margin-top:5px;background:#00ffcc;border:none;padding:5px;cursor:pointer;">
-▶ / ⏸
-</button>
-
-<div style="margin-top:10px;text-align:center;">
-<div style="font-size:12px;">🔊 RADIO VOLUME</div>
-<input type="range" min="0" max="1" step="0.1"
-oninput="radio.volume=this.value" style="width:80%;">
-</div>
-
+<!-- 4 LINKS -->
+<div class="panel">
 <div class="links">
-<a href="https://xat.com/2ra" target="_blank">🔥 2ra Chat</a>
-<a href="https://xat.com/7reqa" target="_blank">⚡ 7reqa Chat</a>
-<a href="https://xat.com/trade" target="_blank">💰 Trade Hub</a>
-<a href="https://xat.com/cambio" target="_blank">🌐 Cambio Zone</a>
+<a href="https://xat.com/2ra">2ra Chat ></a>
+<a href="https://xat.com/7reqa">7reqa Chat ></a>
+<a href="https://xat.com/trade">Trade Hub ></a>
+<a href="https://xat.com/cambio">Cambio Zone ></a>
 </div>
-
 </div>
 
 <!-- 5 -->
-<div class="panel hidden" id="box5">
-
-<div class="player">
-<div id="title">NO SONG</div>
-<button onclick="toggle()">▶ / ⏸</button>
-
-<div class="seek" onclick="seek(event)">
-<div id="fill"></div>
-</div>
-
-<input class="volume" type="range" min="0" max="1" step="0.1" onchange="audio.volume=this.value">
-
-</div>
-
+<div class="panel" id="box5">
 <div id="list1"></div>
-
 </div>
 
 <!-- 6 -->
-<div class="panel hidden" id="box6">
+<div class="panel" id="box6">
 <div id="list2"></div>
 </div>
 
 </div>
 
 <audio id="audio"></audio>
-<audio id="radio"></audio>
 
 <script>
 
-let radio=document.getElementById("radio");
-
-let radios=[
-"https://stream.radiojar.com/8s5u5tpdtwzuv",
-"https://audio.nrpstream.com/listen/nogoumfm/radio.mp3",
-"https://stream.zeno.fm/w7atxdpk1pdvv",
-"https://stream.zeno.fm/hswv0qwu7vgtv"
-];
-
-radio.volume=0.6;
-
-function playRadio(i){
-radio.src=radios[i];
-radio.play();
+/* 🔐 PASSWORD ONLY */
+function check(){
+if(document.getElementById("pass").value==="106080"){
+document.getElementById("login").style.display="none";
+document.getElementById("main").classList.remove("hidden");
+}else alert("WRONG PASSWORD");
 }
 
-function toggleRadio(){
-radio.paused?radio.play():radio.pause();
-}
-
-/* SONGS */
+/* 🎵 SAME EXACT SONGS (NO CHANGE) */
 let songs=[
 ["نفسي أطمن بيك","https://j.top4top.io/m_3769le8x51.mp3"],
 ["الشعر الأسود","https://k.top4top.io/m_3769enq6z2.mp3"],
@@ -321,47 +208,20 @@ let songs=[
 ];
 
 let audio=document.getElementById("audio");
-let index=0;
 
 let list1=document.getElementById("list1");
 let list2=document.getElementById("list2");
 
-for(let i=0;i<11;i++){
-list1.innerHTML+=`<div class="song">${songs[i][0]} <button onclick="play(${i})">▶</button></div>`;
-}
-
-for(let i=11;i<songs.length;i++){
-list2.innerHTML+=`<div class="song">${songs[i][0]} <button onclick="play(${i})">▶</button></div>`;
-}
+/* split 11 + 11 */
+songs.forEach((s,i)=>{
+let el=`<div class="song">${s[0]} <button onclick="play(${i})">▶</button></div>`;
+if(i<11) list1.innerHTML+=el;
+else list2.innerHTML+=el;
+});
 
 function play(i){
 audio.src=songs[i][1];
 audio.play();
-index=i;
-document.getElementById("title").innerText=songs[i][0];
-}
-
-function toggle(){
-audio.paused?audio.play():audio.pause();
-}
-
-function seek(e){
-let pos=e.offsetX/e.currentTarget.offsetWidth;
-audio.currentTime=pos*audio.duration;
-}
-
-audio.ontimeupdate=function(){
-document.getElementById("fill").style.width=
-(audio.currentTime/audio.duration)*100+"%";
-};
-
-function check(){
-if(pass.value==="106080"){
-document.getElementById("lock").style.display="none";
-document.getElementById("box4").classList.remove("hidden");
-document.getElementById("box5").classList.remove("hidden");
-document.getElementById("box6").classList.remove("hidden");
-}else alert("WRONG PASSWORD");
 }
 
 </script>
