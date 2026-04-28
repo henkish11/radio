@@ -7,134 +7,113 @@
 
 <style>
 body{
-  margin:0;
-  font-family:Arial;
-  background:radial-gradient(circle at top,#0a0f1f,#05060a);
-  color:#00f5ff;
-  overflow:hidden;
+margin:0;
+font-family:Arial;
+background:radial-gradient(circle at top,#0a0f1f,#05060a);
+color:#00f5ff;
+overflow:hidden;
 }
 
-/* GRID */
 .dashboard{
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  grid-template-rows:230px 1fr;
-  height:100vh;
-  gap:6px;
-  padding:6px;
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+grid-template-rows:230px 1fr;
+height:100vh;
+gap:6px;
+padding:6px;
 }
 
 .panel{
-  background:rgba(0,0,0,0.65);
-  border:1px solid #00f5ff22;
-  border-radius:8px;
-  padding:8px;
-  overflow:hidden;
-  transition:0.3s;
+background:rgba(0,0,0,0.65);
+border:1px solid #00f5ff22;
+border-radius:8px;
+padding:8px;
+overflow:hidden;
+transition:0.3s;
+box-shadow:0 0 10px rgba(0,255,255,0.1);
 }
 
-/* HOVER GLOW */
-.panel:hover,.song:hover,.radio button:hover,.links a:hover{
-  transform:scale(1.03);
-  box-shadow:0 0 20px #00f5ff55;
+.panel:hover{
+transform:scale(1.02);
+box-shadow:0 0 18px #00f5ff55;
 }
 
-/* BOX 1 PROFILE */
+/* BOX 1 */
 .profile{text-align:center;}
 
 .avatar{
-  width:80px;
-  border-radius:50%;
-  border:2px solid #00f5ff;
-  box-shadow:0 0 15px #00f5ff;
+width:70px;
+border-radius:50%;
+border:2px solid #00f5ff;
+box-shadow:0 0 10px #00f5ff;
 }
 
 .glow-name{
-  font-size:28px;
-  margin-top:5px;
-  text-shadow:0 0 10px #00f5ff;
-  animation:pulse 1.5s infinite;
+font-size:22px;
+animation:pulse 1.5s infinite;
+text-shadow:0 0 10px #00f5ff;
 }
 
 @keyframes pulse{
-  0%,100%{opacity:1}
-  50%{opacity:0.4}
+0%,100%{opacity:1}
+50%{opacity:0.4}
 }
 
 /* LINKS */
-.links{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  margin-top:8px;
-}
-
 .links a{
-  text-decoration:none;
-  color:#00ffcc;
-  padding:6px;
-  background:#00f5ff11;
-  border-radius:6px;
-  transition:0.3s;
+display:block;
+text-decoration:none;
+color:#00ffcc;
+padding:6px;
+margin:4px 0;
+background:#00f5ff11;
+border-radius:6px;
+transition:0.3s;
 }
 
 .links a:hover{
-  background:#00f5ff33;
-  transform:scale(1.05);
+transform:scale(1.05);
+background:#00f5ff33;
 }
 
 /* RADIO */
-.radio{
-  display:flex;
-  flex-wrap:wrap;
-  gap:5px;
-  justify-content:center;
-}
-
 .radio button{
-  background:#00f5ff;
-  border:none;
-  padding:5px;
-  cursor:pointer;
+background:#00f5ff;
+border:none;
+padding:5px;
+margin:3px;
+cursor:pointer;
 }
 
-/* SONGS */
+/* SONG */
 .song{
-  display:flex;
-  justify-content:space-between;
-  padding:5px;
-  margin:3px 0;
-  background:#00f5ff11;
-  font-size:12px;
+display:flex;
+justify-content:space-between;
+padding:5px;
+margin:3px 0;
+background:#00f5ff11;
+font-size:11px;
 }
 
 .song button{
-  background:#00f5ff;
-  border:none;
-  cursor:pointer;
+background:#00f5ff;
+border:none;
+cursor:pointer;
 }
 
 /* PLAYER */
-.player{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-}
-
 .seek{
-  width:95%;
-  height:6px;
-  background:#111;
-  cursor:pointer;
+width:95%;
+height:6px;
+background:#111;
+cursor:pointer;
 }
 
 #fill{
-  height:100%;
-  width:0%;
-  background:#00ffcc;
+height:100%;
+width:0%;
+background:#00ffcc;
 }
-
-.hidden{display:none;}
 
 audio{display:none;}
 
@@ -152,18 +131,16 @@ audio{display:none;}
 </div>
 
 <!-- 2 -->
-<div class="panel">SYSTEM BOX</div>
+<div class="panel">SYSTEM</div>
 
 <!-- 3 -->
-<div class="panel">LOGIN / SYSTEM</div>
+<div class="panel">LOGIN AREA</div>
 
 <!-- 4 RADIO + LINKS -->
 <div class="panel">
 
 <div class="radio">
-<button onclick="playRadio(0)">Radio 1</button>
-<button onclick="playRadio(1)">Radio 2</button>
-<button onclick="playRadio(2)">Radio 3</button>
+<button onclick="playRadio(0)">Radio</button>
 <button onclick="toggleRadio()">▶/⏸</button>
 </div>
 
@@ -176,13 +153,12 @@ audio{display:none;}
 
 </div>
 
-<!-- 5 SONGS 1 -->
+<!-- 5 SONGS -->
 <div class="panel">
-<button onclick="playAll()">▶ Play All</button>
 <div id="list1"></div>
 </div>
 
-<!-- 6 SONGS 2 -->
+<!-- 6 SONGS -->
 <div class="panel">
 <div id="list2"></div>
 </div>
@@ -197,9 +173,7 @@ audio{display:none;}
 let radio=document.getElementById("radio");
 
 let radios=[
-"https://stream.radiojar.com/8s5u5tpdtwzuv",
-"https://audio.nrpstream.com/listen/nogoumfm/radio.mp3",
-"https://stream.zeno.fm/w7atxdpk1pdvv"
+"https://stream.radiojar.com/8s5u5tpdtwzuv"
 ];
 
 function playRadio(i){
@@ -213,28 +187,28 @@ radio.paused?radio.play():radio.pause();
 
 /* 22 SONGS */
 let songs=[
-["Song 1","https://j.top4top.io/m_3769le8x51.mp3"],
-["Song 2","https://k.top4top.io/m_3769enq6z2.mp3"],
-["Song 3","https://l.top4top.io/m_3769auk3d3.mp3"],
-["Song 4","https://a.top4top.io/m_3769kdadn4.mp3"],
-["Song 5","https://b.top4top.io/m_3769kg8sd5.mp3"],
-["Song 6","https://c.top4top.io/m_3769ien0c6.mp3"],
-["Song 7","https://d.top4top.io/m_3769yw3257.mp3"],
-["Song 8","https://e.top4top.io/m_3769yb3k29.mp3"],
-["Song 9","https://f.top4top.io/m_37690zriz10.mp3"],
-["Song 10","https://b.top4top.io/m_3769lxi681.mp3"],
-["Song 11","https://c.top4top.io/m_3769g0kg52.mp3"],
-["Song 12","https://d.top4top.io/m_3769xz8mi3.mp3"],
-["Song 13","https://e.top4top.io/m_3769o93s34.mp3"],
-["Song 14","https://f.top4top.io/m_3769c3tql5.mp3"],
-["Song 15","https://g.top4top.io/m_3769r7bcu6.mp3"],
-["Song 16","https://l.top4top.io/m_3769p7dkd1.mp3"],
-["Song 17","https://a.top4top.io/m_37697muuj2.mp3"],
-["Song 18","https://b.top4top.io/m_3769i9yd13.mp3"],
-["Song 19","https://c.top4top.io/m_3769ou0bt4.mp3"],
-["Song 20","https://d.top4top.io/m_37697zirj5.mp3"],
-["Song 21","https://e.top4top.io/m_3769rnmrk6.mp3"],
-["Song 22","https://d.top4top.io/m_3769a1jgw1.mp3"]
+["1","https://j.top4top.io/m_3769le8x51.mp3"],
+["2","https://k.top4top.io/m_3769enq6z2.mp3"],
+["3","https://l.top4top.io/m_3769auk3d3.mp3"],
+["4","https://a.top4top.io/m_3769kdadn4.mp3"],
+["5","https://b.top4top.io/m_3769kg8sd5.mp3"],
+["6","https://c.top4top.io/m_3769ien0c6.mp3"],
+["7","https://d.top4top.io/m_3769yw3257.mp3"],
+["8","https://e.top4top.io/m_3769yb3k29.mp3"],
+["9","https://f.top4top.io/m_37690zriz10.mp3"],
+["10","https://b.top4top.io/m_3769lxi681.mp3"],
+["11","https://c.top4top.io/m_3769g0kg52.mp3"],
+["12","https://d.top4top.io/m_3769xz8mi3.mp3"],
+["13","https://e.top4top.io/m_3769o93s34.mp3"],
+["14","https://f.top4top.io/m_3769c3tql5.mp3"],
+["15","https://g.top4top.io/m_3769r7bcu6.mp3"],
+["16","https://l.top4top.io/m_3769p7dkd1.mp3"],
+["17","https://a.top4top.io/m_37697muuj2.mp3"],
+["18","https://b.top4top.io/m_3769i9yd13.mp3"],
+["19","https://c.top4top.io/m_3769ou0bt4.mp3"],
+["20","https://d.top4top.io/m_37697zirj5.mp3"],
+["21","https://e.top4top.io/m_3769rnmrk6.mp3"],
+["22","https://d.top4top.io/m_3769a1jgw1.mp3"]
 ];
 
 let audio=document.getElementById("audio");
@@ -247,24 +221,11 @@ audio.src=songs[i][1];
 audio.play();
 }
 
-function playAll(){
-let i=0;
-function next(){
-if(i<songs.length){
-audio.src=songs[i][1];
-audio.play();
-i++;
-audio.onended=next;
-}
-}
-next();
-}
-
-/* SPLIT 11 / 11 */
+/* SPLIT */
 songs.forEach((s,i)=>{
-let btn=`<div class="song">${s[0]} <button onclick="play(${i})">▶</button></div>`;
-if(i<11) list1.innerHTML+=btn;
-else list2.innerHTML+=btn;
+let html=`<div class="song">${s[0]} <button onclick="play(${i})">▶</button></div>`;
+if(i<11) list1.innerHTML+=html;
+else list2.innerHTML+=html;
 });
 
 </script>
