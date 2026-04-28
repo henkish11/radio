@@ -31,17 +31,22 @@ body{
   padding:8px;
   overflow:hidden;
   transition:0.3s;
+  box-shadow:0 0 15px rgba(0,255,255,0.08);
 }
 
-/* HOVER ZOOM */
+/* HOVER */
 .panel:hover,
 .song:hover,
 .radio button:hover,
-.links a:hover{
+.links a:hover,
+.player button:hover{
   transform:scale(1.05);
+  box-shadow:0 0 20px rgba(0,255,255,0.4);
 }
 
-/* HACKER IMAGE */
+.glow-name:hover{transform:none!important;}
+
+/* HACKER IMAGE BOX */
 .hacker-box img{
   width:100%;
   height:100%;
@@ -119,6 +124,34 @@ body{
   cursor:pointer;
 }
 
+/* LOCK */
+.lock{
+  position:absolute;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:rgba(0,0,0,0.75);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+}
+
+.lock input{
+  padding:8px;
+  text-align:center;
+  background:#111;
+  border:none;
+  color:#00f5ff;
+}
+
+.lock button{
+  padding:6px 10px;
+  background:#00f5ff;
+  border:none;
+  cursor:pointer;
+}
+
 /* PLAYER */
 .player{
   display:flex;
@@ -148,35 +181,6 @@ audio{display:none;}
 
 .hidden{display:none;}
 
-/* LOCK INSIDE BOX */
-.lock{
-  position:absolute;
-  top:0;left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.75);
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  gap:10px;
-}
-
-.lock input{
-  padding:8px;
-  text-align:center;
-  background:#111;
-  border:none;
-  color:#00f5ff;
-}
-
-.lock button{
-  padding:6px 10px;
-  background:#00f5ff;
-  border:none;
-  cursor:pointer;
-}
-
 </style>
 </head>
 
@@ -194,7 +198,7 @@ audio{display:none;}
 <img src="https://img.pikbest.com/wp/202345/hacker-skeleton-working-on-laptop-dark-background_9581815.jpg!w700wp">
 </div>
 
-<!-- 3 LOCK INSIDE BOX ONLY -->
+<!-- 3 LOCK -->
 <div class="panel hacker-box">
 
 <img src="https://img.pikbest.com/backgrounds/20250126/guarding-your-digital-life-power-of-passwords-smarter-password-practices_11452980.jpg!f305cw">
@@ -220,7 +224,7 @@ audio{display:none;}
 <button onclick="playRadio(3)">🔥 منوعات</button>
 </div>
 
-<button onclick="toggleRadio()" style="margin-top:6px;background:#00ffcc;border:none;padding:6px;cursor:pointer;">
+<button onclick="toggleRadio()" style="margin-top:5px;background:#00ffcc;border:none;padding:5px;cursor:pointer;">
 ▶ / ⏸
 </button>
 
@@ -250,7 +254,6 @@ audio{display:none;}
 
 <script>
 
-/* RADIO */
 let radio=document.getElementById("radio");
 
 let radios=[
@@ -317,7 +320,7 @@ audio.play();
 index=i;
 }
 
-/* PASSWORD */
+/* PASSWORD FIX ONLY */
 function check(){
 if(pass.value==="106080"){
 document.getElementById("lock").style.display="none";
